@@ -1,10 +1,10 @@
-🌙 nextjs-webrtc-firebase
+🌙 nextjs-webrtc-aws
 ====
 
-![GitHub issues](https://img.shields.io/github/issues/isystk/nextjs-webrtc-firebase)
-![GitHub forks](https://img.shields.io/github/forks/isystk/nextjs-webrtc-firebase)
-![GitHub stars](https://img.shields.io/github/stars/isystk/nextjs-webrtc-firebase)
-![GitHub license](https://img.shields.io/github/license/isystk/nextjs-webrtc-firebase)
+![GitHub issues](https://img.shields.io/github/issues/isystk/nextjs-webrtc-aws)
+![GitHub forks](https://img.shields.io/github/forks/isystk/nextjs-webrtc-aws)
+![GitHub stars](https://img.shields.io/github/stars/isystk/nextjs-webrtc-aws)
+![GitHub license](https://img.shields.io/github/license/isystk/nextjs-webrtc-aws)
 
 ## 📗 プロジェクトの概要
 
@@ -61,7 +61,7 @@ videoRef.srcObject = mediaStream
 
 ## 🌐 Demo
 
-https://nextjs-webrtc-firebase.web.app
+https://nextjs-webrtc-aws.web.app
 
 ![投稿画面](./app.png "投稿画面")
 
@@ -164,7 +164,7 @@ $ ./dc.sh stop
 
 ## 🎫 Licence
 
-[MIT](https://github.com/isystk/nextjs-webrtc-firebase/blob/master/LICENSE)
+[MIT](https://github.com/isystk/nextjs-webrtc-aws/blob/master/LICENSE)
 
 ## 👀 Author
 
