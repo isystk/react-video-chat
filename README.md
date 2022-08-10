@@ -8,7 +8,7 @@
 
 ## 📗 プロジェクトの概要
 
-Next.js & Web-RTC の学習用アプリケーションです。Firebaseを利用してビデオ通話、画面共有、チャット機能、録画機能、デバイス選択 などの機能を作成しました。
+Next.js & Web-RTC の学習用アプリケーションです。AWS Kinesis Video Streamを利用してビデオ通話、画面共有、チャット機能、録画機能、デバイス選択 などの機能を作成しました。
 
 ## P2P 通信 が確立するまでの処理の流れ
 
@@ -91,32 +91,35 @@ https://nextjs-webrtc-aws.web.app
 └── dc.sh （Dockerの起動用スクリプト）
 ```
 
-## 🖊️ Docker 操作用シェルスクリプトの使い方
+## 🖊️ 環境構築
 
+IAM ユーザーを用意する
 ```
-Usage:
-  dc.sh [command] [<options>]
-
-Options:
-  stats|st                 Dockerコンテナの状態を表示します。
-  init                     Dockerコンテナ・イメージ・生成ファイルの状態を初期化します。
-  start                    すべてのDaemonを起動します。
-  stop                     すべてのDaemonを停止します。
-  firebase login           Firebase にログインします。
-  firebase start           Firebase のエミュレータを起動します。
-  firebase build           Cloud Functions をビルドします。
-  firebase deploy          Firebase にデプロイします。
-  --version, -v     バージョンを表示します。
-  --help, -h        ヘルプを表示します。
-```
-
-# IAM ユーザーを用意する
-
 ユーザ名：「webrtc-user」
 アクセス権限：
 「AmazonKinesisVideoStreamsFullAccess」
 「AdministratorAccess」
+```
 
+AWSに、DynamoDB、Lambda&APIGatewayをCFnで構築する
+```
+$ cd aws-sam
+$ sam build
+$ sam deploy --config-env stg
+```
+
+WebSocketの動作を確認する
+```
+$ wscat -c wss:///xxxxxx.execute-api.ap-northeast-1.amazonaws.com/Prod
+Connected (press CTRL+C to quit)
+< { "action": "sendmessage", "data": "message" }
+```
+
+AWSから、DynamoDB、Lambda&APIGatewayを削除する
+```
+$ cd aws-sam
+$ sam delete --stack-name web-rtc
+```
 
 ## 💬 使い方
 

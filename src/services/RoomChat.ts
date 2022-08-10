@@ -1,4 +1,5 @@
 import Main from '@/services/main'
+import { sendMessage, startWebsocket } from '@/utilities/aws'
 
 export type Chat = {
   isOpen: boolean
@@ -20,6 +21,9 @@ export default class RoomChat {
     this.rtcClient = rtcClient
     this.isOpen = false
     this.messages = []
+
+    // TODO
+    startWebsocket()
   }
 
   // チャットの表示・非表示を切り替える
@@ -42,6 +46,8 @@ export default class RoomChat {
     } as ChatMessage
     this.messages = [...this.messages, message]
     await this.rtcClient.databaseBroadcastRef.set(message)
+
+    sendMessage(text)
 
     await this.rtcClient.setAppRoot()
   }

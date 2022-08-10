@@ -28,6 +28,8 @@
     ]
   },
   "devDependencies": {
+    "@aws-sdk/client-kinesis-video": "^3.145.0",
+    "@aws-sdk/client-kinesis-video-signaling": "^3.145.0",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "@reduxjs/toolkit": "^1.8.2",
@@ -53,6 +55,8 @@
     "@types/styled-components": "^5.1.25",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
+    "amazon-kinesis-video-streams-webrtc": "^2.0.0",
+    "aws-sdk": "^2.1191.0",
     "axios": "^0.27.2",
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.1.0",
