@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+
+  dynamodb:
+    image: aws-lambda-posts/dynamodb
+    container_name: aws-lambda-posts-dynamodb
+    build:
+      context: ./dynamodb
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./dynamodb/data:/home/dynamodblocal/data
+    command: -jar DynamoDBLocal.jar -dbPath ./data
+
+  awscli:
+    image: aws-lambda-posts/awscli
+    container_name: aws-lambda-posts-awscli
+    build:
+      context: ./awscli
+      dockerfile: Dockerfile
+    tty: true
+    environment:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: ap-northeast-1
+      AWS_DEFAULT_OUTPUT: json
+    volumes:
+      - ../:/aws
+    working_dir: /aws
+    depends_on:
+      - dynamodb
+

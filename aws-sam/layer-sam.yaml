@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Resources:
+  SharedLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: SharedLayer
+      Description: include moment
+      ContentUri: 's3://aws-isystk-com-sam/aws-lambda-posts-layer/layer.zip'
+      CompatibleRuntimes:
+        - nodejs16.x
+      LicenseInfo: 'Available under the MIT-0 license.'
+      RetentionPolicy: Retain
+Outputs:
+  LayerVersionArn:
+    Value: !Ref SharedLayer

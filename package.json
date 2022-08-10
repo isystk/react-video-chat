@@ -1,6 +1,6 @@
 {
   "name": "nextjs-webrtc-aws",
-  "description": "Next.js & Web-RTC の学習用アプリケーションです。Firebaseを利用してビデオ通話、画面共有、チャット機能、録画機能、デバイス選択 などの機能を作成しました。",
+  "description": "Next.js & Web-RTC の学習用アプリケーションです。AWS Kinesis Video Streamを利用してビデオ通話、画面共有、チャット機能、録画機能、デバイス選択 などの機能を作成しました。",
   "version": "1.0.0",
   "scripts": {
     "dev": "NODE_ENV=development next",

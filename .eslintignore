@@ -26,3 +26,5 @@ next.config.js
 # docker
 docker/**
 
+# sam
+aws-sam
