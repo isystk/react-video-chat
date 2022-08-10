@@ -110,6 +110,13 @@ Options:
   --help, -h        ヘルプを表示します。
 ```
 
+# IAM ユーザーを用意する
+
+ユーザ名：「webrtc-user」
+アクセス権限：
+「AmazonKinesisVideoStreamsFullAccess」
+「AdministratorAccess」
+
 
 ## 💬 使い方
 

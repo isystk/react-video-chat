@@ -12,6 +12,7 @@ Globals:
 
 Resources:
 
+  # Lambda & APIGateway を作成
   AppFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -31,6 +32,21 @@ Resources:
             Path: /{proxy+}
             Method: ANY
 
+  # DynamoDB のテーブルを作成
+  AppTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: web-rtc
+      AttributeDefinitions: 
+        - AttributeName: connection_id
+          AttributeType: S
+      KeySchema: 
+        - AttributeName: connection_id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM

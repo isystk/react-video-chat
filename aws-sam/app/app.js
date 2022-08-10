@@ -1,5 +1,5 @@
 const DynamoDB = require('./dynamodb-client')
-const dbClient = new DynamoDB.DynamoDBClient('posts')
+const dbClient = new DynamoDB.DynamoDBClient('web-rtc')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
