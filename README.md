@@ -103,16 +103,16 @@ IAM ユーザーを用意する
 
 AWSに、DynamoDB、Lambda&APIGatewayをCFnで構築する
 ```
-$ cd aws-sam
+$ WebSocket - AWS の API Gateway と Lambda でルーム機能付きのchatを作る時の仕様を考える
 $ sam build
 $ sam deploy --config-env stg
 ```
 
 WebSocketの動作を確認する
 ```
-$ wscat -c wss:///xxxxxx.execute-api.ap-northeast-1.amazonaws.com/Prod
+$ wscat -c wss:///xxxxxx.execute-api.ap-northeast-1.amazonaws.com/Prod?roomId=fklfajsd3938daf83dfa
 Connected (press CTRL+C to quit)
-< { "action": "sendmessage", "data": "message" }
+< { "action": "sendmessage", "data": "hello world" }
 ```
 
 AWSから、DynamoDB、Lambda&APIGatewayを削除する
@@ -169,6 +169,9 @@ $ ./dc.sh stop
 | [RTCPeerConnection](https://developer.mozilla.org/ja/docs/Web/API/RTCPeerConnection)| RTCPeerConnection |
 | [STUNTMAN](http://www.stunprotocol.org/)| Public STUN server |
 | [Material Icons](https://v4.mui.com/components/material-icons/)| Material Icons |
+| [Amazon Kinesis Video Streams WebRTC を動かしてみた](https://qiita.com/massie_g/items/b6d3513d06a28ba89677)| Amazon Kinesis Video Streams WebRTC を動かしてみた |
+| [Amazon Kinesis Video Streams WebRTC で無理やり複数人のビデオチャットを作る](https://qiita.com/massie_g/items/4cdf475ab623757a2630)| Amazon Kinesis Video Streams WebRTC で無理やり複数人のビデオチャットを作る |
+| [WebSocket - AWS の API Gateway と Lambda でルーム機能付きのchatを作る時の仕様を考える](https://qiita.com/anfangd/items/ebcd77173341b10b3684)| WebSocket - AWS の API Gateway と Lambda でルーム機能付きのchatを作る時の仕様を考える |
 
 
 

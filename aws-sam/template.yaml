@@ -7,10 +7,10 @@ Description: >
   functions needed to demonstrate the Websocket protocol on API Gateway.
 
 Parameters:
-  # パラメータ：テーブル名
-  TableName:
+  # パラメータ：アプリ名
+  AppName:
     Type: String
-    Default: 'simplechat_connections'
+    Default: 'simplechat'
     Description: (Required) The name of the new DynamoDB to store connection identifiers for each connected clients. Minimum 3 characters
     MinLength: 3
     MaxLength: 50
@@ -115,7 +115,24 @@ Resources:
         WriteCapacityUnits: 5
       SSESpecification:
         SSEEnabled: True
-      TableName: !Ref TableName
+      TableName: !Sub '${AppName}_connections'
+      
+  # DynamoDBのテーブルを作成
+  RoomTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "roomId"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "roomId"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      SSESpecification:
+        SSEEnabled: True
+      TableName: !Sub '${AppName}_room'
       
   # 接続時の処理
   OnConnectFunction:
@@ -127,10 +144,19 @@ Resources:
       Runtime: nodejs16.x
       Environment:
         Variables:
-          TABLE_NAME: !Ref TableName
+          TABLE_NAME_CONNECTIONS: !Sub '${AppName}_connections'
+          TABLE_NAME_ROOM: !Sub '${AppName}_room'
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref TableName
+            TableName: !Sub '${AppName}_connections'
+        - DynamoDBCrudPolicy:
+            TableName: !Sub '${AppName}_room'
+        - Statement:
+            - Effect: Allow
+              Action:
+                - 'execute-api:ManageConnections'
+              Resource:
+                - !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${SimpleChatWebSocket}/*'
   OnConnectPermission:
     Type: AWS::Lambda::Permission
     DependsOn:
@@ -150,10 +176,19 @@ Resources:
       Runtime: nodejs16.x
       Environment:
         Variables:
-          TABLE_NAME: !Ref TableName
+          TABLE_NAME_CONNECTIONS: !Sub '${AppName}_connections'
+          TABLE_NAME_ROOM: !Sub '${AppName}_room'
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref TableName
+            TableName: !Sub '${AppName}_connections'
+        - DynamoDBCrudPolicy:
+            TableName: !Sub '${AppName}_room'
+        - Statement:
+            - Effect: Allow
+              Action:
+                - 'execute-api:ManageConnections'
+              Resource:
+                - !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${SimpleChatWebSocket}/*'
   OnDisconnectPermission:
     Type: AWS::Lambda::Permission
     DependsOn:
@@ -173,10 +208,13 @@ Resources:
       Runtime: nodejs16.x
       Environment:
         Variables:
-          TABLE_NAME: !Ref TableName
+          TABLE_NAME_CONNECTIONS: !Sub '${AppName}_connections'
+          TABLE_NAME_ROOM: !Sub '${AppName}_room'
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref TableName
+            TableName: !Sub '${AppName}_connections'
+        - DynamoDBCrudPolicy:
+            TableName: !Sub '${AppName}_room'
         - Statement:
             - Effect: Allow
               Action:

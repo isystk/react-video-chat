@@ -1,25 +1,32 @@
-// Copyright 2018-2020Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 const AWS = require('aws-sdk')
-
-const ddb = new AWS.DynamoDB.DocumentClient({
+const docClient = new AWS.DynamoDB.DocumentClient({
   apiVersion: '2012-08-10',
   region: process.env.AWS_REGION,
 })
 
-const { TABLE_NAME } = process.env
+exports.handler = async (event, context) => {
+  console.info('sendmessage start')
+  console.log(`event: ${JSON.stringify(event)}`)
+  console.log(`context: ${JSON.stringify(context)}`)
 
-exports.handler = async (event) => {
-  let connectionData
-
-  try {
-    connectionData = await ddb
-      .scan({ TableName: TABLE_NAME, ProjectionExpression: 'connectionId' })
-      .promise()
-  } catch (e) {
-    return { statusCode: 500, body: e.stack }
+  //
+  var params = {
+    TableName: process.env.TABLE_NAME_CONNECTIONS,
+    Key: {
+      connectionId: event.requestContext.connectionId,
+    },
   }
+  const connection = await docClient.get(params).promise()
+  console.log(`connection: ${JSON.stringify(connection)}`)
+
+  var params = {
+    TableName: process.env.TABLE_NAME_ROOM,
+    Key: {
+      roomId: connection.Item.roomId,
+    },
+  }
+  const room = await docClient.get(params).promise()
+  console.log(`room: ${JSON.stringify(room)}`)
 
   const apigwManagementApi = new AWS.ApiGatewayManagementApi({
     apiVersion: '2018-11-29',
@@ -28,17 +35,26 @@ exports.handler = async (event) => {
   })
 
   const postData = JSON.parse(event.body).data
+  console.log(`postData: ${JSON.stringify(postData)}`)
 
-  const postCalls = connectionData.Items.map(async ({ connectionId }) => {
+  const postCalls = room.Item.connectionIds.map(async ({ connectionId }) => {
     try {
       await apigwManagementApi
-        .postToConnection({ ConnectionId: connectionId, Data: postData })
+        .postToConnection({
+          ConnectionId: connectionId,
+          Data: postData,
+        })
         .promise()
     } catch (e) {
       if (e.statusCode === 410) {
         console.log(`Found stale connection, deleting ${connectionId}`)
-        await ddb
-          .delete({ TableName: TABLE_NAME, Key: { connectionId } })
+        await docClient
+          .delete({
+            TableName: process.env.TABLE_NAME_CONNECTIONS,
+            Key: {
+              connectionId,
+            },
+          })
           .promise()
       } else {
         throw e
@@ -49,8 +65,15 @@ exports.handler = async (event) => {
   try {
     await Promise.all(postCalls)
   } catch (e) {
-    return { statusCode: 500, body: e.stack }
+    return {
+      statusCode: 500,
+      body: e.stack,
+    }
   }
 
-  return { statusCode: 200, body: 'Data sent.' }
+  console.info('sendmessage end')
+  return {
+    statusCode: 200,
+    body: 'Data sent.',
+  }
 }
