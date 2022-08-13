@@ -156,9 +156,9 @@ export default class MainService {
       //
       // await this.setAppRoot()
 
-      this.ws?.on('onopen', () => {
+      this.ws?.connect(() => {
         // 自分の参加をすべてのメンバーに通知する
-        this.ws?.push({ type: 'hello' })
+        this.ws?.push({ type: 'test', data: this.self })
       })
     } catch (error) {
       console.error(error)
@@ -322,6 +322,10 @@ export default class MainService {
     this.ws?.on('join', (data) => {
       // 他のメンバーが参加してきた時
       console.log('join', data)
+    })
+    this.ws?.on('test', (data) => {
+      // 他のメンバーが参加してきた時
+      console.log('test', data)
     })
   }
 
