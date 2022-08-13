@@ -30,6 +30,12 @@ exports.handler = async (event, context) => {
     }
   }
 
+  const me = {
+    connectionId: connectionId,
+    username: 'taro',
+    icon: 'avatar',
+  }
+
   // Exist Room?
   var params = {
     TableName: process.env.TABLE_NAME_ROOM,
@@ -39,18 +45,12 @@ exports.handler = async (event, context) => {
   }
   const room = await docClient.get(params).promise()
 
-  var users
+  let users = []
   if (!room.Item) {
     // ルームが未作成の場合、新規で作成する。
 
     console.log('room is not exist')
-    users = [
-      {
-        connectionId: connectionId,
-        username: 'taro',
-        icon: 'avatar',
-      },
-    ]
+    users = [me]
     var params = {
       TableName: process.env.TABLE_NAME_ROOM,
       Item: {
@@ -65,12 +65,11 @@ exports.handler = async (event, context) => {
     console.log(`room: ${JSON.stringify(room.Item)}`)
     console.log(`connectionIds: ${JSON.stringify(room.Item.connectionIds)}`)
 
-    room.Item.connectionIds.push({
-      connectionId: connectionId,
-      username: 'taro',
-      icon: 'avatar',
-    })
-    users = room.Item.connectionIds
+    if (!room.Item.connectionIds) {
+      room.Item.connectionIds = []
+    }
+    room.Item.connectionIds.push(me)
+    users = [...room.Item.connectionIds]
 
     console.log('room is exist')
     var params = {
@@ -90,20 +89,20 @@ exports.handler = async (event, context) => {
       event.requestContext.domainName + '/' + event.requestContext.stage,
   })
   console.log(`users: ${JSON.stringify(users)}`)
-  users.map(async ({ connectionId, username, icon }) => {
+  // 自分以外のメンバーを取得する。
+  const roomMembers = users.filter((user) => {
+    return user.connectionId !== connectionId
+  })
+  for (const { connectionId } of roomMembers) {
     console.log(`connectionId: ${JSON.stringify(connectionId)}`)
-    var message = {
-      type: 'join',
-      member: {
-        connectionId: connectionId,
-        username: username,
-        icon: icon,
-      },
-      room: {
-        users: users,
-      },
-    }
     try {
+      const message = {
+        type: 'join',
+        member: me,
+        room: {
+          users: users,
+        },
+      }
       await apigwManagementApi
         .postToConnection({
           ConnectionId: connectionId,
@@ -126,7 +125,7 @@ exports.handler = async (event, context) => {
         throw e
       }
     }
-  })
+  }
 
   console.info('onconnect end')
   return {

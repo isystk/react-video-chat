@@ -107,10 +107,10 @@ $ WebSocket - AWS の API Gateway と Lambda でルーム機能付きのchatを�
 $ sam build
 $ sam deploy --config-env stg
 ```
-
+[{"M":{"icon":{"S":"avatar"},"connectionId":{"S":"Wxs75dHHNjMCElA="},"username":{"S":"taro"}}},{"M":{"icon":{"S":"avatar"},"connectionId":{"S":"Wxs9XdooNjMCIcA="},"username":{"S":"taro"}}}]
 WebSocketの動作を確認する
 ```
-$ wscat -c wss:///xxxxxx.execute-api.ap-northeast-1.amazonaws.com/Prod?roomId=fklfajsd3938daf83dfa
+$ wscat -c wss:///xxxxxx.execute-api.ap-northeast-1.amazonaws.com/Prod?roomId=test
 Connected (press CTRL+C to quit)
 < { "action": "sendmessage", "data": "hello world" }
 ```

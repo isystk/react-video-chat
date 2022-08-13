@@ -4,6 +4,7 @@ import { WebRtc } from '@/services/WebRtc'
 import Recorder from '@/services/Recorder'
 import MediaDevice from '@/services/MediaDevice'
 import RoomChat from '@/services/RoomChat'
+import { startWebsocket } from '@/utilities/aws'
 
 export type Self = {
   clientId?: string
@@ -72,16 +73,22 @@ export default class MainService {
   }
 
   async setRoomId(roomId: string) {
-    await getDatabase(roomId).once('value', async (snapshot) => {
-      const data = snapshot.val()
-      if (data === null) return
-      const { roomId, name } = data
-      this.room = {
-        roomId,
-        name,
-      }
-      await this.setAppRoot()
-    })
+    console.log('call setRoomId', roomId)
+    // await getDatabase(roomId).once('value', async (snapshot) => {
+    //   const data = snapshot.val()
+    //   if (data === null) return
+    //   const { roomId, name } = data
+    //   this.room = {
+    //     roomId,
+    //     name,
+    //   }
+    //   await this.setAppRoot()
+    // })
+    this.room = {
+      roomId,
+      name: roomId,
+    }
+    await this.setAppRoot()
   }
 
   // 映像のオン・オフを切り替える
@@ -122,31 +129,34 @@ export default class MainService {
   // ルームに参加する
   async join() {
     try {
-      // joinを初期化する
-      await this.databaseJoinRef().remove()
-
-      // メンバーに自分を追加する
-      const key = await this.databaseMembersRef().push({
-        type: 'user',
-      }).key
-      this.self = {
-        clientId: key + '',
-        name: this.self.name,
-      }
-      await this.databaseMembersRef(this.self.clientId).update(this.self)
-
-      // シグナリングサーバーをリスンする
-      await this.startListening()
-
-      // 1. Aさんがルームに入ったらブロードキャストですべてのメンバーにjoinを送信する
-      console.log('send join', this.room.roomId, this.self)
-      await this.databaseJoinRef(this.self.clientId).set({
-        ...this.self,
-        type: 'join',
-        clientId: this.self.clientId,
+      // // joinを初期化する
+      // await this.databaseJoinRef().remove()
+      //
+      // // メンバーに自分を追加する
+      // const key = await this.databaseMembersRef().push({
+      //   type: 'user',
+      // }).key
+      // this.self = {
+      //   clientId: key + '',
+      //   name: this.self.name,
+      // }
+      // await this.databaseMembersRef(this.self.clientId).update(this.self)
+      //
+      // // シグナリングサーバーをリスンする
+      // await this.startListening()
+      //
+      // // 1. Aさんがルームに入ったらブロードキャストですべてのメンバーにjoinを送信する
+      // console.log('send join', this.room.roomId, this.self)
+      // await this.databaseJoinRef(this.self.clientId).set({
+      //   ...this.self,
+      //   type: 'join',
+      //   clientId: this.self.clientId,
+      // })
+      //
+      // await this.setAppRoot()
+      startWebsocket(this.room.roomId)?.on('join', (data) => {
+        console.log('join', data)
       })
-
-      await this.setAppRoot()
     } catch (error) {
       console.error(error)
     }

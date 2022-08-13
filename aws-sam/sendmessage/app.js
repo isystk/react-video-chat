@@ -9,11 +9,12 @@ exports.handler = async (event, context) => {
   console.log(`event: ${JSON.stringify(event)}`)
   console.log(`context: ${JSON.stringify(context)}`)
 
+  const { connectionId } = event.requestContext
   //
   var params = {
     TableName: process.env.TABLE_NAME_CONNECTIONS,
     Key: {
-      connectionId: event.requestContext.connectionId,
+      connectionId: connectionId,
     },
   }
   const connection = await docClient.get(params).promise()
@@ -34,7 +35,7 @@ exports.handler = async (event, context) => {
       event.requestContext.domainName + '/' + event.requestContext.stage,
   })
 
-  const postData = JSON.parse(event.body).data
+  let postData = JSON.parse(event.body).data
   console.log(`postData: ${JSON.stringify(postData)}`)
 
   const postCalls = room.Item.connectionIds.map(async ({ connectionId }) => {
@@ -46,19 +47,20 @@ exports.handler = async (event, context) => {
         })
         .promise()
     } catch (e) {
-      if (e.statusCode === 410) {
-        console.log(`Found stale connection, deleting ${connectionId}`)
-        await docClient
-          .delete({
-            TableName: process.env.TABLE_NAME_CONNECTIONS,
-            Key: {
-              connectionId,
-            },
-          })
-          .promise()
-      } else {
-        throw e
-      }
+      // if (e.statusCode === 410) {
+      //   console.log(`Found stale connection, deleting ${connectionId}`)
+      //   await docClient
+      //     .delete({
+      //       TableName: process.env.TABLE_NAME_CONNECTIONS,
+      //       Key: {
+      //         connectionId,
+      //       },
+      //     })
+      //     .promise()
+      // } else {
+      //   throw e
+      // }
+      console.log(e)
     }
   })
 

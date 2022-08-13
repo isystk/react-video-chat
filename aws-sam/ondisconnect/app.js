@@ -9,11 +9,12 @@ exports.handler = async (event, context) => {
   console.log(`event: ${JSON.stringify(event)}`)
   console.log(`context: ${JSON.stringify(context)}`)
 
+  const { connectionId } = event.requestContext
   //
   var params = {
     TableName: process.env.TABLE_NAME_CONNECTIONS,
     Key: {
-      connectionId: event.requestContext.connectionId,
+      connectionId: connectionId,
     },
   }
   const connection = await docClient.get(params).promise()
@@ -28,11 +29,15 @@ exports.handler = async (event, context) => {
   const room = await docClient.get(params).promise()
   console.log(`room: ${JSON.stringify(room)}`)
 
+  // 自分を取得する。
+  const [me] = room.Item.connectionIds.filter((member) => {
+    return member.connectionId === connectionId
+  })
   // 自分以外のメンバーを取得する。
   const roomMembers = room.Item.connectionIds.filter((member) => {
-    return member.connectionId != event.requestContext.connectionId
+    return member.connectionId !== connectionId
   })
-  console.log(`I am : ${JSON.stringify(event.requestContext.connectionId)}`)
+  console.log(`I am : ${JSON.stringify(me)}`)
   console.log(`roomMembers: ${JSON.stringify(roomMembers)}`)
 
   // 自分以外のメンバーで登録し直す
@@ -49,32 +54,27 @@ exports.handler = async (event, context) => {
   var deleteParams = {
     TableName: process.env.TABLE_NAME_CONNECTIONS,
     Key: {
-      connectionId: event.requestContext.connectionId,
+      connectionId: connectionId,
     },
   }
   await docClient.delete(deleteParams).promise()
 
   // Push Message
-  // __________________________________________________
   const apigwManagementApi = new AWS.ApiGatewayManagementApi({
     apiVersion: '2018-11-29',
     endpoint:
       event.requestContext.domainName + '/' + event.requestContext.stage,
   })
-  roomMembers.map(async ({ connectionId, username, icon }) => {
+  for (const { connectionId } of roomMembers) {
     console.log(`connectionId: ${JSON.stringify(connectionId)}`)
-    var message = {
-      type: 'unjoin',
-      member: {
-        connectionId: connectionId,
-        username: username,
-        icon: icon,
-      },
-      room: {
-        users: roomMembers,
-      },
-    }
     try {
+      const message = {
+        type: 'unjoin',
+        member: me,
+        room: {
+          users: roomMembers,
+        },
+      }
       await apigwManagementApi
         .postToConnection({
           ConnectionId: connectionId,
@@ -97,7 +97,7 @@ exports.handler = async (event, context) => {
         throw e
       }
     }
-  })
+  }
 
   console.info('ondisconnect end')
 }
