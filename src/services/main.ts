@@ -4,7 +4,7 @@ import { WebRtc } from '@/services/WebRtc'
 import Recorder from '@/services/Recorder'
 import MediaDevice from '@/services/MediaDevice'
 import RoomChat from '@/services/RoomChat'
-import { startWebsocket } from '@/utilities/aws'
+import { startWebsocket, WebSocket } from '@/utilities/aws'
 
 export type Self = {
   clientId?: string
@@ -29,6 +29,7 @@ type Members = {
 
 export default class MainService {
   _setAppRoot: (rtcClient: MainService) => void
+  ws: WebSocket | null
   members: Members
   room: Room
   self: Self
@@ -39,6 +40,7 @@ export default class MainService {
 
   constructor(setAppRoot: (appRoot: MainService) => void) {
     this._setAppRoot = setAppRoot
+    this.ws = null
     this.members = {}
     this.room = { roomId: undefined, name: '' }
     this.self = { clientId: undefined, name: '' }
@@ -58,17 +60,17 @@ export default class MainService {
   }
 
   async setRoomName(roomName: string) {
-    const key = getDatabase().push({
-      name: roomName,
-    }).key
-    console.log('roomId', key)
+    // const key = getDatabase().push({
+    //   name: roomName,
+    // }).key
+    // console.log('roomId', key)
     this.room = {
       // roomId: key + '',
       roomId: roomName, // 本番ではSSGを利用するためパスにIDが利用できない
       name: roomName,
     }
-    // TODO ここにawaitを付けると何故か動作しない
-    getDatabase(this.room.roomId).update(this.room)
+    // // TODO ここにawaitを付けると何故か動作しない
+    // getDatabase(this.room.roomId).update(this.room)
     await this.setAppRoot()
   }
 
@@ -136,15 +138,14 @@ export default class MainService {
       // const key = await this.databaseMembersRef().push({
       //   type: 'user',
       // }).key
-      // this.self = {
-      //   clientId: key + '',
-      //   name: this.self.name,
-      // }
+      this.self = {
+        name: this.self.name,
+      }
       // await this.databaseMembersRef(this.self.clientId).update(this.self)
-      //
-      // // シグナリングサーバーをリスンする
-      // await this.startListening()
-      //
+
+      // シグナリングサーバーをリスンする
+      await this.startListening()
+
       // // 1. Aさんがルームに入ったらブロードキャストですべてのメンバーにjoinを送信する
       // console.log('send join', this.room.roomId, this.self)
       // await this.databaseJoinRef(this.self.clientId).set({
@@ -154,8 +155,10 @@ export default class MainService {
       // })
       //
       // await this.setAppRoot()
-      startWebsocket(this.room.roomId)?.on('join', (data) => {
-        console.log('join', data)
+
+      this.ws?.on('onopen', () => {
+        // 自分の参加をすべてのメンバーに通知する
+        this.ws?.push({ type: 'hello' })
       })
     } catch (error) {
       console.error(error)
@@ -204,115 +207,121 @@ export default class MainService {
   async startListening() {
     console.log('startListening', this.self)
 
-    // Joinに関するリスナー
-    this.databaseJoinRef().on('child_added', async (snapshot) => {
-      const data = snapshot.val()
-      if (data === null) return
-      const { type, clientId, shareClientId } = data
-      if (clientId === this.self.clientId) {
-        // 自分自身は無視する
-        return
-      }
-      switch (type) {
-        case 'join':
-          // 2-1. joinを受信して新メンバーの情報をローカルに登録する
-          console.log('receive join', data)
-          await this.addMember(data)
-          // 2-2. acceptを送信する
-          await this.databaseJoinRef(clientId).set({
-            type: 'accept',
-            clientId: this.self.clientId,
-            name: this.self.name,
-          })
-          console.log(this.share.clientId, this.self.clientId)
-          if (
-            this.share.clientId &&
-            this.share.clientId === this.self.clientId
-          ) {
-            await this.share.addShare(this.share.clientId, this.self.clientId)
-            await this.databaseJoinRef(this.share.clientId).set({
-              type: 'accept',
-              clientId: this.self.clientId,
-              shareClientId: this.share.clientId,
-              name: this.self.name,
-            })
-          }
-          break
-        case 'share':
-          // joinを受信して画面共有の情報をローカルに登録する
-          console.log('receive share', data)
-          if (this.self.clientId) {
-            await this.share.addShare(shareClientId, this.self.clientId)
-          }
-          await this.databaseJoinRef(shareClientId).set({
-            type: 'accept',
-            clientId: this.self.clientId,
-            shareClientId,
-            name: this.self.name,
-          })
-          break
-        default:
-          break
-      }
-    })
-    await this.databaseJoinRef(this.self.clientId).onDisconnect().remove()
+    // // Joinに関するリスナー
+    // this.databaseJoinRef().on('child_added', async (snapshot) => {
+    //   const data = snapshot.val()
+    //   if (data === null) return
+    //   const { type, clientId, shareClientId } = data
+    //   if (clientId === this.self.clientId) {
+    //     // 自分自身は無視する
+    //     return
+    //   }
+    //   switch (type) {
+    //     case 'join':
+    //       // 2-1. joinを受信して新メンバーの情報をローカルに登録する
+    //       console.log('receive join', data)
+    //       await this.addMember(data)
+    //       // 2-2. acceptを送信する
+    //       await this.databaseJoinRef(clientId).set({
+    //         type: 'accept',
+    //         clientId: this.self.clientId,
+    //         name: this.self.name,
+    //       })
+    //       console.log(this.share.clientId, this.self.clientId)
+    //       if (
+    //         this.share.clientId &&
+    //         this.share.clientId === this.self.clientId
+    //       ) {
+    //         await this.share.addShare(this.share.clientId, this.self.clientId)
+    //         await this.databaseJoinRef(this.share.clientId).set({
+    //           type: 'accept',
+    //           clientId: this.self.clientId,
+    //           shareClientId: this.share.clientId,
+    //           name: this.self.name,
+    //         })
+    //       }
+    //       break
+    //     case 'share':
+    //       // joinを受信して画面共有の情報をローカルに登録する
+    //       console.log('receive share', data)
+    //       if (this.self.clientId) {
+    //         await this.share.addShare(shareClientId, this.self.clientId)
+    //       }
+    //       await this.databaseJoinRef(shareClientId).set({
+    //         type: 'accept',
+    //         clientId: this.self.clientId,
+    //         shareClientId,
+    //         name: this.self.name,
+    //       })
+    //       break
+    //     default:
+    //       break
+    //   }
+    // })
+    // await this.databaseJoinRef(this.self.clientId).onDisconnect().remove()
+    //
+    // this.databaseJoinRef(this.self.clientId).on('value', async (snapshot) => {
+    //   const data = snapshot.val()
+    //   if (data === null) return
+    //   const { type, clientId } = data
+    //   switch (type) {
+    //     case 'accept':
+    //       // 3-1. acceptを受信して既存メンバーの情報をローカルに登録する
+    //       console.log('receive accept', data)
+    //       await this.addMember(data)
+    //       await this.members[clientId].webRtc?.offer()
+    //       break
+    //     default:
+    //       break
+    //   }
+    // })
+    //
+    // // Firebaseからメンバーが削除されたらローカルのMembersから削除
+    // this.databaseMembersRef().on('child_removed', async (snapshot) => {
+    //   const data = snapshot.val()
+    //   console.log('receive remove', data)
+    //   if (data === null) return
+    //   const { clientId } = data
+    //   if (clientId === this.self.clientId) {
+    //     // ignore self message (自分自身からのメッセージは無視する）
+    //     return
+    //   }
+    //   await this.removeMember(data)
+    // })
+    // // 自分の通信が切断されたらFirebaseから自分を削除
+    // await this.databaseMembersRef(this.self.clientId).onDisconnect().remove()
+    //
+    // // ダイレクト通信に関するリスナー
+    // this.databaseBroadcastRef.on('value', async (snapshot) => {
+    //   const data = snapshot.val()
+    //   if (data === null) return
+    //   console.log(data)
+    //   const { type, clientId } = data
+    //   if (clientId === this.self.clientId) {
+    //     // ignore self message (自分自身からのメッセージは無視する）
+    //     return
+    //   }
+    //   switch (type) {
+    //     case 'chat':
+    //       await this.chat.receiveChat(data)
+    //       break
+    //     default:
+    //       break
+    //   }
+    // })
+    //
+    // // ダイレクト通信に関するリスナー
+    // const databaseDirectRef = this.databaseDirectRef(this.self.clientId)
+    // databaseDirectRef.on('value', async (snapshot) => {
+    //   const data = snapshot.val()
+    //   if (data === null) return
+    //   console.log('receive Direct', data)
+    // })
 
-    this.databaseJoinRef(this.self.clientId).on('value', async (snapshot) => {
-      const data = snapshot.val()
-      if (data === null) return
-      const { type, clientId } = data
-      switch (type) {
-        case 'accept':
-          // 3-1. acceptを受信して既存メンバーの情報をローカルに登録する
-          console.log('receive accept', data)
-          await this.addMember(data)
-          await this.members[clientId].webRtc?.offer()
-          break
-        default:
-          break
-      }
-    })
-
-    // Firebaseからメンバーが削除されたらローカルのMembersから削除
-    this.databaseMembersRef().on('child_removed', async (snapshot) => {
-      const data = snapshot.val()
-      console.log('receive remove', data)
-      if (data === null) return
-      const { clientId } = data
-      if (clientId === this.self.clientId) {
-        // ignore self message (自分自身からのメッセージは無視する）
-        return
-      }
-      await this.removeMember(data)
-    })
-    // 自分の通信が切断されたらFirebaseから自分を削除
-    await this.databaseMembersRef(this.self.clientId).onDisconnect().remove()
-
-    // ダイレクト通信に関するリスナー
-    this.databaseBroadcastRef.on('value', async (snapshot) => {
-      const data = snapshot.val()
-      if (data === null) return
-      console.log(data)
-      const { type, clientId } = data
-      if (clientId === this.self.clientId) {
-        // ignore self message (自分自身からのメッセージは無視する）
-        return
-      }
-      switch (type) {
-        case 'chat':
-          await this.chat.receiveChat(data)
-          break
-        default:
-          break
-      }
-    })
-
-    // ダイレクト通信に関するリスナー
-    const databaseDirectRef = this.databaseDirectRef(this.self.clientId)
-    databaseDirectRef.on('value', async (snapshot) => {
-      const data = snapshot.val()
-      if (data === null) return
-      console.log('receive Direct', data)
+    this.ws = startWebsocket(this.room.roomId)
+    this.ws?.on('join', (data) => {
+      // 他のメンバーが参加してきた時
+      console.log('join', data)
     })
   }
 
