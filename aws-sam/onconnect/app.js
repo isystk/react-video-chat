@@ -32,8 +32,6 @@ exports.handler = async (event, context) => {
 
   const me = {
     connectionId: connectionId,
-    username: 'taro',
-    icon: 'avatar',
   }
 
   // Exist Room?

@@ -31,7 +31,7 @@ export const startWebsocket = (roomId): WebSocket | null => {
     const data = JSON.parse(e.data)
     event.forEach(({ type, func }) => {
       if (data.type === type) {
-        func(e)
+        func(data)
       }
     })
   }

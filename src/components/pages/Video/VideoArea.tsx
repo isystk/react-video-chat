@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 import FloatingBtn from '@/components/pages/FloatingBtn'
 import MenuBtn from '@/components/pages/MenuBtn'
-import RoomChat from '@/components/widgets/RoomChat'
+import RoomChat from '@/components/pages/Video/RoomChat'
 import DisplayShare from '@/components/widgets/DisplayShare'
 import Recorder from '@/components/widgets/Recorder'
 import { URL } from '@/constants/url'
@@ -72,24 +72,15 @@ const VideoArea: VFC<Props> = ({ rtcClient }) => {
   return (
     <div className={classes.root}>
       <Grid container spacing={0}>
-        <Grid item {...grid}>
+        <Grid item {...{ xs: 12, sm: 8, md: 8 }}>
           <VideoLocal rtcClient={rtcClient} />
         </Grid>
-        {Object.keys(rtcClient.members).map(function (key, idx) {
-          const member = rtcClient.members[key]
-          return member.status === 'online' ? (
-            <Grid item {...grid} key={idx}>
-              <VideoRemote rtcClient={rtcClient} member={member} />
-            </Grid>
-          ) : (
-            <div key={idx}></div>
-          )
-        })}
+        <Grid item {...{ xs: 12, sm: 4, md: 4 }}>
+          <RoomChat rtcClient={rtcClient} />
+        </Grid>
       </Grid>
       <DisplayShare rtcClient={rtcClient} />
       <MenuBtn rtcClient={rtcClient} />
-      <FloatingBtn rtcClient={rtcClient} />
-      <RoomChat rtcClient={rtcClient} />
       <Recorder rtcClient={rtcClient} />
     </div>
   )

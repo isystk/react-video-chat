@@ -7,9 +7,16 @@ body {
 }
 
 .App-logo {
-  font-size: 16px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.Room-joins {
+  font-size: 12px;
   display: flex;
   align-items: center;
+  margin-left: 10px;
 }
 
 /* 画面サイズが992pxより大きい場合に以下を適用 */

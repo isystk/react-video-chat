@@ -9,6 +9,7 @@ import {
   Grid,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import { useState } from 'react'
 import Main from '@/services/main'
 import { makeStyles } from '@material-ui/core/styles'
@@ -46,6 +47,12 @@ const CommonHeader: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
             <div className="App-logo">
               {rtcClient.room.name || DEAULT_TITLE}
             </div>
+            {rtcClient.self.name !== '' && rtcClient.room.name !== '' &&
+              <div className="Room-joins">
+                  <PeopleAltIcon></PeopleAltIcon>
+                  <span>6</span>
+              </div>
+            }
           </Grid>
           {rtcClient.self.name === '' ? (
             <></>

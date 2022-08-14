@@ -323,6 +323,10 @@ export default class MainService {
       // 他のメンバーが参加してきた時
       console.log('join', data)
     })
+    this.ws?.on('unjoin', (data) => {
+      // 他のメンバーが参加してきた時
+      console.log('unjoin', data)
+    })
     this.ws?.on('test', (data) => {
       // 他のメンバーが参加してきた時
       console.log('test', data)

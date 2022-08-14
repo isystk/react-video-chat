@@ -31,10 +31,7 @@ const RoomChat = ({ rtcClient }: IProps) => {
   )
 
   return (
-    <Modal
-      isOpen={rtcClient.chat.isOpen}
-      handleClose={() => rtcClient.chat.closeChat()}
-    >
+
       <div className="chat-area">
         <div id="bms_messages_container">
           <div id="bms_messages">
@@ -92,7 +89,6 @@ const RoomChat = ({ rtcClient }: IProps) => {
           </div>
         </div>
       </div>
-    </Modal>
   )
 }
 
