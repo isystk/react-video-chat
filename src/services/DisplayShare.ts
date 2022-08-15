@@ -103,7 +103,7 @@ export default class DisplayShare {
 
   async addShare(shareClientId: string, clientId: string) {
     console.log('addShare', shareClientId, clientId)
-    if (this.rtcClient.self.clientId && this.rtcClient.room.roomId) {
+    if (this.rtcClient.self.connectionId && this.rtcClient.room.roomId) {
       this.clientId = shareClientId
       this.members[shareClientId] = {
         webRtc: new ShareWebRtc(

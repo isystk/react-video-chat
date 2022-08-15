@@ -9,9 +9,11 @@ type Event = {
 
 export type WebSocket = {
   disconnect: (func) => void
+  unicast: (connectionId, data) => void
   error: (func) => void
+  close: () => void
   connect: (func) => void
-  push: (data) => void
+  multicast: (data) => void
   on: (type: string, func) => void
 }
 
@@ -62,13 +64,20 @@ export const startWebsocket = (roomId): WebSocket | null => {
     on: (type: string, func) => {
       event.push({ type, func })
     },
-    push: (data) => {
+    multicast: (data) => {
+      ws.send(`{ "action": "sendmessage", "data": ${JSON.stringify(data)} }`)
+      // ルート sendmessage
+    },
+    unicast: (connectionId, data) => {
       ws.send(
-        `{ "action": "sendmessage", "data": ${JSON.stringify(
-          JSON.stringify(data)
+        `{ "action": "sendmessage", "target": ${connectionId}. "data": ${JSON.stringify(
+          data
         )} }`
       )
       // ルート sendmessage
+    },
+    close: () => {
+      ws.close()
     },
   }
   return result

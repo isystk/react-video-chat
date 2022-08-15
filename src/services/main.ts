@@ -7,7 +7,7 @@ import RoomChat from '@/services/RoomChat'
 import { startWebsocket, WebSocket } from '@/utilities/aws'
 
 export type Self = {
-  clientId?: string
+  connectionId?: string
   name: string
   videoOff?: boolean
   muted?: boolean
@@ -17,8 +17,7 @@ export type Room = {
   name: string
 }
 export type Member = {
-  clientId: string
-  shareClientId?: string
+  connectionId: string
   name: string
   webRtc: WebRtc | null
   status: string
@@ -43,7 +42,7 @@ export default class MainService {
     this.ws = null
     this.members = {}
     this.room = { roomId: undefined, name: '' }
-    this.self = { clientId: undefined, name: '' }
+    this.self = { connectionId: undefined, name: '' }
     this.share = new DisplayShare(this)
     this.chat = new RoomChat(this)
     this.recorder = new Recorder(this)
@@ -117,13 +116,14 @@ export default class MainService {
     console.log('logout')
     await this.disconnect()
     await getAuth().signOut()
-    this.self = { clientId: undefined, name: '' }
+    this.self = { connectionId: undefined, name: '' }
     await this.setAppRoot()
   }
 
   async disconnect() {
     console.log('disconnect')
-    await this.databaseMembersRef(this.self.clientId).remove()
+    // await this.databaseMembersRef(this.self.clientId).remove()
+    this.ws?.close()
     this.room = { roomId: undefined, name: '' }
     await this.setAppRoot()
   }
@@ -157,8 +157,8 @@ export default class MainService {
       // await this.setAppRoot()
 
       this.ws?.connect(() => {
-        // 自分の参加をすべてのメンバーに通知する
-        this.ws?.push({ type: 'test', data: this.self })
+        // 自分のconnectionIdを聞く
+        this.ws?.multicast({ type: 'who_am_i', data: {} })
       })
     } catch (error) {
       console.error(error)
@@ -168,37 +168,36 @@ export default class MainService {
   // joinを受信した時やofferを受信したらメンバーを追加する
   async addMember(data: Member) {
     console.log('addMember', data)
-    if (
-      this.mediaDevice.mediaStream &&
-      this.self.clientId &&
-      this.room.roomId
-    ) {
-      const remoteVideoSelector = `#video-${data.clientId}`
-      data.webRtc = new WebRtc(
-        this.mediaDevice.mediaStream,
-        this.room.roomId,
-        this.self.clientId,
-        data.clientId,
-        remoteVideoSelector
-      )
-      await data.webRtc.startListening()
-    } else {
-      console.error('no mediaStream')
-    }
+    // if (
+    //   this.mediaDevice.mediaStream &&
+    //   this.self.clientId &&
+    //   this.room.roomId
+    // ) {
+    //   const remoteVideoSelector = `#video-${data.clientId}`
+    //   data.webRtc = new WebRtc(
+    //     this.mediaDevice.mediaStream,
+    //     this.room.roomId,
+    //     this.self.clientId,
+    //     data.clientId,
+    //     remoteVideoSelector
+    //   )
+    //   await data.webRtc.startListening()
+    // } else {
+    //   console.error('no mediaStream')
+    // }
     data.status = 'online'
     const newMember = {
-      [data.clientId]: data,
+      [data.connectionId]: data,
     }
     this.members = { ...this.members, ...newMember }
     await this.setAppRoot()
   }
 
   async removeMember(data: Member) {
-    console.log('removeMember', this.members[data.clientId])
-    if (this.members[data.clientId]) {
-      this.members[data.clientId].webRtc?.disconnect()
-      // delete this.members[data.clientId]
-      this.members[data.clientId].status = 'offline'
+    console.log('removeMember', this.members[data.connectionId])
+    if (this.members[data.connectionId]) {
+      // this.members[data.connectionId].webRtc?.disconnect()
+      delete this.members[data.connectionId]
     }
     await this.setAppRoot()
   }
@@ -319,17 +318,46 @@ export default class MainService {
     // })
 
     this.ws = startWebsocket(this.room.roomId)
-    this.ws?.on('join', (data) => {
-      // 他のメンバーが参加してきた時
-      console.log('join', data)
+    this.ws?.on('who_am_i', async ({ connectionId, data }) => {
+      // 自分の接続が成功した場合
+      console.log('receive who_am_i', data)
+      this.self = {
+        ...this.self,
+        connectionId,
+      } as Self
+      // 自分の参加をすべてのメンバーに通知する
+      this.ws?.multicast({ type: 'offer', data: this.self })
     })
-    this.ws?.on('unjoin', (data) => {
-      // 他のメンバーが参加してきた時
-      console.log('unjoin', data)
+    this.ws?.on('offer', async ({ connectionId, data }) => {
+      // 他のメンバーからofferが来た時
+      console.log('receive offer', data)
+      // 新メンバーの情報をローカルに登録する
+      await this.addMember({ connectionId, ...data })
+
+      this.ws?.unicast(connectionId, {
+        type: 'answer',
+        data: this.self,
+      })
     })
-    this.ws?.on('test', (data) => {
+    this.ws?.on('answer', async ({ connectionId, data }) => {
+      // 他のメンバーからofferが来た時
+      console.log('receive answer', data)
+      // 新メンバーの情報をローカルに登録する
+      await this.addMember({ connectionId, ...data })
+    })
+    this.ws?.on('chat', async ({ connectionId, data }) => {
+      // 他のメンバーからofferが来た時
+      console.log('receive chat', connectionId, data)
+      if (connectionId === this.self.connectionId) {
+        // ignore self message (自分自身からのメッセージは無視する）
+        return
+      }
+      await this.chat.receiveChat({ connectionId, ...data })
+    })
+    this.ws?.on('unjoin', async ({ connectionId }) => {
       // 他のメンバーが参加してきた時
-      console.log('test', data)
+      console.log('unjoin', connectionId)
+      await this.removeMember({ connectionId } as Member)
     })
   }
 

@@ -6,7 +6,7 @@ export type Chat = {
 }
 export type ChatMessage = {
   text: string
-  clientId: string
+  connectionId: string
   datetime: Date
 }
 
@@ -35,13 +35,16 @@ export default class RoomChat {
 
   async sendChat(text: string) {
     const message = {
-      type: 'chat',
       text,
-      clientId: this.rtcClient.self.clientId,
+      connectionId: this.rtcClient.self.connectionId,
       datetime: new Date(),
     } as ChatMessage
     this.messages = [...this.messages, message]
-    await this.rtcClient.databaseBroadcastRef.set(message)
+    // await this.rtcClient.databaseBroadcastRef.set(message)
+    this.rtcClient.ws?.multicast({
+      type: 'chat',
+      data: message,
+    })
     await this.rtcClient.setAppRoot()
   }
 

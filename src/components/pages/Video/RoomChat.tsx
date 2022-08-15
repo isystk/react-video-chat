@@ -39,7 +39,7 @@ const RoomChat = ({ rtcClient }: IProps) => {
               <div key={index}>
                 <div
                   className={`bms_message ${
-                    message.clientId === rtcClient.self.clientId
+                    message.connectionId === rtcClient.self.connectionId
                       ? 'bms_left'
                       : 'bms_right'
                   }`}

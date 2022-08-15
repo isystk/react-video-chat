@@ -13,6 +13,7 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
 import { useState } from 'react'
 import Main from '@/services/main'
 import { makeStyles } from '@material-ui/core/styles'
+import * as _ from 'lodash'
 
 type Props = {
   isMenuOpen: boolean
@@ -50,7 +51,7 @@ const CommonHeader: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
             {rtcClient.self.name !== '' && rtcClient.room.name !== '' && (
               <div className="Room-joins">
                 <PeopleAltIcon></PeopleAltIcon>
-                <span>6</span>
+                <span>{_.size(rtcClient.members) + 1}</span>
               </div>
             )}
           </Grid>

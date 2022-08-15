@@ -101,6 +101,11 @@ IAM ユーザーを用意する
 「AdministratorAccess」
 ```
 
+SAMコマンドをインストールする
+```
+$ pip install aws-sam-cli
+```
+
 AWSに、DynamoDB、Lambda&APIGatewayをCFnで構築する
 ```
 $ WebSocket - AWS の API Gateway と Lambda でルーム機能付きのchatを作る時の仕様を考える
@@ -112,7 +117,7 @@ WebSocketの動作を確認する
 ```
 $ wscat -c wss:///xxxxxx.execute-api.ap-northeast-1.amazonaws.com/Prod?roomId=test
 Connected (press CTRL+C to quit)
-< { "action": "sendmessage", "data": "hello world" }
+< { "action": "sendmessage", "data": {"type": "test", "value": "hello world" }}
 ```
 
 AWSから、DynamoDB、Lambda&APIGatewayを削除する
