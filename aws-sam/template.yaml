@@ -142,6 +142,8 @@ Resources:
       Handler: app.handler
       MemorySize: 256
       Runtime: nodejs16.x
+      Layers:
+        - !Ref UserLayer 
       Environment:
         Variables:
           TABLE_NAME_CONNECTIONS: !Sub '${AppName}_connections'
@@ -174,6 +176,8 @@ Resources:
       Handler: app.handler
       MemorySize: 256
       Runtime: nodejs16.x
+      Layers:
+        - !Ref UserLayer 
       Environment:
         Variables:
           TABLE_NAME_CONNECTIONS: !Sub '${AppName}_connections'
@@ -206,6 +210,8 @@ Resources:
       Handler: app.handler
       MemorySize: 256
       Runtime: nodejs16.x
+      Layers:
+        - !Ref UserLayer 
       Environment:
         Variables:
           TABLE_NAME_CONNECTIONS: !Sub '${AppName}_connections'
@@ -229,6 +235,18 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName: !Ref SendMessageFunction
       Principal: apigateway.amazonaws.com
+      
+  # Layer(共通処理)
+  UserLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      Description: User Layer for Node.js
+      ContentUri: layers/user-layer/
+      RetentionPolicy: Retain
+      CompatibleRuntimes:
+        - nodejs16.x
+    Metadata:
+      BuildMethod: makefile
 
 Outputs:
   ConnectionsTableArn:

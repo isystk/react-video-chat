@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk')
-const User = require('./user')
+const User = require('user')
 
 exports.handler = async (event, context) => {
   console.info('onconnect start')
