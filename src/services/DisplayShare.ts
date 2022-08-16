@@ -31,51 +31,51 @@ export default class DisplayShare {
         video: true,
       })
 
-      // joinを初期化する
-      await this.rtcClient.databaseJoinRef().remove()
-
-      // メンバーに画面共有を追加する
-      const key = await this.rtcClient.databaseMembersRef().push({
-        type: 'share',
-      }).key
-      const self = {
-        clientId: key,
-        name: this.rtcClient.self.name + '(画面共有)',
-      }
-      if (self.clientId !== null) {
-        await this.rtcClient.databaseMembersRef(self.clientId).update(self)
-
-        this.rtcClient
-          .databaseJoinRef(self.clientId)
-          .on('value', async (snapshot) => {
-            const data = snapshot.val()
-            if (data === null) return
-            const { type, clientId } = data
-            switch (type) {
-              case 'accept':
-                console.log('receive share accept', data)
-                await this.addShare(clientId, data.shareClientId)
-                this.members[clientId].webRtc?.addTracks(mediaStream)
-                await this.members[clientId].webRtc?.offer()
-                break
-              default:
-                break
-            }
-          })
-        // 自分の通信が切断されたらFirebaseから自分を削除
-        await this.rtcClient
-          .databaseMembersRef(self.clientId)
-          .onDisconnect()
-          .remove()
-      }
-
-      if (key) {
-        await this.rtcClient.databaseJoinRef(key).set({
-          ...this.rtcClient.self,
-          type: 'share',
-          shareClientId: self.clientId,
-        })
-      }
+      // // joinを初期化する
+      // await this.rtcClient.databaseJoinRef().remove()
+      //
+      // // メンバーに画面共有を追加する
+      // const key = await this.rtcClient.databaseMembersRef().push({
+      //   type: 'share',
+      // }).key
+      // const self = {
+      //   clientId: key,
+      //   name: this.rtcClient.self.name + '(画面共有)',
+      // }
+      // if (self.clientId !== null) {
+      //   await this.rtcClient.databaseMembersRef(self.clientId).update(self)
+      //
+      //   this.rtcClient
+      //     .databaseJoinRef(self.clientId)
+      //     .on('value', async (snapshot) => {
+      //       const data = snapshot.val()
+      //       if (data === null) return
+      //       const { type, clientId } = data
+      //       switch (type) {
+      //         case 'accept':
+      //           console.log('receive share accept', data)
+      //           await this.addShare(clientId, data.shareClientId)
+      //           this.members[clientId].webRtc?.addTracks(mediaStream)
+      //           await this.members[clientId].webRtc?.offer()
+      //           break
+      //         default:
+      //           break
+      //       }
+      //     })
+      //   // 自分の通信が切断されたらFirebaseから自分を削除
+      //   await this.rtcClient
+      //     .databaseMembersRef(self.clientId)
+      //     .onDisconnect()
+      //     .remove()
+      // }
+      //
+      // if (key) {
+      //   await this.rtcClient.databaseJoinRef(key).set({
+      //     ...this.rtcClient.self,
+      //     type: 'share',
+      //     shareClientId: self.clientId,
+      //   })
+      // }
 
       window.setTimeout(async () => {
         const shareVideoRef = <HTMLVideoElement>document.querySelector('#share')

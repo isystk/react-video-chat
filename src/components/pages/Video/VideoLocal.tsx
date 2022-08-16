@@ -1,6 +1,5 @@
-import React, { VFC, useEffect, useRef } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 
-import Button from '@material-ui/core/Button'
 import Video from './Video'
 import Main from '@/services/main'
 
@@ -8,7 +7,7 @@ type Props = {
   rtcClient: Main
 }
 
-const VideoLocal: VFC<Props> = ({ rtcClient }) => {
+const VideoLocal: FC<Props> = ({ rtcClient }) => {
   const videoRef = useRef(null)
   const currentVideoRef = videoRef.current
   const mediaStream = rtcClient.mediaDevice.mediaStream

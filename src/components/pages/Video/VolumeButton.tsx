@@ -1,4 +1,4 @@
-import React, { MutableRefObject, VFC } from 'react'
+import React, { MutableRefObject, FC } from 'react'
 
 import IconButton from '@material-ui/core/IconButton'
 import VolumeOffIcon from '@material-ui/icons/VolumeOff'
@@ -15,7 +15,7 @@ type Props = {
   setMuted: (value: ((prevState: boolean) => boolean) | boolean) => void
 }
 
-const VolumeButton: VFC<Props> = ({
+const VolumeButton: FC<Props> = ({
   isLocal,
   refVolumeButton,
   rtcClient,

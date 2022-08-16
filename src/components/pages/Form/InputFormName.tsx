@@ -2,14 +2,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Main from '@/services/main'
-import React, { VFC, useCallback, useEffect, useState } from 'react'
+import React, { FC, useCallback, useEffect, useState } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
-import { getAuth } from '@/utilities/firebase'
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import firebase from 'firebase/compat/app'
-import { URL } from '@/constants/url'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,7 +31,7 @@ type Props = {
   rtcClient: Main
 }
 
-const SignIn: VFC<Props> = ({ rtcClient }) => {
+const SignIn: FC<Props> = ({ rtcClient }) => {
   const label = 'あなたの名前'
   const classes = useStyles()
   const [disabled, setDisabled] = useState(true)
@@ -47,20 +43,6 @@ const SignIn: VFC<Props> = ({ rtcClient }) => {
     setDisabled(disabled)
   }, [name])
 
-  // Listen to the Firebase Auth state and set the local state.
-  useEffect(() => {
-    const unregisterAuthObserver = firebase
-      .auth()
-      .onAuthStateChanged(async (user) => {
-        if (user !== null) {
-          const { displayName, email, photoURL, emailVerified, uid } = user
-          console.log(displayName, email, photoURL, emailVerified, uid)
-          await rtcClient.setLocalPeerName(displayName + '')
-        }
-      })
-    return () => unregisterAuthObserver()
-  }, [])
-
   const initializeLocalPeer = useCallback(
     async (e) => {
       e.persist()
@@ -69,25 +51,6 @@ const SignIn: VFC<Props> = ({ rtcClient }) => {
     },
     [name, rtcClient]
   )
-
-  const firebaseAuthConfig = {
-    signInFlow: 'popup',
-    //  Auth providers
-    signInOptions: [
-      // {
-      //   provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      //   requireDisplayName: false,
-      // },
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      // firebase.auth.TwitterAuthProvider.PROVIDER_ID
-    ],
-    signInSuccessUrl: URL.HOME,
-    credentialHelper: 'none',
-    callbacks: {
-      // Avoid redirects after sign-in.
-      signInSuccessWithAuthResult: () => false,
-    },
-  }
 
   if (rtcClient.self.name !== '') return <></>
 
@@ -98,10 +61,6 @@ const SignIn: VFC<Props> = ({ rtcClient }) => {
         <Typography component="h1" variant="h5">
           {label}を入力してください
         </Typography>
-        <StyledFirebaseAuth
-          uiConfig={firebaseAuthConfig}
-          firebaseAuth={getAuth()}
-        />
         <form className={classes.form} noValidate>
           <TextField
             autoFocus

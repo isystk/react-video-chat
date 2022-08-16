@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Main from '@/services/main'
-import Modal from '@/components/widgets/Modal'
 import { Button, TextField } from '@material-ui/core'
 import { useCallback, useEffect, useState } from 'react'
 

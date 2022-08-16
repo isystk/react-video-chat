@@ -13,6 +13,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import FullscreenIcon from '@material-ui/icons/Fullscreen'
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import StopIcon from '@material-ui/icons/Stop'
+import ScreenShareIcon from '@material-ui/icons/ScreenShare'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { useRouter } from 'next/router'
 import Main from '@/services/main'
@@ -75,6 +76,14 @@ const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
         } else {
           await rtcClient.recorder.startRecorder()
         }
+        setMenuOpen(!isMenuOpen)
+      },
+      !joined,
+    ],
+    画面共有: [
+      <ScreenShareIcon key={0} />,
+      async () => {
+        await rtcClient.share.startShare()
         setMenuOpen(!isMenuOpen)
       },
       !joined,

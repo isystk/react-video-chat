@@ -1,4 +1,3 @@
-import { getDatabase, getAuth } from '@/utilities/firebase'
 import DisplayShare from '@/services/DisplayShare'
 import { WebRtc } from '@/services/WebRtc'
 import Recorder from '@/services/Recorder'
@@ -59,32 +58,15 @@ export default class MainService {
   }
 
   async setRoomName(roomName: string) {
-    // const key = getDatabase().push({
-    //   name: roomName,
-    // }).key
-    // console.log('roomId', key)
     this.room = {
-      // roomId: key + '',
       roomId: roomName, // 本番ではSSGを利用するためパスにIDが利用できない
       name: roomName,
     }
-    // // TODO ここにawaitを付けると何故か動作しない
-    // getDatabase(this.room.roomId).update(this.room)
     await this.setAppRoot()
   }
 
   async setRoomId(roomId: string) {
     console.log('call setRoomId', roomId)
-    // await getDatabase(roomId).once('value', async (snapshot) => {
-    //   const data = snapshot.val()
-    //   if (data === null) return
-    //   const { roomId, name } = data
-    //   this.room = {
-    //     roomId,
-    //     name,
-    //   }
-    //   await this.setAppRoot()
-    // })
     this.room = {
       roomId,
       name: roomId,
@@ -115,7 +97,6 @@ export default class MainService {
   async signOut() {
     console.log('logout')
     await this.disconnect()
-    await getAuth().signOut()
     this.self = { connectionId: undefined, name: '' }
     await this.setAppRoot()
   }
@@ -131,33 +112,15 @@ export default class MainService {
   // ルームに参加する
   async join() {
     try {
-      // // joinを初期化する
-      // await this.databaseJoinRef().remove()
-      //
-      // // メンバーに自分を追加する
-      // const key = await this.databaseMembersRef().push({
-      //   type: 'user',
-      // }).key
       this.self = {
         name: this.self.name,
       }
-      // await this.databaseMembersRef(this.self.clientId).update(this.self)
 
       // シグナリングサーバーをリスンする
       await this.startListening()
 
-      // // 1. Aさんがルームに入ったらブロードキャストですべてのメンバーにjoinを送信する
-      // console.log('send join', this.room.roomId, this.self)
-      // await this.databaseJoinRef(this.self.clientId).set({
-      //   ...this.self,
-      //   type: 'join',
-      //   clientId: this.self.clientId,
-      // })
-      //
-      // await this.setAppRoot()
-
       this.ws?.connect(() => {
-        // 自分のconnectionIdを聞く
+        // ルームの接続が完了したら、自分のconnectionIdを問い合わせる
         this.ws?.multicast({ type: 'who_am_i', data: {} })
       })
     } catch (error) {
@@ -168,23 +131,7 @@ export default class MainService {
   // joinを受信した時やofferを受信したらメンバーを追加する
   async addMember(data: Member) {
     console.log('addMember', data)
-    // if (
-    //   this.mediaDevice.mediaStream &&
-    //   this.self.clientId &&
-    //   this.room.roomId
-    // ) {
-    //   const remoteVideoSelector = `#video-${data.clientId}`
-    //   data.webRtc = new WebRtc(
-    //     this.mediaDevice.mediaStream,
-    //     this.room.roomId,
-    //     this.self.clientId,
-    //     data.clientId,
-    //     remoteVideoSelector
-    //   )
-    //   await data.webRtc.startListening()
-    // } else {
-    //   console.error('no mediaStream')
-    // }
+
     data.status = 'online'
     const newMember = {
       [data.connectionId]: data,
@@ -206,120 +153,8 @@ export default class MainService {
   async startListening() {
     console.log('startListening', this.self)
 
-    // // Joinに関するリスナー
-    // this.databaseJoinRef().on('child_added', async (snapshot) => {
-    //   const data = snapshot.val()
-    //   if (data === null) return
-    //   const { type, clientId, shareClientId } = data
-    //   if (clientId === this.self.clientId) {
-    //     // 自分自身は無視する
-    //     return
-    //   }
-    //   switch (type) {
-    //     case 'join':
-    //       // 2-1. joinを受信して新メンバーの情報をローカルに登録する
-    //       console.log('receive join', data)
-    //       await this.addMember(data)
-    //       // 2-2. acceptを送信する
-    //       await this.databaseJoinRef(clientId).set({
-    //         type: 'accept',
-    //         clientId: this.self.clientId,
-    //         name: this.self.name,
-    //       })
-    //       console.log(this.share.clientId, this.self.clientId)
-    //       if (
-    //         this.share.clientId &&
-    //         this.share.clientId === this.self.clientId
-    //       ) {
-    //         await this.share.addShare(this.share.clientId, this.self.clientId)
-    //         await this.databaseJoinRef(this.share.clientId).set({
-    //           type: 'accept',
-    //           clientId: this.self.clientId,
-    //           shareClientId: this.share.clientId,
-    //           name: this.self.name,
-    //         })
-    //       }
-    //       break
-    //     case 'share':
-    //       // joinを受信して画面共有の情報をローカルに登録する
-    //       console.log('receive share', data)
-    //       if (this.self.clientId) {
-    //         await this.share.addShare(shareClientId, this.self.clientId)
-    //       }
-    //       await this.databaseJoinRef(shareClientId).set({
-    //         type: 'accept',
-    //         clientId: this.self.clientId,
-    //         shareClientId,
-    //         name: this.self.name,
-    //       })
-    //       break
-    //     default:
-    //       break
-    //   }
-    // })
-    // await this.databaseJoinRef(this.self.clientId).onDisconnect().remove()
-    //
-    // this.databaseJoinRef(this.self.clientId).on('value', async (snapshot) => {
-    //   const data = snapshot.val()
-    //   if (data === null) return
-    //   const { type, clientId } = data
-    //   switch (type) {
-    //     case 'accept':
-    //       // 3-1. acceptを受信して既存メンバーの情報をローカルに登録する
-    //       console.log('receive accept', data)
-    //       await this.addMember(data)
-    //       await this.members[clientId].webRtc?.offer()
-    //       break
-    //     default:
-    //       break
-    //   }
-    // })
-    //
-    // // Firebaseからメンバーが削除されたらローカルのMembersから削除
-    // this.databaseMembersRef().on('child_removed', async (snapshot) => {
-    //   const data = snapshot.val()
-    //   console.log('receive remove', data)
-    //   if (data === null) return
-    //   const { clientId } = data
-    //   if (clientId === this.self.clientId) {
-    //     // ignore self message (自分自身からのメッセージは無視する）
-    //     return
-    //   }
-    //   await this.removeMember(data)
-    // })
-    // // 自分の通信が切断されたらFirebaseから自分を削除
-    // await this.databaseMembersRef(this.self.clientId).onDisconnect().remove()
-    //
-    // // ダイレクト通信に関するリスナー
-    // this.databaseBroadcastRef.on('value', async (snapshot) => {
-    //   const data = snapshot.val()
-    //   if (data === null) return
-    //   console.log(data)
-    //   const { type, clientId } = data
-    //   if (clientId === this.self.clientId) {
-    //     // ignore self message (自分自身からのメッセージは無視する）
-    //     return
-    //   }
-    //   switch (type) {
-    //     case 'chat':
-    //       await this.chat.receiveChat(data)
-    //       break
-    //     default:
-    //       break
-    //   }
-    // })
-    //
-    // // ダイレクト通信に関するリスナー
-    // const databaseDirectRef = this.databaseDirectRef(this.self.clientId)
-    // databaseDirectRef.on('value', async (snapshot) => {
-    //   const data = snapshot.val()
-    //   if (data === null) return
-    //   console.log('receive Direct', data)
-    // })
-
     this.ws = startWebsocket(this.room.roomId)
     this.ws?.on('who_am_i', async ({ connectionId, data }) => {
-      // 自分の接続が成功した場合
       console.log('receive who_am_i', data)
       this.self = {
         ...this.self,
@@ -329,7 +164,10 @@ export default class MainService {
       this.ws?.multicast({ type: 'offer', data: this.self })
     })
     this.ws?.on('offer', async ({ connectionId, data }) => {
-      // 他のメンバーからofferが来た時
+      if (connectionId === this.self.connectionId) {
+        // ignore self message (自分自身からのメッセージは無視する）
+        return
+      }
       console.log('receive offer', data)
       // 新メンバーの情報をローカルに登録する
       await this.addMember({ connectionId, ...data })
@@ -340,40 +178,26 @@ export default class MainService {
       })
     })
     this.ws?.on('answer', async ({ connectionId, data }) => {
-      // 他のメンバーからofferが来た時
+      if (connectionId === this.self.connectionId) {
+        // ignore self message (自分自身からのメッセージは無視する）
+        return
+      }
       console.log('receive answer', data)
       // 新メンバーの情報をローカルに登録する
       await this.addMember({ connectionId, ...data })
     })
     this.ws?.on('chat', async ({ connectionId, data }) => {
-      // 他のメンバーからofferが来た時
-      console.log('receive chat', connectionId, data)
       if (connectionId === this.self.connectionId) {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
+      console.log('receive chat', connectionId, data)
       await this.chat.receiveChat({ connectionId, ...data })
     })
     this.ws?.on('unjoin', async ({ connectionId }) => {
-      // 他のメンバーが参加してきた時
+      // 他のメンバーが離脱した時
       console.log('unjoin', connectionId)
       await this.removeMember({ connectionId } as Member)
     })
-  }
-
-  databaseJoinRef(path = '') {
-    return getDatabase(this.room.roomId + '/_join_/' + path)
-  }
-
-  databaseMembersRef(path = '') {
-    return getDatabase(this.room.roomId + '/_members_/' + path)
-  }
-
-  get databaseBroadcastRef() {
-    return getDatabase(this.room.roomId + '/_broadcast_/')
-  }
-
-  databaseDirectRef(path = '') {
-    return getDatabase(this.room.roomId + '/_direct_/' + path)
   }
 }
