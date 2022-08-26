@@ -1,4 +1,3 @@
-import DisplayShare from '@/services/DisplayShare'
 import { WebRtc } from '@/services/WebRtc'
 import Recorder from '@/services/Recorder'
 import MediaDevice from '@/services/MediaDevice'
@@ -31,7 +30,6 @@ export default class MainService {
   members: Members
   room: Room
   self: Self
-  share: DisplayShare
   chat: RoomChat
   recorder: Recorder
   mediaDevice: MediaDevice
@@ -42,7 +40,6 @@ export default class MainService {
     this.members = {}
     this.room = { roomId: undefined, name: '' }
     this.self = { connectionId: undefined, name: '' }
-    this.share = new DisplayShare(this)
     this.chat = new RoomChat(this)
     this.recorder = new Recorder(this)
     this.mediaDevice = new MediaDevice(this)

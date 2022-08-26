@@ -1,9 +1,7 @@
-body {
-  margin: 0px;
-}
-
-.App {
-  text-align: center;
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .App-logo {
@@ -19,7 +17,6 @@ body {
   margin-left: 10px;
 }
 
-/* 画面サイズが992pxより大きい場合に以下を適用 */
 @media screen and (min-width:992px){
   .App-logo {
     font-size: 24px;
@@ -59,191 +56,274 @@ body {
     }
 }
 
+
+/* チャット入力 */
+.myIcon2{
+    padding: 19px 5px;
+    text-align: center;
+    cursor: pointer;
+}
+.myIcon2 img{
+    width: 24px;
+    height: auto;
+}
+.sendMsg{
+    margin: 3px !important;
+}
+
+/* チャネル一覧 */
+.chat_list{
+    overflow-y: scroll;
+    background-color: #444444;
+    height: 820px;
+    display: none;
+}
+.chatListTag{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    cursor: pointer;
+    position: relative;
+}
+.chatListTag.active{
+    background-color: #666666;
+}
+.chatListTag .head{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.chatListTag .head img{
+    width: 100%;
+}
+.chatListTag .mytext{
+    width: 90%;
+    margin-left: 10px;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.msg_num{
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+    background-color: rgb(10, 156, 200);
+    color: #eee;
+    font-size: 8px;
+    text-align: center;
+    position: absolute;
+    right: 5%;
+    top: 30%;
+}
+.chatListTag .mytext .name{
+    width: 90%;
+    color: #fff;
+    font-size: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.chatListTag .mytext .dec{
+    width: 100%;
+    color: #888888;
+    font-size: 13px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.chat_box{
+    height: 100%;
+    background-color: #f1f1f1;
+    position: relative;
+    border-right: 1px solid #b1b1b1;
+}
+.chat_box .chat_message{
+    width: 100%;
+    height: 750px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 0 20px;
+}
+.chat_box .chat_input{
+    display: flex;
+    background-color: #fff;
+}
+.icon_block{
+    width: 320px;
+    height: 110px;
+    background-color: #fff;
+    border: 1px solid #777;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 80%;
+    left: 0;
+    z-index: 1;
+    display: none;
+}
+.iconTag:hover .icon_block{
+    display: flex;
+    z-index: 1;
+}
+.emoji_icon{
+    width: 30px;
+    margin: 10px;
+}
+.emoji_icon img{
+    width: 100%;
+}
+.emoji_icon:hover{
+    background-color: #888888;
+}
+@media screen and (min-width:992px){
+    .chat_list {
+        display: block;
+    }
+}
+
+/* チャネル詳細 */
+.me_block{
+    background-color: #fff;
+    padding: 20px 10px;
+    display: none;
+}
+.me_block .myHeadPhoto{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.myHeadPhoto img{
+    width: 100%;
+}
+.me_block .myName{
+    width: 100%;
+    font-size: 24px;
+    color: #222222;
+    text-align: center;
+    margin-top: 15px;
+
+}
+.me_block .myVideo{
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+}
+.me_block .myVideo a {
+    color: #777777;
+}
+.me_block .myVideo svg {
+    font-size: 2.5em;
+}
+@media screen and (min-width:992px){
+    .me_block {
+        display: block;
+    }
+}
+
+.message_row{
+    display: grid;
+    grid-template-columns: 70%;
+    margin-bottom: 20px;
+}
+.message-text{
+    padding: 9px 14px;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.message-time{
+    font-size: 12px;
+    color: #777;
+}
+.other-message .message-time{
+    width: 66px;
+    margin-left: 65px;
+}
+.you-message{
+    justify-content: end;
+}
+.you-message .message-content{
+    justify-items: end;
+}
+.you-message .message-text{
+    color: rgb(73, 73, 73);
+    background-color: rgb(92, 238, 92);
+    border: 1px solid rgb(92, 238, 92);
+    border-radius: 14px 14px 0 14px;
+}
+.other-message{
+    justify-items: start;
+}
+.other-message .message-content{
+    grid-template-columns: 48px 1fr;
+    grid-column-gap: 15px;
+}
+.other-message .message-text{
+    color: #111;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 14px 14px 14px 0;
+}
+.message-content{
+    display: grid;
+}
+.head{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.ejIcon{
+    width: 150px;
+    height: auto;
+}
+.me_photo{
+    width: 100%;
+}
+.me_photo img{
+    width: 100%;
+}
+
 /* オーバーレイ */
 #overlay-background {
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background-color:#0e0e0e;
-opacity:0.5;
-z-index:1000
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:#0e0e0e;
+    opacity:0.5;
+    z-index:1000
 }
 .overlay {
-position: fixed;
-left: 10%;
-width: 80%;
-max-width: 1200px;
-z-index: 1100;
-background: #fff;
-opacity: 0;
-visibility: hidden;
-transition: .1s linear;
-top: 10vh;
+    position: fixed;
+    left: 10%;
+    width: 80%;
+    max-width: 1200px;
+    z-index: 1100;
+    background: #fff;
+    opacity: 0;
+    visibility: hidden;
+    transition: .1s linear;
+    top: 10vh;
 }
 .overlay .wrap {
-background-color: #fff;
-padding: 10px;
-height: 80vh;
+    background-color: #fff;
+    padding: 10px;
+    height: 80vh;
 }
 .overlay.open {
-opacity: 1;
-visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 .overlay .title{
-margin-bottom: 5px;
-padding: 5px;
-border-bottom: solid 1px #ccc;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-bottom: solid 1px #ccc;
 }
 .overlay td {
-padding: 10px;
-}
-
-/* チャットエリア */
-.chat-area {
-
-/* ヘッダー部分② */
-#bms_chat_header {
-    padding: 6px;/*隙間調整*/
-    font-size: 16px;
-    height: 34px;
-    background: #ddd;
-    border: 1px solid #ccc;
-}
-    /* ステータスマークとユーザー名 */
-    #bms_chat_user_status {
-        float: left;/* bms_chat_headerに対して左寄せ */
-    }
-    /* ステータスマーク */
-    #bms_status_icon {
-        float: left;/* bms_chat_user_statusに対して左寄せ */
-        line-height: 2em;/*高さ調整*/
-    }
-    /* ユーザー名 */
-    #bms_chat_user_name {
-        float: left;/* bms_chat_user_statusに対して左寄せ */
-        line-height: 2em;/*高さ調整*/
-        padding-left: 8px;
-    }
-
-/* タイムライン部分③ */
-#bms_messages {
-    overflow: scroll;
-    height: 73vh;
-    border-right: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    background-color: #eee;
-    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2) inset;/*ヘッダーの下に影を入れる*/
-}
-    /* メッセージ全般のスタイル */
-    .bms_message {
-        margin: 0px;
-        padding: 0 14px;/*吹き出しがタイムラインの側面にひっつかない様に隙間を開ける*/
-        font-size: 16px;
-        word-wrap: break-word;/* 吹き出し内で自動で改行 */
-        white-space: normal;/*指定widthに合わせて、文字を自動的に改行*/
-    }
-
-        /*
-         *追加
-         */
-        .bms_message_box{
-            margin-top: 20px;/*上下の吹き出しがひっつかない様に隙間を入れる*/
-            max-width: 100%;/*文字が長くなった時に吹き出しがタイムラインからはみ出さない様にする*/
-            font-size: 16px;
-        }
-            /*
-            *追加
-            */
-            .bms_message_content{
-                padding: 20px;/*文字や画像（コンテンツ）の外側に隙間を入れる*/
-            }
-
-        /* メッセージ１（左側） */
-        .bms_left {
-            float: left;/*吹き出しをbms_messagesに対して左寄せ*/
-            line-height: 1.3em;
-        }
-            /*
-            *追加
-            */
-            .bms_left .bms_message_box {
-                color: #333;/*テキストを黒にする*/
-                background: #fff;
-                border: 2px solid #13178E;
-                border-radius: 30px 30px 30px 0px;/*左下だけ尖らせて吹き出し感を出す*/
-                margin-right: 50px;/*左側の発言だとわかる様に、吹き出し右側に隙間を入れる*/
-            }
-
-        /* メッセージ２（右側） */
-        .bms_right {
-            float: right;/*吹き出しをbms_messagesに対して右寄せ*/
-            line-height: 1.3em;
-        }
-            /*
-            *追加
-            */
-            .bms_right .bms_message_box {
-                color: #fff;/*テキストを白にする*/
-                background: #13178E;
-                border: 2px solid #13178E;
-                border-radius: 30px 30px 0px 30px;/*右下だけ尖らせて吹き出し感を出す*/
-                margin-left: 50px;/*右側の発言だとわかる様に、吹き出し左側に隙間を入れる*/
-            }
-    /* メッセージ１（左側） */
-    .bms_left {
-        float: left;/*吹き出しをbms_messagesに対して左寄せ*/
-        line-height: 1.3em;
-    }
-    /* メッセージ２（右側） */
-    .bms_right {
-        float: right;/*吹き出しをbms_messagesに対して右寄せ*/
-        line-height: 1.3em;
-    }
-    /* 回り込みを解除 */
-    .bms_clear {
-        clear: both; /* 左メッセージと右メッセージの回り込み(float)の効果の干渉を防ぐために必要（これが無いと、自分より下のメッセージにfloatが影響する） */
-
-    }
-
-/* テキストエリア、送信ボタン④ */
-#bms_send {
-    background-color:#eee;/*タイムラインの色と同じにする*/
-    border-right: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    height: 57px;
-}
-    .bms_send_message{
-        width: calc(100% - 75px);/*常に送信ボタンの横幅を引いたサイズに動的に計算*/
-        line-height: 16px;
-        height: 50px;
-        //padding: 14px 6px 0px 6px;/*文字がテキストエリアの中心になる様に隙間調整*/
-        //border: 1px solid #ccc;
-        border-radius: 4px;/*角丸*/
-        text-align: left;/*文字を左寄せ*/
-        box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.2) inset;/*内側に影を入れてテキストエリアらしくした*/
-        box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
-
-    }
-    .bms_send_btn {
-        width: 72px;
-        height: 48px;
-        font-size: 16px;
-        line-height: 3em;
-        float: right;
-        color: #fff;
-        font-weight: bold;
-        background: #13178E;
-        cursor: pointer;
-        text-align: center;
-        border: 1px solid #bbb;
-        border-radius: 4px;
-        box-sizing: border-box;
-        margin: 4px 0;
-    }
-    .bms_send_btn:disabled {
-        background: #bcbcbc;
-    }
+    padding: 10px;
 }

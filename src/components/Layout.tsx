@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import useAppRoot from '@/stores/useAppRoot'
 import Header from '@/components/pages/Header'
-import Footer from '@/components/pages/Footer'
 import SideMenu from '@/components/pages/SideMenu'
 
 const Layout: FC = ({ children }) => {
@@ -30,7 +29,6 @@ const Layout: FC = ({ children }) => {
         rtcClient={rtcClient}
       />
       <div style={appStyle(windowHeight)}>{childrenWithProps}</div>
-      <Footer />
       <SideMenu
         isMenuOpen={isMenuOpen}
         setMenuOpen={setMenuOpen}
@@ -47,11 +45,11 @@ Layout.propTypes = {
 
 const appStyle = (vh) => {
   return {
-    height: vh,
-    width: '100vw',
-    overflow: 'scroll',
-    display: 'flex',
-    justifyContent: 'center',
+    // height: vh,
+    // width: '100vw',
+    // overflow: 'scroll',
+    // display: 'flex',
+    // justifyContent: 'center',
   }
 }
 export default Layout

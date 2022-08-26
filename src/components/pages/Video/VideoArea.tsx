@@ -9,6 +9,8 @@ import RoomChat from '@/components/pages/Video/RoomChat'
 import DisplayShare from '@/components/widgets/DisplayShare'
 import Recorder from '@/components/widgets/Recorder'
 import { URL } from '@/constants/url'
+import ChanelList from '@/components/pages/Video/ChanelList'
+import ChanelDetail from '@/components/pages/Video/ChanelDetail'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,11 +60,14 @@ const VideoArea: FC<Props> = ({ rtcClient }) => {
   return (
     <div className={classes.root}>
       <Grid container spacing={0}>
-        <Grid item {...{ xs: 12, sm: 8, md: 8 }}>
-          <VideoLocal rtcClient={rtcClient} />
+        <Grid item {...{ xs: 12, lg: 3 }}>
+          <ChanelList rtcClient={rtcClient} />
         </Grid>
-        <Grid item {...{ xs: 12, sm: 4, md: 4 }}>
+        <Grid item {...{ xs: 12, lg: 6 }}>
           <RoomChat rtcClient={rtcClient} />
+        </Grid>
+        <Grid item {...{ xs: 12, lg: 3 }}>
+          <ChanelDetail rtcClient={rtcClient} />
         </Grid>
       </Grid>
       <DisplayShare rtcClient={rtcClient} />

@@ -129,42 +129,8 @@ $ sam delete --stack-name web-rtc
 ## 💬 使い方
 
 ```
-$ node -v
-v17.9.0
-
-# 下準備
-$ ./dc.sh init
-$ cp .env.example .env
-
-# Dockerを起動する
-$ ./dc.sh start
-
-# 初回のみFirebaseのセットアップ
-./dc.sh firebase login
-./dc.sh firebase init
-
-# Firebaseエミュレータを起動します。
-$ ./dc.sh firebase start
-$ open http://localhost:4000
-
-# Cloud Functions をビルドします。
-docker-compose -f docker/docker-compose.yml exec firebase sh
-cd ./functions
-yarn
-yarn build
-
-# 投稿データをPOST
-curl -X POST -H "Content-Type: application/json" -d @post.json http://localhost:5001/nextjs-typescript-firestore/us-central1/api/posts
-# 投稿データの一覧を取得する
-curl http://localhost:5001/nextjs-typescript-firestore/us-central1/api/posts
-
-# Next.jsアプリを起動します。
-./dc.sh app install
-./dc.sh app dev
-$ open http://localhost:3000
-
-# Dockerを停止する場合
-$ ./dc.sh stop
+$ yarn
+$ yarn dev
 ```
 
 ## 🎨 参考
