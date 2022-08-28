@@ -18,6 +18,10 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import { useRouter } from 'next/router'
 import Main from '@/services/main'
 import { URL } from '@/constants/url'
+import ChanelList from '@/components/pages/Chat/ChanelList'
+import Grid from '@material-ui/core/Grid'
+import Chat from '@/components/pages/Chat/Chat'
+import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
 
 type Props = {
   isMenuOpen: boolean
@@ -97,6 +101,12 @@ const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
         </IconButton>
       </div>
       <Divider />
+      <div className="pc-hide">
+        <ChanelList rtcClient={rtcClient} />
+        <Divider />
+        <ChanelDetail rtcClient={rtcClient} />
+        <Divider />
+      </div>
       <List>
         {Object.keys(menu).map((key, index) => {
           const [icon, func, disabled] = menu[key]

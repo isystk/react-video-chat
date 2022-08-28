@@ -63,7 +63,6 @@ export default class MainService {
   }
 
   async setRoomId(roomId: string) {
-    console.log('call setRoomId', roomId)
     this.room = {
       roomId,
       name: roomId,

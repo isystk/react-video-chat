@@ -8,7 +8,7 @@ stack_name = "webrtc"
 s3_bucket = "aws-isystk-com-sam"
 s3_prefix = "nextjs-webrtc-aws"
 region = "ap-northeast-1"
-profile = "web-rtc"
+profile = "lambda-user"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 parameter_overrides="AppName=webrtc"

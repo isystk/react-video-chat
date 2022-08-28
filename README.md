@@ -95,7 +95,7 @@ https://nextjs-webrtc-aws.web.app
 
 IAM ユーザーを用意する
 ```
-ユーザ名：「webrtc-user」
+ユーザ名：「lambda-user」
 アクセス権限：
 「AmazonKinesisVideoStreamsFullAccess」
 「AdministratorAccess」

@@ -1,28 +1,20 @@
-/**
- * Jest Configuration
- */
-const { pathsToModuleNameMapper } = require('ts-jest/utils')
-const { readFileSync } = require('fs')
-const { parse } = require('jsonc-parser')
-// extendsを自動的に解決してマージできないため、compilerOptions.pathsを書いているファイルを指定する
-const { compilerOptions } = parse(readFileSync('./tsconfig.json').toString())
-const moduleNameMapper = pathsToModuleNameMapper(compilerOptions.paths, {
-  prefix: '<rootDir>/',
-})
+const nextJest = require("next/jest");
 
-module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  moduleNameMapper,
-  roots: ['<rootDir>/src'],
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
-  globals: {
-    'ts-jest': {
-      tsConfig: '<rootDir>/tsconfig.jest.json',
+const createJestConfig = nextJest({
+    // next.config.jsとテスト環境用の.envファイルが配置されたディレクトリをセット。基本は"./"で良い。
+    dir: "./",
+});
+
+// Jestのカスタム設定を設置する場所。従来のプロパティはここで定義。
+const customJestConfig = {
+    // jest.setup.jsを作成する場合のみ定義。
+    // setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+    moduleNameMapper: {
+        // aliasを定義 （tsconfig.jsonのcompilerOptions>pathsの定義に合わせる）
+        "^@/(.*)$": "<rootDir>/src/$1",
     },
-  },
-  transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
-  },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-}
+    testEnvironment: "jest-environment-jsdom",
+};
+
+// createJestConfigを定義することによって、本ファイルで定義された設定がNext.jsの設定に反映されます
+module.exports = createJestConfig(customJestConfig);

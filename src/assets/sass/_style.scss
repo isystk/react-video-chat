@@ -56,6 +56,20 @@
     }
 }
 
+.sp-hide {
+    display: none;
+}
+.pc-hide {
+    display: block;
+}
+@media screen and (min-width:992px){
+    .sp-hide {
+        display: block;
+    }
+    .pc-hide {
+        display: none;
+    }
+}
 
 /* チャット入力 */
 .myIcon2{
@@ -68,15 +82,18 @@
     height: auto;
 }
 .sendMsg{
-    margin: 3px !important;
+    margin: 12px !important;
 }
 
 /* チャネル一覧 */
 .chat_list{
     overflow-y: scroll;
     background-color: #444444;
-    height: 820px;
-    display: none;
+}
+@media screen and (min-width:992px){
+    .chat_list {
+        height: 100%;
+    }
 }
 .chatListTag{
     width: 100%;
@@ -138,11 +155,10 @@
     height: 100%;
     background-color: #f1f1f1;
     position: relative;
-    border-right: 1px solid #b1b1b1;
 }
 .chat_box .chat_message{
     width: 100%;
-    height: 750px;
+    height: 100%;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -151,6 +167,7 @@
 .chat_box .chat_input{
     display: flex;
     background-color: #fff;
+    overflow: hidden;
 }
 .icon_block{
     width: 320px;
@@ -178,17 +195,11 @@
 .emoji_icon:hover{
     background-color: #888888;
 }
-@media screen and (min-width:992px){
-    .chat_list {
-        display: block;
-    }
-}
 
 /* チャネル詳細 */
 .me_block{
     background-color: #fff;
     padding: 20px 10px;
-    display: none;
 }
 .me_block .myHeadPhoto{
     width: 100px;
@@ -219,11 +230,7 @@
 .me_block .myVideo svg {
     font-size: 2.5em;
 }
-@media screen and (min-width:992px){
-    .me_block {
-        display: block;
-    }
-}
+
 
 .message_row{
     display: grid;

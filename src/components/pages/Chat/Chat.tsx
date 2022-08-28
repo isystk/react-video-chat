@@ -12,12 +12,11 @@ interface IProps {
   rtcClient: Main
 }
 
-const RoomChat = ({ rtcClient }: IProps) => {
+const Chat = ({ rtcClient }: IProps) => {
   const label = 'メッセージを入力してください'
   const [disabled, setDisabled] = useState(true)
   const [message, setMessage] = useState('')
   const [isComposed, setIsComposed] = useState(false)
-
   const [windowHeight, setWindowHeight] = useState(0)
 
   useEffect(() => {
@@ -129,6 +128,7 @@ const RoomChat = ({ rtcClient }: IProps) => {
           fullWidth
           label={label}
           name="message"
+          size="small"
           onChange={(e) => setMessage(e.target.value)}
           onCompositionEnd={() => setIsComposed(false)}
           onCompositionStart={() => setIsComposed(true)}
@@ -159,4 +159,4 @@ const appStyle = (vh) => {
   }
 }
 
-export default RoomChat
+export default Chat

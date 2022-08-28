@@ -1,16 +1,13 @@
 import Grid from '@material-ui/core/Grid'
-import React, { useEffect, FC } from 'react'
+import React, { useEffect, FC, useState } from 'react'
 import Main from '@/services/main'
-import VideoLocal from './VideoLocal'
-import VideoRemote from './VideoRemote'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
-import RoomChat from '@/components/pages/Video/RoomChat'
-import DisplayShare from '@/components/widgets/DisplayShare'
+import Chat from '@/components/pages/Chat/Chat'
 import Recorder from '@/components/widgets/Recorder'
 import { URL } from '@/constants/url'
-import ChanelList from '@/components/pages/Video/ChanelList'
-import ChanelDetail from '@/components/pages/Video/ChanelDetail'
+import ChanelList from '@/components/pages/Chat/ChanelList'
+import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,11 +24,15 @@ type Props = {
   rtcClient: Main
 }
 
-const VideoArea: FC<Props> = ({ rtcClient }) => {
+const ChatArea: FC<Props> = ({ rtcClient }) => {
   const router = useRouter()
   const classes = useStyles()
+  const [windowHeight, setWindowHeight] = useState(0)
 
-  // この部分を追加
+  useEffect(() => {
+    setWindowHeight(window.innerHeight)
+  }, [])
+
   useEffect(() => {
     // idがqueryで利用可能になったら処理される
     if (router.asPath !== router.route) {
@@ -60,20 +61,29 @@ const VideoArea: FC<Props> = ({ rtcClient }) => {
   return (
     <div className={classes.root}>
       <Grid container spacing={0}>
-        <Grid item {...{ xs: 12, lg: 3 }}>
-          <ChanelList rtcClient={rtcClient} />
+        <Grid item {...{ xs: 12, md: 3 }}>
+          <div className="sp-hide" style={appStyle(windowHeight)}>
+            <ChanelList rtcClient={rtcClient} />
+          </div>
         </Grid>
-        <Grid item {...{ xs: 12, lg: 6 }}>
-          <RoomChat rtcClient={rtcClient} />
+        <Grid item {...{ xs: 12, md: 6 }}>
+          <Chat rtcClient={rtcClient} />
         </Grid>
-        <Grid item {...{ xs: 12, lg: 3 }}>
-          <ChanelDetail rtcClient={rtcClient} />
+        <Grid item {...{ xs: 12, md: 3 }}>
+          <div className="sp-hide">
+            <ChanelDetail rtcClient={rtcClient} />
+          </div>
         </Grid>
       </Grid>
-      <DisplayShare rtcClient={rtcClient} />
       <Recorder rtcClient={rtcClient} />
     </div>
   )
 }
 
-export default VideoArea
+const appStyle = (vh) => {
+  return {
+    height: vh - 64,
+  }
+}
+
+export default ChatArea

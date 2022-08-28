@@ -1,11 +1,11 @@
 import React, { VFC } from 'react'
-import VideoArea from '@/components/pages/Video/VideoArea'
+import ChatArea from '@/components/pages/Chat/ChatArea'
 import Layout from '@/components/Layout'
 
 const Room: VFC = () => {
   return (
     <Layout>
-      <VideoArea />
+      <ChatArea />
     </Layout>
   )
 }

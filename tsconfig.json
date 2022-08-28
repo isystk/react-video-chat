@@ -21,7 +21,7 @@
     "noUnusedLocals": true, /* 未使用のローカルのエラーを報告します。 */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true, /* コンパイル時にヘルパーメソッドが生成されるようになり、モジュールシステムの相互運用性が高まる。これにより、defaultをエクスポートしていない CommonJS 形式のモジュールを、ES Modules でデフォルトインポートする、といったことが可能になる。 */
-    "forceConsistentCasingInFileNames": true, /* 大文字小文字を区別して参照を解決するようにします。 *//* 追加チェック */
+    "forceConsistentCasingInFileNames": true, /* 大文字小文字を区別して参照を解決するようにします。 */ /* 追加チェック */
     "skipLibCheck": true, /* *.d.ts ファイルに対する型チェックをスキップします。 */
     "strictNullChecks": true, /* 厳密なヌルチェックを有効にします。 */
     "strictFunctionTypes": true, /* 関数型の厳密なチェックを有効にします。 */
