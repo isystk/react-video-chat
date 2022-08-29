@@ -1,11 +1,13 @@
 import * as React from 'react'
 import Main from '@/services/main'
+import {Stamps} from '@/services/RoomChat'
 import { Button, TextField } from '@material-ui/core'
 import { useCallback, useEffect, useState } from 'react'
 import SendIcon from '@material-ui/icons/Send'
 import TagFacesIcon from '@material-ui/icons/TagFaces'
 import AttachFileIcon from '@material-ui/icons/AttachFile'
-import { makeStyles } from '@material-ui/core/styles'
+import * as _ from 'lodash'
+import moment from 'moment'
 
 // ↓ 表示用のデータ型
 interface IProps {
@@ -47,6 +49,7 @@ const Chat = ({ rtcClient }: IProps) => {
       >
         {rtcClient.chat.messages.map((message, index) => {
           const isMe = message.connectionId === rtcClient.self.connectionId
+          const isStamp = 'stamp' === message.type
           return (
             <div
               key={index}
@@ -58,65 +61,27 @@ const Chat = ({ rtcClient }: IProps) => {
                 {!isMe && (
                   <img className="head" src="images/friends/David.png" alt="" />
                 )}
-                <div className="message-text">{message.text}</div>
-                <div className="message-time">09/23 10:00</div>
+                {isStamp ? (
+                  <img className="head" src={Stamps[message.data]} alt="" />
+                ) : (
+                  <div className="message-text">{message.data}</div>
+                )}
+                <div className="message-time">{moment(message.datetime).format('MM/DD HH:mm')}</div>
               </div>
             </div>
           )
         })}
 
-        <div className="message_row other-message">
-          <div className="message-content">
-            <img className="head" src="images/friends/David.png" alt="" />
-            <img className="ejIcon" src="images/photo/423893.jpg" alt="" />
-            <div className="message-time">09/23 10:19</div>
-          </div>
-        </div>
-        <div className="message_row other-message">
-          <div className="message-content">
-            <img className="head" src="images/friends/David.png" alt="" />
-            <img className="ejIcon" src="images/emoji/like.png" alt="" />
-            <div className="message-time">09/23 10:16</div>
-          </div>
-        </div>
       </div>
       <div className="chat_input">
         <div className="myIcon2 iconTag">
           <TagFacesIcon color="action" />
           <div className="icon_block">
-            <div className="emoji_icon">
-              <img src="images/emoji/cry.png" alt="" />
-            </div>
-            <div className="emoji_icon">
-              <img src="images/emoji/cry2.png" alt="" />
-            </div>
-            <div className="emoji_icon">
-              <img src="images/emoji/I_dont_know.jpg" alt="" />
-            </div>
-            <div className="emoji_icon">
-              <img src="images/emoji/like.png" alt="" />
-            </div>
-            <div className="emoji_icon">
-              <img src="images/emoji/like2.png" alt="" />
-            </div>
-            <div className="emoji_icon">
-              <img src="images/emoji/omg.png" alt="" />
-            </div>
-            <div className="emoji_icon">
-              <img src="images/emoji/robot-face.png" alt="" />
-            </div>
-            <div className="emoji_icon">
-              <img src="images/emoji/smile.png" alt="" />
-            </div>
-            <div className="emoji_icon">
-              <img src="images/emoji/strange.png" alt="" />
-            </div>
-            <div className="emoji_icon">
-              <img src="images/emoji/what.jpg" alt="" />
-            </div>
-            <div className="emoji_icon">
-              <img src="images/emoji/wow.png" alt="" />
-            </div>
+            {_.map(Stamps, (stamp, key) => (
+              <div className="emoji_icon" key={key} onClick={(e) => rtcClient.chat.sendStamp(key)}>
+                <img src={stamp} alt="" />
+              </div>
+            ))}
           </div>
         </div>
         <div className="myIcon2">
