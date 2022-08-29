@@ -66,7 +66,7 @@ const CommonHeader: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
                 onClick={(e) => setAnchorEl(e.currentTarget)}
                 className={classes.noTransform}
               >
-                {rtcClient.self.name} さん
+                {rtcClient.self.name} さん ({rtcClient.self.connectionId})
               </Button>
               <Menu
                 id="user-menu"

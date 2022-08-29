@@ -117,7 +117,7 @@ export default class MainService {
 
       this.ws?.connect(() => {
         // ルームの接続が完了したら、自分のconnectionIdを問い合わせる
-        this.ws?.multicast({ type: 'who_am_i', data: {} })
+        this.ws?.multicast({ type: 'who_am_i' })
       })
     } catch (error) {
       console.error(error)
@@ -147,43 +147,48 @@ export default class MainService {
 
   // シグナリングサーバーをリスンする処理
   async startListening() {
-    console.log('startListening', this.self)
+    // console.log('startListening', this.self)
 
     this.ws = startWebsocket(this.room.roomId)
-    this.ws?.on('who_am_i', async ({ connectionId, data }) => {
-      console.log('receive who_am_i', data)
+    this.ws?.on('who_am_i', async ({ connectionId }) => {
+      // 自分のconnectionIdを登録する
       this.self = {
         ...this.self,
         connectionId,
       } as Self
-      // 自分の参加をすべてのメンバーに通知する
-      this.ws?.multicast({ type: 'offer', data: this.self })
-    })
-    this.ws?.on('offer', async ({ connectionId, data }) => {
-      if (connectionId === this.self.connectionId) {
-        // ignore self message (自分自身からのメッセージは無視する）
-        return
-      }
-      console.log('receive offer', data)
-      // 新メンバーの情報をローカルに登録する
-      await this.addMember({ connectionId, ...data })
-
-      this.ws?.unicast(connectionId, {
-        type: 'answer',
-        data: this.self,
+      await this.setAppRoot()
+      // 全メンバーに自分を伝える
+      this.ws?.multicast({
+        type: 'please_add_me',
+        ...this.self,
       })
     })
-    this.ws?.on('answer', async ({ connectionId, data }) => {
-      if (connectionId === this.self.connectionId) {
+    this.ws?.on('please_add_me', async ({ sendId, connectionId, name }) => {
+      if (sendId === this.self.connectionId) {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
-      console.log('receive answer', data)
+      console.log('receive please_add_me', connectionId, name)
       // 新メンバーの情報をローカルに登録する
-      await this.addMember({ connectionId, ...data })
+      await this.addMember({ connectionId, name } as Member)
+
+      // 追加したことを新メンバーに回答する
+      this.ws?.unicast(connectionId, {
+        type: 'added_you',
+        ...this.self,
+      })
     })
-    this.ws?.on('chat', async ({ connectionId, data }) => {
-      if (connectionId === this.self.connectionId) {
+    this.ws?.on('added_you', async ({ sendId, connectionId, name }) => {
+      if (sendId === this.self.connectionId) {
+        // ignore self message (自分自身からのメッセージは無視する）
+        return
+      }
+      console.log('receive added_you', connectionId, name)
+      // 新メンバーの情報をローカルに登録する
+      await this.addMember({ connectionId, name } as Member)
+    })
+    this.ws?.on('chat', async ({ sendId, connectionId, data }) => {
+      if (sendId === this.self.connectionId) {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }

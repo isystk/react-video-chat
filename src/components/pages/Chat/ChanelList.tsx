@@ -34,7 +34,7 @@ const ChanelList = ({ rtcClient }: IProps) => {
       </div>
 
       {_.map(rtcClient.members, (member, index) => (
-        <div className="chatListTag">
+        <div className="chatListTag" key={index}>
           <div className="head">
             <img src="images/friends/David.png" alt="" />
           </div>

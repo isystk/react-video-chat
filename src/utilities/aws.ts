@@ -65,16 +65,16 @@ export const startWebsocket = (roomId): WebSocket | null => {
       event.push({ type, func })
     },
     multicast: (data) => {
+      // console.log('send multicast', data)
       ws.send(`{ "action": "sendmessage", "data": ${JSON.stringify(data)} }`)
-      // ルート sendmessage
     },
     unicast: (connectionId, data) => {
+      // console.log('send unicast', connectionId, data)
       ws.send(
-        `{ "action": "sendmessage", "target": ${connectionId}. "data": ${JSON.stringify(
+        `{ "action": "sendmessage", "forward": "${connectionId}", "data": ${JSON.stringify(
           data
         )} }`
       )
-      // ルート sendmessage
     },
     close: () => {
       ws.close()
