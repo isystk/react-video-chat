@@ -66,7 +66,7 @@ const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
     退出: [
       <ExitToAppIcon key={0} />,
       async () => {
-        await rtcClient.disconnect()
+        await rtcClient.leave()
         await router.push(URL.HOME)
         setMenuOpen(!isMenuOpen)
       },

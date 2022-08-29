@@ -46,7 +46,7 @@ const SignIn: FC<Props> = ({ rtcClient }) => {
   const initializeLocalPeer = useCallback(
     async (e) => {
       e.persist()
-      await rtcClient.setLocalPeerName(name)
+      await rtcClient.setName(name)
       e.preventDefault()
     },
     [name, rtcClient]

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Main from '@/services/main'
-import {Stamps} from '@/services/RoomChat'
+import { Stamps } from '@/services/Chat'
 import { Button, TextField } from '@material-ui/core'
 import { useCallback, useEffect, useState } from 'react'
 import SendIcon from '@material-ui/icons/Send'
@@ -33,13 +33,15 @@ const Chat = ({ rtcClient }: IProps) => {
   const initializeLocalPeer = useCallback(
     async (e) => {
       e.persist()
-      await rtcClient.chat.sendChat(message)
+      await rtcClient.chanels['all'].chat.sendChat(message)
       setMessage('')
       e.preventDefault()
     },
     [message, rtcClient]
   )
 
+  if (_.size(rtcClient.chanels) === 0) return <></>
+  
   return (
     <div className="chat_box">
       <div
@@ -47,7 +49,7 @@ const Chat = ({ rtcClient }: IProps) => {
         className="chat_message"
         style={appStyle(windowHeight)}
       >
-        {rtcClient.chat.messages.map((message, index) => {
+        {rtcClient.chanels['all'].chat.messages.map((message, index) => {
           const isMe = message.connectionId === rtcClient.self.connectionId
           const isStamp = 'stamp' === message.type
           return (
@@ -66,19 +68,24 @@ const Chat = ({ rtcClient }: IProps) => {
                 ) : (
                   <div className="message-text">{message.data}</div>
                 )}
-                <div className="message-time">{moment(message.datetime).format('MM/DD HH:mm')}</div>
+                <div className="message-time">
+                  {moment(message.datetime).format('MM/DD HH:mm')}
+                </div>
               </div>
             </div>
           )
         })}
-
       </div>
       <div className="chat_input">
         <div className="myIcon2 iconTag">
           <TagFacesIcon color="action" />
           <div className="icon_block">
             {_.map(Stamps, (stamp, key) => (
-              <div className="emoji_icon" key={key} onClick={(e) => rtcClient.chat.sendStamp(key)}>
+              <div
+                className="emoji_icon"
+                key={key}
+                onClick={(e) => rtcClient.chanels['all'].chat.sendStamp(key)}
+              >
                 <img src={stamp} alt="" />
               </div>
             ))}

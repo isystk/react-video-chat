@@ -1,9 +1,5 @@
 import Main from '@/services/main'
 
-export type Chat = {
-  isOpen: boolean
-  messages: ChatMessage[]
-}
 export type ChatMessage = {
   data: string
   type: 'text' | 'stamp'
@@ -12,20 +8,20 @@ export type ChatMessage = {
 }
 
 export const Stamps = {
-  "cry": "images/emoji/cry.png",
-  "cry2": "images/emoji/cry2.png",
-  "I_dont_know": "images/emoji/I_dont_know.jpg",
-  "like": "images/emoji/like.png",
-  "like2": "images/emoji/like2.png",
-  "omg": "images/emoji/omg.png",
-  "robot-face": "images/emoji/robot-face.png",
-  "smile": "images/emoji/smile.png",
-  "strange": "images/emoji/strange.png",
-  "what": "images/emoji/what.jpg",
-  "wow": "images/emoji/wow.png"
-};
+  cry: 'images/emoji/cry.png',
+  cry2: 'images/emoji/cry2.png',
+  I_dont_know: 'images/emoji/I_dont_know.jpg',
+  like: 'images/emoji/like.png',
+  like2: 'images/emoji/like2.png',
+  omg: 'images/emoji/omg.png',
+  'robot-face': 'images/emoji/robot-face.png',
+  smile: 'images/emoji/smile.png',
+  strange: 'images/emoji/strange.png',
+  what: 'images/emoji/what.jpg',
+  wow: 'images/emoji/wow.png',
+}
 
-export default class RoomChat {
+export default class ChatService {
   rtcClient: Main
 
   isOpen: boolean

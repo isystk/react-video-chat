@@ -1,8 +1,8 @@
 import { WebRtc } from '@/services/WebRtc'
 import Recorder from '@/services/Recorder'
 import MediaDevice from '@/services/MediaDevice'
-import RoomChat from '@/services/RoomChat'
 import { startWebsocket, WebSocket } from '@/utilities/aws'
+import ChanelService from "@/services/Chanel";
 
 export type Self = {
   connectionId?: string
@@ -24,13 +24,17 @@ type Members = {
   [key: string]: Member
 }
 
+type Chanels = {
+  [key: string]: ChanelService 
+}
+
 export default class MainService {
   _setAppRoot: (rtcClient: MainService) => void
   ws: WebSocket | null
   members: Members
   room: Room
   self: Self
-  chat: RoomChat
+  chanels: Chanels
   recorder: Recorder
   mediaDevice: MediaDevice
 
@@ -40,7 +44,7 @@ export default class MainService {
     this.members = {}
     this.room = { roomId: undefined, name: '' }
     this.self = { connectionId: undefined, name: '' }
-    this.chat = new RoomChat(this)
+    this.chanels = {}
     this.recorder = new Recorder(this)
     this.mediaDevice = new MediaDevice(this)
   }
@@ -49,8 +53,8 @@ export default class MainService {
     await this._setAppRoot(this)
   }
 
-  async setLocalPeerName(localPeerName: string) {
-    this.self.name = localPeerName
+  async setName(name: string) {
+    this.self.name = name 
     await this.setAppRoot()
   }
 
@@ -90,41 +94,59 @@ export default class MainService {
     })
   }
 
+  // サインアウト
   async signOut() {
-    console.log('logout')
-    await this.disconnect()
+    await this.leave()
     this.self = { connectionId: undefined, name: '' }
-    await this.setAppRoot()
-  }
-
-  async disconnect() {
-    console.log('disconnect')
-    // await this.databaseMembersRef(this.self.clientId).remove()
-    this.ws?.close()
-    this.room = { roomId: undefined, name: '' }
     await this.setAppRoot()
   }
 
   // ルームに参加する
   async join() {
     try {
-      this.self = {
-        name: this.self.name,
-      }
 
-      // シグナリングサーバーをリスンする
+      // WebSocketサーバーをリスンする
       await this.startListening()
 
       this.ws?.connect(() => {
         // ルームの接続が完了したら、自分のconnectionIdを問い合わせる
         this.ws?.multicast({ type: 'who_am_i' })
       })
+
+      // ルーム全体のチャネルを追加
+      this.addChanel(new ChanelService(
+        this,
+        'all',
+        'すべて',
+        'all',
+        'images/friends/Alpha_Team.png',
+        'ルーム内のすべてのメンバー'
+      ))
+
+      // 自分専用のチャネルを追加
+      this.addChanel(new ChanelService(
+        this,
+        'own',
+        '自分',
+        'own',
+        'images/friends/BigBoss.png',
+      '自分',
+      ))
+
+      await this.setAppRoot()
     } catch (error) {
       console.error(error)
     }
   }
 
-  // joinを受信した時やofferを受信したらメンバーを追加する
+  // ルームを退出する
+  async leave() {
+    this.ws?.close()
+    this.room = { roomId: undefined, name: '' }
+    await this.setAppRoot()
+  }
+
+  // メンバーを追加する
   async addMember(data: Member) {
     console.log('addMember', data)
 
@@ -133,22 +155,51 @@ export default class MainService {
       [data.connectionId]: data,
     }
     this.members = { ...this.members, ...newMember }
+
+    // メンバー用のチャネルを追加
+    this.addChanel(new ChanelService(
+      this,
+      data.connectionId,
+      data.name,
+      'other',
+      'images/friends/David.png',
+      'メンバー'
+    ))
+    
     await this.setAppRoot()
   }
 
-  async removeMember(data: Member) {
-    console.log('removeMember', this.members[data.connectionId])
-    if (this.members[data.connectionId]) {
-      // this.members[data.connectionId].webRtc?.disconnect()
-      delete this.members[data.connectionId]
+  // メンバーを削除する
+  async removeMember(connectionId: string) {
+    console.log('removeMember', this.members[connectionId])
+    if (this.members[connectionId]) {
+      delete this.members[connectionId]
     }
     await this.setAppRoot()
   }
 
-  // シグナリングサーバーをリスンする処理
-  async startListening() {
-    // console.log('startListening', this.self)
+  // チャネルを追加する
+  async addChanel(data: ChanelService) {
+    console.log('addChanel', data)
 
+    const newChanel = {
+      [data.id]: data,
+    }
+    this.chanels = { ...this.chanels, ...newChanel }
+    await this.setAppRoot()
+  }
+
+  // チャネルを削除する
+  async removeChanel(id: string) {
+    console.log('removeChanel', this.chanels[id])
+    if (this.chanels[id]) {
+      delete this.chanels[id]
+    }
+    await this.setAppRoot()
+  }
+
+  // WebSocketサーバーをリスンする処理
+  async startListening() {
     this.ws = startWebsocket(this.room.roomId)
     this.ws?.on('who_am_i', async ({ connectionId }) => {
       // 自分のconnectionIdを登録する
@@ -168,7 +219,6 @@ export default class MainService {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
-      console.log('receive please_add_me', connectionId, name)
       // 新メンバーの情報をローカルに登録する
       await this.addMember({ connectionId, name } as Member)
 
@@ -183,7 +233,6 @@ export default class MainService {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
-      console.log('receive added_you', connectionId, name)
       // 新メンバーの情報をローカルに登録する
       await this.addMember({ connectionId, name } as Member)
     })
@@ -192,13 +241,11 @@ export default class MainService {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
-      console.log('receive chat', connectionId, data)
-      await this.chat.receiveChat({ connectionId, ...data })
+      await this.chanels['all'].chat.receiveChat({ connectionId, ...data })
     })
     this.ws?.on('unjoin', async ({ connectionId }) => {
       // 他のメンバーが離脱した時
-      console.log('unjoin', connectionId)
-      await this.removeMember({ connectionId } as Member)
+      await this.removeMember(connectionId)
     })
   }
 }
