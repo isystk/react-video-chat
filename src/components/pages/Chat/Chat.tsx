@@ -33,7 +33,7 @@ const Chat = ({ rtcClient }: IProps) => {
   const initializeLocalPeer = useCallback(
     async (e) => {
       e.persist()
-      await rtcClient.chanels['all'].chat.sendChat(message)
+      await rtcClient.chanels[rtcClient.selectChanelId].chat.sendChat(message)
       setMessage('')
       e.preventDefault()
     },
@@ -41,7 +41,7 @@ const Chat = ({ rtcClient }: IProps) => {
   )
 
   if (_.size(rtcClient.chanels) === 0) return <></>
-  
+
   return (
     <div className="chat_box">
       <div
@@ -49,8 +49,9 @@ const Chat = ({ rtcClient }: IProps) => {
         className="chat_message"
         style={appStyle(windowHeight)}
       >
-        {rtcClient.chanels['all'].chat.messages.map((message, index) => {
-          const isMe = message.connectionId === rtcClient.self.connectionId
+        {rtcClient.chanels[rtcClient.selectChanelId].chat.messages.map((message, index) => {
+          const isMe = message.sendId === rtcClient.self.connectionId
+          const member = rtcClient.members[message.sendId]
           const isStamp = 'stamp' === message.type
           return (
             <div
@@ -61,7 +62,7 @@ const Chat = ({ rtcClient }: IProps) => {
             >
               <div className="message-content">
                 {!isMe && (
-                  <img className="head" src="images/friends/David.png" alt="" />
+                  <img className="head" src={member.photo} alt="" />
                 )}
                 {isStamp ? (
                   <img className="head" src={Stamps[message.data]} alt="" />
@@ -84,7 +85,7 @@ const Chat = ({ rtcClient }: IProps) => {
               <div
                 className="emoji_icon"
                 key={key}
-                onClick={(e) => rtcClient.chanels['all'].chat.sendStamp(key)}
+                onClick={(e) => rtcClient.chanels[rtcClient.selectChanelId].chat.sendStamp(key)}
               >
                 <img src={stamp} alt="" />
               </div>

@@ -1,12 +1,12 @@
-import { WebRtc } from '@/services/WebRtc'
-import Recorder from '@/services/Recorder'
-import MediaDevice from '@/services/MediaDevice'
+import RecorderService from '@/services/Recorder'
+import MediaDeviceService from '@/services/MediaDevice'
 import { startWebsocket, WebSocket } from '@/utilities/aws'
-import ChanelService from "@/services/Chanel";
+import ChanelService from '@/services/Chanel'
 
 export type Self = {
   connectionId?: string
   name: string
+  photo: string
   videoOff?: boolean
   muted?: boolean
 }
@@ -17,7 +17,7 @@ export type Room = {
 export type Member = {
   connectionId: string
   name: string
-  webRtc: WebRtc | null
+  photo: string
   status: string
 }
 type Members = {
@@ -25,7 +25,7 @@ type Members = {
 }
 
 type Chanels = {
-  [key: string]: ChanelService 
+  [key: string]: ChanelService
 }
 
 export default class MainService {
@@ -35,8 +35,9 @@ export default class MainService {
   room: Room
   self: Self
   chanels: Chanels
-  recorder: Recorder
-  mediaDevice: MediaDevice
+  selectChanelId: string
+  recorder: RecorderService
+  mediaDevice: MediaDeviceService
 
   constructor(setAppRoot: (appRoot: MainService) => void) {
     this._setAppRoot = setAppRoot
@@ -45,8 +46,9 @@ export default class MainService {
     this.room = { roomId: undefined, name: '' }
     this.self = { connectionId: undefined, name: '' }
     this.chanels = {}
-    this.recorder = new Recorder(this)
-    this.mediaDevice = new MediaDevice(this)
+    this.selectChanelId = 'all'
+    this.recorder = new RecorderService(this)
+    this.mediaDevice = new MediaDeviceService(this)
   }
 
   async setAppRoot() {
@@ -54,7 +56,10 @@ export default class MainService {
   }
 
   async setName(name: string) {
-    this.self.name = name 
+    this.self = {
+      name,
+      photo: 'images/friends/David.png'
+    }
     await this.setAppRoot()
   }
 
@@ -74,24 +79,9 @@ export default class MainService {
     await this.setAppRoot()
   }
 
-  // 映像のオン・オフを切り替える
-  async toggleVideo() {
-    this.self.videoOff = !this.self.videoOff
+  async setChanelId(chanelId: string) {
+    this.selectChanelId = chanelId 
     await this.setAppRoot()
-    if (Object.keys(this.members).length === 0) return
-    Object.keys(this.members).forEach((key) => {
-      this.members[key].webRtc?.toggleVideo()
-    })
-  }
-
-  // 音声のオン・オフを切り替える
-  async toggleAudio() {
-    this.self.muted = !this.self.muted
-    await this.setAppRoot()
-    if (Object.keys(this.members).length === 0) return
-    Object.keys(this.members).forEach((key) => {
-      this.members[key].webRtc?.toggleAudio()
-    })
   }
 
   // サインアウト
@@ -104,7 +94,6 @@ export default class MainService {
   // ルームに参加する
   async join() {
     try {
-
       // WebSocketサーバーをリスンする
       await this.startListening()
 
@@ -114,24 +103,28 @@ export default class MainService {
       })
 
       // ルーム全体のチャネルを追加
-      this.addChanel(new ChanelService(
-        this,
-        'all',
-        'すべて',
-        'all',
-        'images/friends/Alpha_Team.png',
-        'ルーム内のすべてのメンバー'
-      ))
+      this.addChanel(
+        new ChanelService(
+          this,
+          'all',
+          'すべて',
+          'all',
+          'images/friends/Alpha_Team.png',
+          'ルーム内のすべてのメンバー'
+        )
+      )
 
       // 自分専用のチャネルを追加
-      this.addChanel(new ChanelService(
-        this,
-        'own',
-        '自分',
-        'own',
-        'images/friends/BigBoss.png',
-      '自分',
-      ))
+      this.addChanel(
+        new ChanelService(
+          this,
+          'own',
+          '自分',
+          'own',
+          'images/friends/BigBoss.png',
+          '自分'
+        )
+      )
 
       await this.setAppRoot()
     } catch (error) {
@@ -157,15 +150,17 @@ export default class MainService {
     this.members = { ...this.members, ...newMember }
 
     // メンバー用のチャネルを追加
-    this.addChanel(new ChanelService(
-      this,
-      data.connectionId,
-      data.name,
-      'other',
-      'images/friends/David.png',
-      'メンバー'
-    ))
-    
+    this.addChanel(
+      new ChanelService(
+        this,
+        data.connectionId,
+        data.name,
+        'other',
+        data.photo,
+        'メンバー'
+      )
+    )
+
     await this.setAppRoot()
   }
 
@@ -175,6 +170,7 @@ export default class MainService {
     if (this.members[connectionId]) {
       delete this.members[connectionId]
     }
+    await this.removeChanel(connectionId)
     await this.setAppRoot()
   }
 
@@ -214,13 +210,13 @@ export default class MainService {
         ...this.self,
       })
     })
-    this.ws?.on('please_add_me', async ({ sendId, connectionId, name }) => {
+    this.ws?.on('please_add_me', async ({ sendId, connectionId, name, photo }) => {
       if (sendId === this.self.connectionId) {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
       // 新メンバーの情報をローカルに登録する
-      await this.addMember({ connectionId, name } as Member)
+      await this.addMember({ connectionId, name, photo } as Member)
 
       // 追加したことを新メンバーに回答する
       this.ws?.unicast(connectionId, {
@@ -228,20 +224,24 @@ export default class MainService {
         ...this.self,
       })
     })
-    this.ws?.on('added_you', async ({ sendId, connectionId, name }) => {
+    this.ws?.on('added_you', async ({ sendId, connectionId, name, photo }) => {
       if (sendId === this.self.connectionId) {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
       // 新メンバーの情報をローカルに登録する
-      await this.addMember({ connectionId, name } as Member)
+      await this.addMember({ connectionId, name, photo } as Member)
     })
-    this.ws?.on('chat', async ({ sendId, connectionId, data }) => {
+    this.ws?.on('chat', async ({ sendId, data }) => {
       if (sendId === this.self.connectionId) {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
-      await this.chanels['all'].chat.receiveChat({ connectionId, ...data })
+      if ('all' === data.chanelId) {
+        await this.chanels['all'].chat.receiveChat({ sendId, ...data })
+      } else {
+        await this.chanels[sendId].chat.receiveChat({ sendId, ...data })
+      }
     })
     this.ws?.on('unjoin', async ({ connectionId }) => {
       // 他のメンバーが離脱した時

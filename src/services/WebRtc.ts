@@ -1,7 +1,5 @@
-import { getDatabase } from '@/utilities/firebase'
-import firebase from 'firebase/compat/app'
 
-export class WebRtc {
+export class WebRtcService {
   localClientId: string
   mediaStream: MediaStream
   remoteClientId: string

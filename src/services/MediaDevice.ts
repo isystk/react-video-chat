@@ -4,7 +4,7 @@ export type Device = {
   deviceId: string
 }
 
-export default class MediaDevice {
+export default class MediaDeviceService {
   rtcClient: Main
 
   mediaStream: MediaStream | null

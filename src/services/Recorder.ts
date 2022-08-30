@@ -1,6 +1,6 @@
 import Main from '@/services/main'
 
-export default class Recorder {
+export default class RecorderService {
   rtcClient: Main
 
   // @ts-ignore

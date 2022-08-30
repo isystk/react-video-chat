@@ -1,9 +1,10 @@
 import Main from '@/services/main'
 
 export type ChatMessage = {
-  data: string
   type: 'text' | 'stamp'
-  connectionId: string
+  data: string
+  chanelId: string
+  sendId: string
   datetime: Date
 }
 
@@ -24,39 +25,36 @@ export const Stamps = {
 export default class ChatService {
   rtcClient: Main
 
-  isOpen: boolean
+  chanelId: string
   messages: ChatMessage[]
 
-  constructor(rtcClient: Main) {
+  constructor(rtcClient: Main, chanelId: string) {
     this.rtcClient = rtcClient
-    this.isOpen = false
+    this.chanelId = chanelId
     this.messages = []
-  }
-
-  // チャットの表示・非表示を切り替える
-  async openChat() {
-    this.isOpen = true
-    await this.rtcClient.setAppRoot()
-  }
-
-  async closeChat() {
-    this.isOpen = false
-    await this.rtcClient.setAppRoot()
   }
 
   async sendChat(data: string) {
     const message = {
       type: 'text',
       data,
-      connectionId: this.rtcClient.self.connectionId,
+      chanelId: this.chanelId,
+      sendId: this.rtcClient.self.connectionId,
       datetime: new Date(),
     } as ChatMessage
     this.messages = [...this.messages, message]
-    // await this.rtcClient.databaseBroadcastRef.set(message)
-    this.rtcClient.ws?.multicast({
-      type: 'chat',
-      data: message,
-    })
+    // メッセージを送信する
+    if ('all' === this.chanelId) {
+      this.rtcClient.ws?.multicast({
+        type: 'chat',
+        data: message,
+      })
+    } else {
+      this.rtcClient.ws?.unicast(this.chanelId, {
+        type: 'chat',
+        data: message,
+      })
+    }
     await this.rtcClient.setAppRoot()
   }
 
@@ -69,15 +67,23 @@ export default class ChatService {
     const message = {
       type: 'stamp',
       data: key,
-      connectionId: this.rtcClient.self.connectionId,
+      chanelId: this.chanelId,
+      sendId: this.rtcClient.self.connectionId,
       datetime: new Date(),
     } as ChatMessage
     this.messages = [...this.messages, message]
-    // await this.rtcClient.databaseBroadcastRef.set(message)
-    this.rtcClient.ws?.multicast({
-      type: 'chat',
-      data: message,
-    })
+    // メッセージを送信する
+    if ('all' === this.chanelId) {
+      this.rtcClient.ws?.multicast({
+        type: 'chat',
+        data: message,
+      })
+    } else {
+      this.rtcClient.ws?.unicast(this.chanelId, {
+        type: 'chat',
+        data: message,
+      })
+    }
     await this.rtcClient.setAppRoot()
   }
 
