@@ -26,17 +26,17 @@ import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
 type Props = {
   isMenuOpen: boolean
   setMenuOpen: Dispatch<SetStateAction<boolean>>
-  rtcClient: Main
+  main: Main
 }
 
-const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
+const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
   const router = useRouter()
 
-  const RecoderIcon = rtcClient.recorder.isRecording
+  const RecoderIcon = main.recorder.isRecording
     ? StopIcon
     : FiberManualRecordIcon
 
-  const joined = rtcClient.self.name !== '' && rtcClient.room.name !== ''
+  const joined = main.self.name !== '' && main.room.name !== ''
 
   const menu = {
     全画面: [
@@ -56,8 +56,8 @@ const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
     デバイス設定: [
       <SettingsIcon key={0} />,
       async () => {
-        if (!rtcClient.mediaDevice.isOpen) {
-          await rtcClient.mediaDevice.openMediaDevice()
+        if (!main.mediaDevice.isOpen) {
+          await main.mediaDevice.openMediaDevice()
         }
         setMenuOpen(!isMenuOpen)
       },
@@ -66,7 +66,7 @@ const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
     退出: [
       <ExitToAppIcon key={0} />,
       async () => {
-        await rtcClient.leave()
+        await main.leave()
         await router.push(URL.HOME)
         setMenuOpen(!isMenuOpen)
       },
@@ -75,10 +75,10 @@ const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
     録画: [
       <RecoderIcon key={0} />,
       async () => {
-        if (rtcClient.recorder.isRecording) {
-          await rtcClient.recorder.stopRecorder()
+        if (main.recorder.isRecording) {
+          await main.recorder.stopRecorder()
         } else {
-          await rtcClient.recorder.startRecorder()
+          await main.recorder.startRecorder()
         }
         setMenuOpen(!isMenuOpen)
       },
@@ -87,7 +87,7 @@ const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
     画面共有: [
       <ScreenShareIcon key={0} />,
       async () => {
-        await rtcClient.share.startShare()
+        await main.share.startShare()
         setMenuOpen(!isMenuOpen)
       },
       !joined,
@@ -102,9 +102,9 @@ const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
       </div>
       <Divider />
       <div className="pc-hide">
-        <ChanelList rtcClient={rtcClient} />
+        <ChanelList main={main} />
         <Divider />
-        <ChanelDetail rtcClient={rtcClient} />
+        <ChanelDetail main={main} />
         <Divider />
       </div>
       <List>

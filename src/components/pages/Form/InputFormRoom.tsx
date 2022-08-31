@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type Props = {
-  rtcClient: Main
+  main: Main
 }
-const SignIn: VFC<Props> = ({ rtcClient }) => {
+const SignIn: VFC<Props> = ({ main }) => {
   const label = '部屋の名前'
   const classes = useStyles()
   const [disabled, setDisabled] = useState(true)
@@ -51,14 +51,14 @@ const SignIn: VFC<Props> = ({ rtcClient }) => {
     e.persist()
 
     if (name !== '') {
-      await rtcClient.setRoomName(name)
+      await main.setRoomName(name)
     }
 
     e.preventDefault()
   }
 
-  if (rtcClient.self.name === '') return <></>
-  if (rtcClient.room.name !== '') return <></>
+  if (main.self.name === '') return <></>
+  if (main.room.name !== '') return <></>
 
   return (
     <Container component="main" maxWidth="xs">

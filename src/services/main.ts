@@ -2,16 +2,15 @@ import RecorderService from '@/services/Recorder'
 import MediaDeviceService from '@/services/MediaDevice'
 import { startWebsocket, WebSocket } from '@/utilities/aws'
 import ChanelService from '@/services/Chanel'
+import VideoService from '@/services/Video'
 
 export type Self = {
-  connectionId?: string
+  connectionId: string
   name: string
   photo: string
-  videoOff?: boolean
-  muted?: boolean
 }
 export type Room = {
-  roomId?: string
+  roomId: string
   name: string
 }
 export type Member = {
@@ -29,7 +28,7 @@ type Chanels = {
 }
 
 export default class MainService {
-  _setAppRoot: (rtcClient: MainService) => void
+  _setAppRoot: (main: MainService) => void
   ws: WebSocket | null
   members: Members
   room: Room
@@ -38,17 +37,19 @@ export default class MainService {
   selectChanelId: string
   recorder: RecorderService
   mediaDevice: MediaDeviceService
+  video: VideoService
 
   constructor(setAppRoot: (appRoot: MainService) => void) {
     this._setAppRoot = setAppRoot
     this.ws = null
     this.members = {}
-    this.room = { roomId: undefined, name: '' }
-    this.self = { connectionId: undefined, name: '' }
+    this.room = { roomId: '', name: '' }
+    this.self = { connectionId: '', name: '', photo: '' }
     this.chanels = {}
     this.selectChanelId = 'all'
     this.recorder = new RecorderService(this)
     this.mediaDevice = new MediaDeviceService(this)
+    this.video = new VideoService(this)
   }
 
   async setAppRoot() {
@@ -57,8 +58,9 @@ export default class MainService {
 
   async setName(name: string) {
     this.self = {
+      ...this.self,
       name,
-      photo: 'images/friends/David.png'
+      photo: 'images/friends/David.png',
     }
     await this.setAppRoot()
   }
@@ -80,14 +82,14 @@ export default class MainService {
   }
 
   async setChanelId(chanelId: string) {
-    this.selectChanelId = chanelId 
+    this.selectChanelId = chanelId
     await this.setAppRoot()
   }
 
   // サインアウト
   async signOut() {
     await this.leave()
-    this.self = { connectionId: undefined, name: '' }
+    this.self = { connectionId: '', name: '', photo: '' }
     await this.setAppRoot()
   }
 
@@ -135,7 +137,7 @@ export default class MainService {
   // ルームを退出する
   async leave() {
     this.ws?.close()
-    this.room = { roomId: undefined, name: '' }
+    this.room = { roomId: '', name: '' }
     await this.setAppRoot()
   }
 
@@ -210,20 +212,23 @@ export default class MainService {
         ...this.self,
       })
     })
-    this.ws?.on('please_add_me', async ({ sendId, connectionId, name, photo }) => {
-      if (sendId === this.self.connectionId) {
-        // ignore self message (自分自身からのメッセージは無視する）
-        return
-      }
-      // 新メンバーの情報をローカルに登録する
-      await this.addMember({ connectionId, name, photo } as Member)
+    this.ws?.on(
+      'please_add_me',
+      async ({ sendId, connectionId, name, photo }) => {
+        if (sendId === this.self.connectionId) {
+          // ignore self message (自分自身からのメッセージは無視する）
+          return
+        }
+        // 新メンバーの情報をローカルに登録する
+        await this.addMember({ connectionId, name, photo } as Member)
 
-      // 追加したことを新メンバーに回答する
-      this.ws?.unicast(connectionId, {
-        type: 'added_you',
-        ...this.self,
-      })
-    })
+        // 追加したことを新メンバーに回答する
+        this.ws?.unicast(connectionId, {
+          type: 'added_you',
+          ...this.self,
+        })
+      }
+    )
     this.ws?.on('added_you', async ({ sendId, connectionId, name, photo }) => {
       if (sendId === this.self.connectionId) {
         // ignore self message (自分自身からのメッセージは無視する）
@@ -243,6 +248,36 @@ export default class MainService {
         await this.chanels[sendId].chat.receiveChat({ sendId, ...data })
       }
     })
+
+    this.ws?.on('request_call', async ({ sendId }) => {
+      if (sendId === this.self.connectionId) {
+        // ignore self message (自分自身からのメッセージは無視する）
+        return
+      }
+      await this.video.receiveCall(sendId)
+    })
+    this.ws?.on('accept_call', async ({ sendId }) => {
+      if (sendId === this.self.connectionId) {
+        // ignore self message (自分自身からのメッセージは無視する）
+        return
+      }
+      await this.video.acceptCall()
+    })
+    this.ws?.on('reject_call', async ({ sendId }) => {
+      if (sendId === this.self.connectionId) {
+        // ignore self message (自分自身からのメッセージは無視する）
+        return
+      }
+      await this.video.rejectCall()
+    })
+    this.ws?.on('cancel_call', async ({ sendId }) => {
+      if (sendId === this.self.connectionId) {
+        // ignore self message (自分自身からのメッセージは無視する）
+        return
+      }
+      await this.video.cancelCall()
+    })
+
     this.ws?.on('unjoin', async ({ connectionId }) => {
       // 他のメンバーが離脱した時
       await this.removeMember(connectionId)

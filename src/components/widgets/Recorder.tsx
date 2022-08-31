@@ -1,18 +1,18 @@
-import React, { VFC, useRef, useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 
 import Main from '@/services/main'
 import Modal from '@/components/widgets/Modal'
 
 type Props = {
-  rtcClient: Main
+  main: Main
 }
 
-const Recorder: VFC<Props> = ({ rtcClient }) => {
+const Recorder: FC<Props> = ({ main }) => {
   useEffect(() => {
-    if (!rtcClient.recorder.isOpen) return
+    if (!main.recorder.isOpen) return
 
     window.setTimeout(() => {
-      const videoBlob = new Blob(rtcClient.recorder.chunks, {
+      const videoBlob = new Blob(main.recorder.chunks, {
         type: 'video/webm',
       })
       const blobUrl = window.URL.createObjectURL(videoBlob)
@@ -33,12 +33,12 @@ const Recorder: VFC<Props> = ({ rtcClient }) => {
         downloadVideo.href = blobUrl
       }
     }, 1000)
-  }, [rtcClient.recorder.isOpen])
+  }, [main.recorder.isOpen])
 
   return (
     <Modal
-      isOpen={rtcClient.recorder.isOpen}
-      handleClose={() => rtcClient.recorder.closeRecorder()}
+      isOpen={main.recorder.isOpen}
+      handleClose={() => main.recorder.closeRecorder()}
     >
       <video controls width="100%" id="recorder-play" />
       <a href="#" id="recorder-download">

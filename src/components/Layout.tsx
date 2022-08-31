@@ -5,17 +5,12 @@ import Header from '@/components/pages/Header'
 import SideMenu from '@/components/pages/SideMenu'
 
 const Layout: FC = ({ children }) => {
-  const rtcClient = useAppRoot()
+  const main = useAppRoot()
   const [isMenuOpen, setMenuOpen] = useState(false)
-  const [windowHeight, setWindowHeight] = useState(0)
 
-  useEffect(() => {
-    setWindowHeight(window.innerHeight)
-  }, [])
+  if (!main) return <></>
 
-  if (!rtcClient) return <></>
-
-  const newProps = { children, rtcClient }
+  const newProps = { children, main }
   const childrenWithProps = React.Children.map(
     children,
     (child: React.ReactElement) => React.cloneElement(child, { ...newProps })
@@ -23,17 +18,9 @@ const Layout: FC = ({ children }) => {
 
   return (
     <>
-      <Header
-        isMenuOpen={isMenuOpen}
-        setMenuOpen={setMenuOpen}
-        rtcClient={rtcClient}
-      />
-      <div style={appStyle(windowHeight)}>{childrenWithProps}</div>
-      <SideMenu
-        isMenuOpen={isMenuOpen}
-        setMenuOpen={setMenuOpen}
-        rtcClient={rtcClient}
-      />
+      <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
+      <div>{childrenWithProps}</div>
+      <SideMenu isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
     </>
   )
 }
@@ -43,13 +30,4 @@ Layout.propTypes = {
     .isRequired,
 }
 
-const appStyle = (vh) => {
-  return {
-    // height: vh,
-    // width: '100vw',
-    // overflow: 'scroll',
-    // display: 'flex',
-    // justifyContent: 'center',
-  }
-}
 export default Layout

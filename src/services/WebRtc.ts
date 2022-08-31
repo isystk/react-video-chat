@@ -1,4 +1,3 @@
-
 export class WebRtcService {
   localClientId: string
   mediaStream: MediaStream

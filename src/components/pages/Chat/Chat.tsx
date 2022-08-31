@@ -11,10 +11,10 @@ import moment from 'moment'
 
 // ↓ 表示用のデータ型
 interface IProps {
-  rtcClient: Main
+  main: Main
 }
 
-const Chat = ({ rtcClient }: IProps) => {
+const Chat = ({ main }: IProps) => {
   const label = 'メッセージを入力してください'
   const [disabled, setDisabled] = useState(true)
   const [message, setMessage] = useState('')
@@ -33,14 +33,14 @@ const Chat = ({ rtcClient }: IProps) => {
   const initializeLocalPeer = useCallback(
     async (e) => {
       e.persist()
-      await rtcClient.chanels[rtcClient.selectChanelId].chat.sendChat(message)
+      await main.chanels[main.selectChanelId].chat.sendChat(message)
       setMessage('')
       e.preventDefault()
     },
-    [message, rtcClient]
+    [message, main]
   )
 
-  if (_.size(rtcClient.chanels) === 0) return <></>
+  if (_.size(main.chanels) === 0) return <></>
 
   return (
     <div className="chat_box">
@@ -49,33 +49,33 @@ const Chat = ({ rtcClient }: IProps) => {
         className="chat_message"
         style={appStyle(windowHeight)}
       >
-        {rtcClient.chanels[rtcClient.selectChanelId].chat.messages.map((message, index) => {
-          const isMe = message.sendId === rtcClient.self.connectionId
-          const member = rtcClient.members[message.sendId]
-          const isStamp = 'stamp' === message.type
-          return (
-            <div
-              key={index}
-              className={`message_row ${
-                isMe ? 'you-message' : 'other-message'
-              }`}
-            >
-              <div className="message-content">
-                {!isMe && (
-                  <img className="head" src={member.photo} alt="" />
-                )}
-                {isStamp ? (
-                  <img className="head" src={Stamps[message.data]} alt="" />
-                ) : (
-                  <div className="message-text">{message.data}</div>
-                )}
-                <div className="message-time">
-                  {moment(message.datetime).format('MM/DD HH:mm')}
+        {main.chanels[main.selectChanelId].chat.messages.map(
+          (message, index) => {
+            const isMe = message.sendId === main.self.connectionId
+            const member = main.members[message.sendId]
+            const isStamp = 'stamp' === message.type
+            return (
+              <div
+                key={index}
+                className={`message_row ${
+                  isMe ? 'you-message' : 'other-message'
+                }`}
+              >
+                <div className="message-content">
+                  {!isMe && <img className="head" src={member.photo} alt="" />}
+                  {isStamp ? (
+                    <img className="head" src={Stamps[message.data]} alt="" />
+                  ) : (
+                    <div className="message-text">{message.data}</div>
+                  )}
+                  <div className="message-time">
+                    {moment(message.datetime).format('MM/DD HH:mm')}
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          }
+        )}
       </div>
       <div className="chat_input">
         <div className="myIcon2 iconTag">
@@ -85,7 +85,9 @@ const Chat = ({ rtcClient }: IProps) => {
               <div
                 className="emoji_icon"
                 key={key}
-                onClick={(e) => rtcClient.chanels[rtcClient.selectChanelId].chat.sendStamp(key)}
+                onClick={(e) =>
+                  main.chanels[main.selectChanelId].chat.sendStamp(key)
+                }
               >
                 <img src={stamp} alt="" />
               </div>

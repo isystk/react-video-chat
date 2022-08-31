@@ -5,7 +5,7 @@ export type Device = {
 }
 
 export default class MediaDeviceService {
-  rtcClient: Main
+  main: Main
 
   mediaStream: MediaStream | null
   isOpen: boolean
@@ -13,8 +13,8 @@ export default class MediaDeviceService {
   audioInput: Device | null
   audioOutput: Device | null
 
-  constructor(rtcClient: Main) {
-    this.rtcClient = rtcClient
+  constructor(main: Main) {
+    this.main = main
 
     this.mediaStream = null
     this.isOpen = false
@@ -25,12 +25,12 @@ export default class MediaDeviceService {
 
   async openMediaDevice() {
     this.isOpen = true
-    await this.rtcClient.setAppRoot()
+    await this.main.setAppRoot()
   }
 
   async closeMediaDevice() {
     this.isOpen = false
-    await this.rtcClient.setAppRoot()
+    await this.main.setAppRoot()
   }
 
   async setMediaDevice(deviceId: string, kind: string) {
@@ -46,7 +46,7 @@ export default class MediaDeviceService {
 
     await this.setMediaStream()
 
-    await this.rtcClient.setAppRoot()
+    await this.main.setAppRoot()
   }
 
   // カメラの使用許可を取得する
@@ -77,6 +77,6 @@ export default class MediaDeviceService {
     } catch (error) {
       console.error(error)
     }
-    await this.rtcClient.setAppRoot()
+    await this.main.setAppRoot()
   }
 }

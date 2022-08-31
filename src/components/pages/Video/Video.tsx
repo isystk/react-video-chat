@@ -14,11 +14,11 @@ import useDimensions from '@/stores/useDimentions'
 type Props = {
   isLocal: boolean
   member: Member
-  rtcClient: Main
+  main: Main
   videoRef: MutableRefObject<null>
 }
 
-const Video: FC<Props> = ({ isLocal, member, rtcClient, videoRef }) => {
+const Video: FC<Props> = ({ isLocal, member, main, videoRef }) => {
   const refCard = useRef(null)
   // ブラウザの表示サイズに応じてビデオを表示する幅を取得する
   const dimensionsCard = useDimensions(refCard)
@@ -30,7 +30,7 @@ const Video: FC<Props> = ({ isLocal, member, rtcClient, videoRef }) => {
 
   useEffect(() => {
     window.setTimeout(() => {
-      rtcClient.setAppRoot()
+      main.setAppRoot()
     }, 500)
   }, [])
 
@@ -40,15 +40,15 @@ const Video: FC<Props> = ({ isLocal, member, rtcClient, videoRef }) => {
         <img
           src="/images/user.png"
           width={dimensionsCard.width}
-          style={{ display: rtcClient.self.videoOff ? 'block' : 'none' }}
+          style={{ display: main.self.videoOff ? 'block' : 'none' }}
         />
         <video
           autoPlay
-          muted={isLocal || rtcClient.self.muted}
+          muted={isLocal || main.self.muted}
           ref={videoRef}
           width={dimensionsCard.width}
           id={`video-${member.connectionId}`}
-          style={{ display: !rtcClient.self.videoOff ? 'block' : 'none' }}
+          style={{ display: !main.self.videoOff ? 'block' : 'none' }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h3">
@@ -60,7 +60,7 @@ const Video: FC<Props> = ({ isLocal, member, rtcClient, videoRef }) => {
         <VolumeButton
           isLocal={isLocal}
           refVolumeButton={refVolumeButton}
-          rtcClient={rtcClient}
+          main={main}
         />
         {videoRef.current && videoRef.current.srcObject && (
           <AudioAnalyser

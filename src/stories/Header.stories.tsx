@@ -20,15 +20,11 @@ storiesOf('commons/Header', module)
       },
     } as MainService
     return (
-      <Header
-        isMenuOpen={false}
-        setMenuOpen={() => ({})}
-        rtcClient={mainService}
-      />
+      <Header isMenuOpen={false} setMenuOpen={() => ({})} main={mainService} />
     )
   })
   .add('Logined', () => {
-    const rtcClient = {
+    const main = {
       room: {
         name: 'sample',
       },
@@ -36,11 +32,5 @@ storiesOf('commons/Header', module)
         name: 'isystk',
       },
     } as MainService
-    return (
-      <Header
-        isMenuOpen={false}
-        setMenuOpen={() => ({})}
-        rtcClient={rtcClient}
-      />
-    )
+    return <Header isMenuOpen={false} setMenuOpen={() => ({})} main={main} />
   })

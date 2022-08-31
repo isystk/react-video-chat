@@ -7,18 +7,14 @@ import Main from '@/services/main'
 
 describe('Header', () => {
   it('Match Snapshot', () => {
-    const stateRtcClient = renderHook(() => useState<Main | null>(null))
-    const [, setAppRoot] = stateRtcClient.result.current
-    const rtcClient = new Main(setAppRoot)
+    const stateMain = renderHook(() => useState<Main | null>(null))
+    const [, setAppRoot] = stateMain.result.current
+    const main = new Main(setAppRoot)
     const stateMenuOpen = renderHook(() => useState<boolean>(false))
     const [isMenuOpen, setMenuOpen] = stateMenuOpen.result.current
-    if (rtcClient === null) return
+    if (main === null) return
     const component = renderer.create(
-      <Header
-        isMenuOpen={isMenuOpen}
-        setMenuOpen={setMenuOpen}
-        rtcClient={rtcClient}
-      />
+      <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
     )
     const tree = component.toJSON()
 

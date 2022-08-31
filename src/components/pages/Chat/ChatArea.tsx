@@ -8,6 +8,7 @@ import Recorder from '@/components/widgets/Recorder'
 import { URL } from '@/constants/url'
 import ChanelList from '@/components/pages/Chat/ChanelList'
 import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
+import Notion from '@/components/widgets/Notion'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type Props = {
-  rtcClient: Main
+  main: Main
 }
 
-const ChatArea: FC<Props> = ({ rtcClient }) => {
+const ChatArea: FC<Props> = ({ main }) => {
   const router = useRouter()
   const classes = useStyles()
   const [windowHeight, setWindowHeight] = useState(0)
@@ -36,46 +37,47 @@ const ChatArea: FC<Props> = ({ rtcClient }) => {
   useEffect(() => {
     // idがqueryで利用可能になったら処理される
     if (router.asPath !== router.route) {
-      rtcClient.setRoomId(router.query.id + '')
+      main.setRoomId(router.query.id + '')
     }
   }, [router])
 
   useEffect(() => {
-    if (rtcClient.self.name === '') {
+    if (main.self.name === '') {
       router.push(URL.HOME)
     }
-  }, [rtcClient.self.name])
+  }, [main.self.name])
 
   useEffect(() => {
-    if (rtcClient.self.name !== '' && rtcClient.room.name !== '') {
+    if (main.self.name !== '' && main.room.name !== '') {
       ;(async () => {
-        await rtcClient.mediaDevice.setMediaStream()
-        await rtcClient.join()
+        // await main.mediaDevice.setMediaStream()
+        await main.join()
       })()
     }
-  }, [rtcClient.self.name, rtcClient.room.name])
+  }, [main.self.name, main.room.name])
 
-  if (rtcClient.self.name === '') return <></>
-  if (rtcClient.room.name === '') return <></>
+  if (main.self.name === '') return <></>
+  if (main.room.name === '') return <></>
 
   return (
     <div className={classes.root}>
       <Grid container spacing={0}>
         <Grid item {...{ xs: 12, md: 3 }}>
           <div className="sp-hide" style={appStyle(windowHeight)}>
-            <ChanelList rtcClient={rtcClient} />
+            <ChanelList main={main} />
           </div>
         </Grid>
         <Grid item {...{ xs: 12, md: 6 }}>
-          <Chat rtcClient={rtcClient} />
+          <Chat main={main} />
         </Grid>
         <Grid item {...{ xs: 12, md: 3 }}>
           <div className="sp-hide">
-            <ChanelDetail rtcClient={rtcClient} />
+            <ChanelDetail main={main} />
           </div>
         </Grid>
       </Grid>
-      <Recorder rtcClient={rtcClient} />
+      <Recorder main={main} />
+      <Notion main={main} />
     </div>
   )
 }

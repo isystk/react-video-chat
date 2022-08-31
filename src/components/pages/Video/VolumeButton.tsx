@@ -11,17 +11,17 @@ type Props = {
   isLocal: boolean
   muted: OverridableComponent<SvgIconTypeMap>
   refVolumeButton: MutableRefObject<null>
-  rtcClient: Main
+  main: Main
   setMuted: (value: ((prevState: boolean) => boolean) | boolean) => void
 }
 
 const VolumeButton: FC<Props> = ({
   isLocal,
   refVolumeButton,
-  rtcClient,
+  main,
   color = 'black',
 }) => {
-  const Icon = isLocal && rtcClient.self.muted ? VolumeOffIcon : VolumeUpIcon
+  const Icon = isLocal && main.self.muted ? VolumeOffIcon : VolumeUpIcon
 
   return (
     <IconButton
@@ -29,7 +29,7 @@ const VolumeButton: FC<Props> = ({
       onClick={async () => {
         if (isLocal) {
           // 音声のオン・オフを切り替える
-          await rtcClient.toggleAudio()
+          await main.toggleAudio()
         }
       }}
       ref={refVolumeButton}

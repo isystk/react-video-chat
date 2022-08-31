@@ -7,27 +7,27 @@ import { useRouter } from 'next/router'
 import DeviceSetting from '@/components/widgets/DeviceSetting'
 
 type Props = {
-  rtcClient: Main
+  main: Main
 }
 
-const InputForms: VFC<Props> = ({ rtcClient }) => {
+const InputForms: VFC<Props> = ({ main }) => {
   const router = useRouter()
 
   useEffect(() => {
-    if (rtcClient.self.name && rtcClient.room.roomId) {
-      router.push(rtcClient.room.roomId)
+    if (main.self.name && main.room.roomId) {
+      router.push(main.room.roomId)
     }
-  }, [rtcClient.self.name, rtcClient.room.roomId])
+  }, [main.self.name, main.room.roomId])
 
   return (
     <>
       <Grid container spacing={0}>
         <Grid item xs={12}>
-          <InputFormName rtcClient={rtcClient} />
-          <InputFormRoom rtcClient={rtcClient} />
+          <InputFormName main={main} />
+          <InputFormRoom main={main} />
         </Grid>
       </Grid>
-      <DeviceSetting rtcClient={rtcClient} />
+      <DeviceSetting main={main} />
     </>
   )
 }

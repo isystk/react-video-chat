@@ -18,7 +18,7 @@ import * as _ from 'lodash'
 type Props = {
   isMenuOpen: boolean
   setMenuOpen: Dispatch<SetStateAction<boolean>>
-  rtcClient: Main
+  main: Main
 }
 
 const useStyles = makeStyles(() => ({
@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const CommonHeader: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
+const CommonHeader: VFC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
   const DEAULT_TITLE = process.env.APP_NAME
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
@@ -45,17 +45,15 @@ const CommonHeader: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
             >
               <MenuIcon />
             </IconButton>
-            <div className="App-logo">
-              {rtcClient.room.name || DEAULT_TITLE}
-            </div>
-            {rtcClient.self.name !== '' && rtcClient.room.name !== '' && (
+            <div className="App-logo">{main.room.name || DEAULT_TITLE}</div>
+            {main.self.name !== '' && main.room.name !== '' && (
               <div className="Room-joins">
                 <PeopleAltIcon></PeopleAltIcon>
-                <span>{_.size(rtcClient.members) + 1}</span>
+                <span>{_.size(main.members) + 1}</span>
               </div>
             )}
           </Grid>
-          {rtcClient.self.name === '' ? (
+          {main.self.name === '' ? (
             <></>
           ) : (
             <Grid container justifyContent="flex-end">
@@ -66,7 +64,7 @@ const CommonHeader: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
                 onClick={(e) => setAnchorEl(e.currentTarget)}
                 className={classes.noTransform}
               >
-                {rtcClient.self.name} さん ({rtcClient.self.connectionId})
+                {main.self.name} さん ({main.self.connectionId})
               </Button>
               <Menu
                 id="user-menu"
@@ -76,7 +74,7 @@ const CommonHeader: VFC<Props> = ({ isMenuOpen, setMenuOpen, rtcClient }) => {
               >
                 <MenuItem
                   onClick={async () => {
-                    await rtcClient.signOut()
+                    await main.signOut()
                   }}
                 >
                   ログアウト

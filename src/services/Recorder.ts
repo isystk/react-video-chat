@@ -1,7 +1,7 @@
 import Main from '@/services/main'
 
 export default class RecorderService {
-  rtcClient: Main
+  main: Main
 
   // @ts-ignore
   mediaRecorder: MediaRecorder | null
@@ -9,8 +9,8 @@ export default class RecorderService {
   isOpen: boolean
   chunks: []
 
-  constructor(rtcClient: Main) {
-    this.rtcClient = rtcClient
+  constructor(main: Main) {
+    this.main = main
     this.mediaRecorder = null
     this.isRecording = false
     this.isOpen = false
@@ -51,7 +51,7 @@ export default class RecorderService {
     // 録画開始
     this.isRecording = true
     this.mediaRecorder.start()
-    await this.rtcClient.setAppRoot()
+    await this.main.setAppRoot()
   }
 
   // 録画の停止
@@ -64,7 +64,7 @@ export default class RecorderService {
         // this.mediaRecorder = null
         this.isRecording = false
         this.isOpen = true
-        await this.rtcClient.setAppRoot()
+        await this.main.setAppRoot()
       }
       this.mediaRecorder?.stop()
     }
@@ -72,6 +72,6 @@ export default class RecorderService {
   // 録画モーダルを閉じる
   async closeRecorder() {
     this.isOpen = false
-    await this.rtcClient.setAppRoot()
+    await this.main.setAppRoot()
   }
 }

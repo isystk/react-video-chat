@@ -4,22 +4,28 @@ import * as _ from 'lodash'
 
 // ↓ 表示用のデータ型
 interface IProps {
-  rtcClient: Main
+  main: Main
 }
 
-const ChanelList = ({ rtcClient }: IProps) => {
+const ChanelList = ({ main }: IProps) => {
   return (
     <div id="myChatList" className="chat_list">
-      {_.map(rtcClient.chanels, (chanel, index) => (
-        <div className={`chatListTag ${rtcClient.selectChanelId === chanel.id ? 'active' : ''}`} key={index} onClick={async () => await rtcClient.setChanelId(chanel.id) } >
-            <div className="head">
-              <img src={chanel.photo} alt="" />
-            </div>
-            <div className="mytext">
-              <div className="name">{chanel.name}</div>
-              <div className="dec">{chanel.detail}</div>
-            </div>
-            <div className="msg_num">7</div>
+      {_.map(main.chanels, (chanel, index) => (
+        <div
+          className={`chatListTag ${
+            main.selectChanelId === chanel.id ? 'active' : ''
+          }`}
+          key={index}
+          onClick={async () => await main.setChanelId(chanel.id)}
+        >
+          <div className="head">
+            <img src={chanel.photo} alt="" />
+          </div>
+          <div className="mytext">
+            <div className="name">{chanel.name}</div>
+            <div className="dec">{chanel.detail}</div>
+          </div>
+          <div className="msg_num">7</div>
         </div>
       ))}
     </div>

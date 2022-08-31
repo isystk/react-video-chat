@@ -1,4 +1,4 @@
-import React, { VFC, useRef, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import Select from '@material-ui/core/Select'
 import Main from '@/services/main'
@@ -8,26 +8,17 @@ import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
-  form: {
-    position: 'absolute',
-    top: '0',
-    right: '0',
-    bottom: '0',
-    left: '0',
-    margin: 'auto',
-    width: '80%',
-    height: '16rem',
-  },
+  form: {},
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
 }))
 
 type Props = {
-  rtcClient: Main
+  main: Main
 }
 
-const DeviceSetting: VFC<Props> = ({ rtcClient }) => {
+const DeviceSetting: FC<Props> = ({ main }) => {
   const classes = useStyles()
   const [videoInput, setVideoInput] = useState([])
   const [videoInputDefault, setVideoInputDefault] = useState('')
@@ -63,13 +54,13 @@ const DeviceSetting: VFC<Props> = ({ rtcClient }) => {
   }, [])
 
   const changeDevice = async (e, kind) => {
-    await rtcClient.mediaDevice.setMediaDevice(e.target.value, kind)
+    await main.mediaDevice.setMediaDevice(e.target.value, kind)
   }
 
   return (
     <Modal
-      isOpen={rtcClient.mediaDevice.isOpen}
-      handleClose={() => rtcClient.mediaDevice.closeMediaDevice()}
+      isOpen={main.mediaDevice.isOpen}
+      handleClose={() => main.mediaDevice.closeMediaDevice()}
     >
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -80,7 +71,7 @@ const DeviceSetting: VFC<Props> = ({ rtcClient }) => {
           <Select
             fullWidth
             defaultValue={videoInputDefault}
-            value={rtcClient.mediaDevice.videoInput?.deviceId}
+            value={main.mediaDevice.videoInput?.deviceId}
             onChange={(e) => changeDevice(e, 'videoinput')}
           >
             {videoInput.map((item) => (
@@ -95,7 +86,7 @@ const DeviceSetting: VFC<Props> = ({ rtcClient }) => {
           <Select
             fullWidth
             defaultValue={audioInputDefault}
-            value={rtcClient.mediaDevice.audioInput?.deviceId}
+            value={main.mediaDevice.audioInput?.deviceId}
             onChange={(e) => changeDevice(e, 'audioinput')}
           >
             {audioInput.map((item) => (
@@ -110,7 +101,7 @@ const DeviceSetting: VFC<Props> = ({ rtcClient }) => {
           <Select
             fullWidth
             defaultValue={audioOutputDefault}
-            value={rtcClient.mediaDevice.audioOutput?.deviceId}
+            value={main.mediaDevice.audioOutput?.deviceId}
             onChange={(e) => changeDevice(e, 'audiooutput')}
           >
             {audioOutput.map((item) => (

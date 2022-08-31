@@ -5,23 +5,18 @@ import Video from './Video'
 import Main, { Member } from '@/services/main'
 
 type Props = {
-  rtcClient: Main
+  main: Main
   member: Member
 }
 
-const VideoRemote: VFC<Props> = ({ rtcClient, member }) => {
+const VideoRemote: VFC<Props> = ({ main, member }) => {
   const videoRef = useRef(null)
 
-  if (rtcClient.room.name === '') return <></>
+  if (main.room.name === '') return <></>
 
   return (
     <>
-      <Video
-        isLocal={false}
-        member={member}
-        rtcClient={rtcClient}
-        videoRef={videoRef}
-      />
+      <Video isLocal={false} member={member} main={main} videoRef={videoRef} />
     </>
   )
 }

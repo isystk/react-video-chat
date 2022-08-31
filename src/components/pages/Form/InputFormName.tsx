@@ -28,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type Props = {
-  rtcClient: Main
+  main: Main
 }
 
-const SignIn: FC<Props> = ({ rtcClient }) => {
+const SignIn: FC<Props> = ({ main }) => {
   const label = 'あなたの名前'
   const classes = useStyles()
   const [disabled, setDisabled] = useState(true)
@@ -46,13 +46,13 @@ const SignIn: FC<Props> = ({ rtcClient }) => {
   const initializeLocalPeer = useCallback(
     async (e) => {
       e.persist()
-      await rtcClient.setName(name)
+      await main.setName(name)
       e.preventDefault()
     },
-    [name, rtcClient]
+    [name, main]
   )
 
-  if (rtcClient.self.name !== '') return <></>
+  if (main.self.name !== '') return <></>
 
   return (
     <Container component="main" maxWidth="xs">

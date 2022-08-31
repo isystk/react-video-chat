@@ -23,13 +23,13 @@ export const Stamps = {
 }
 
 export default class ChatService {
-  rtcClient: Main
+  main: Main
 
   chanelId: string
   messages: ChatMessage[]
 
-  constructor(rtcClient: Main, chanelId: string) {
-    this.rtcClient = rtcClient
+  constructor(main: Main, chanelId: string) {
+    this.main = main
     this.chanelId = chanelId
     this.messages = []
   }
@@ -39,23 +39,23 @@ export default class ChatService {
       type: 'text',
       data,
       chanelId: this.chanelId,
-      sendId: this.rtcClient.self.connectionId,
+      sendId: this.main.self.connectionId,
       datetime: new Date(),
     } as ChatMessage
     this.messages = [...this.messages, message]
     // メッセージを送信する
     if ('all' === this.chanelId) {
-      this.rtcClient.ws?.multicast({
+      this.main.ws?.multicast({
         type: 'chat',
         data: message,
       })
     } else {
-      this.rtcClient.ws?.unicast(this.chanelId, {
+      this.main.ws?.unicast(this.chanelId, {
         type: 'chat',
         data: message,
       })
     }
-    await this.rtcClient.setAppRoot()
+    await this.main.setAppRoot()
   }
 
   async sendStamp(key: string) {
@@ -68,27 +68,27 @@ export default class ChatService {
       type: 'stamp',
       data: key,
       chanelId: this.chanelId,
-      sendId: this.rtcClient.self.connectionId,
+      sendId: this.main.self.connectionId,
       datetime: new Date(),
     } as ChatMessage
     this.messages = [...this.messages, message]
     // メッセージを送信する
     if ('all' === this.chanelId) {
-      this.rtcClient.ws?.multicast({
+      this.main.ws?.multicast({
         type: 'chat',
         data: message,
       })
     } else {
-      this.rtcClient.ws?.unicast(this.chanelId, {
+      this.main.ws?.unicast(this.chanelId, {
         type: 'chat',
         data: message,
       })
     }
-    await this.rtcClient.setAppRoot()
+    await this.main.setAppRoot()
   }
 
   async receiveChat(message: ChatMessage) {
     this.messages = [...this.messages, message]
-    await this.rtcClient.setAppRoot()
+    await this.main.setAppRoot()
   }
 }

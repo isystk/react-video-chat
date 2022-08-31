@@ -4,13 +4,13 @@ import Video from './Video'
 import Main from '@/services/main'
 
 type Props = {
-  rtcClient: Main
+  main: Main
 }
 
-const VideoLocal: FC<Props> = ({ rtcClient }) => {
+const VideoLocal: FC<Props> = ({ main }) => {
   const videoRef = useRef(null)
   const currentVideoRef = videoRef.current
-  const mediaStream = rtcClient.mediaDevice.mediaStream
+  const mediaStream = main.mediaDevice.mediaStream
 
   useEffect(() => {
     if (currentVideoRef === null) return
@@ -27,14 +27,14 @@ const VideoLocal: FC<Props> = ({ rtcClient }) => {
     getMedia()
   }, [currentVideoRef, mediaStream])
 
-  if (rtcClient.self.name === '' || rtcClient.room.name === '') return <></>
+  if (main.self.name === '' || main.room.name === '') return <></>
 
   return (
     <>
       <Video
         isLocal={true}
-        member={rtcClient.self}
-        rtcClient={rtcClient}
+        member={main.self}
+        main={main}
         videoRef={videoRef}
       />
     </>
