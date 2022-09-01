@@ -7,6 +7,11 @@ import SideMenu from '@/components/pages/SideMenu'
 const Layout: FC = ({ children }) => {
   const main = useAppRoot()
   const [isMenuOpen, setMenuOpen] = useState(false)
+  const [windowHeight, setWindowHeight] = useState(0)
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight)
+  }, [])
 
   if (!main) return <></>
 
@@ -19,7 +24,7 @@ const Layout: FC = ({ children }) => {
   return (
     <>
       <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
-      <div>{childrenWithProps}</div>
+      <div style={appStyle(windowHeight)}>{childrenWithProps}</div>
       <SideMenu isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
     </>
   )
@@ -30,4 +35,13 @@ Layout.propTypes = {
     .isRequired,
 }
 
+const appStyle = (vh) => {
+  return {
+  //   height: vh,
+  //   width: '100vw',
+  //   overflow: 'scroll',
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  }
+}
 export default Layout

@@ -10,7 +10,6 @@ type Props = {
 }
 
 const Notion: FC<Props> = ({ main }) => {
-
   if (main.video.connectionId == '') return <></>
 
   const isOpen = main.video.nowCallSending || main.video.nowCallReceiving
@@ -19,15 +18,16 @@ const Notion: FC<Props> = ({ main }) => {
 
   return (
     <Modal isOpen={isOpen} hideCloseBtn={true}>
-      <Container component="main" width="100px">
+      <Container component="main">
         <CssBaseline />
         <div className="notion">
           <div className="myHeadPhoto">
             <img src={photo} alt="" />
           </div>
           <div className="myName">{name}</div>
+          <div className="btn">
           {main.video.nowCallReceiving ? (
-            <div className="btn">
+            <>
               <Button
                 color="secondary"
                 onClick={(e) => main.video.sendRejectCall(connectionId)}
@@ -44,7 +44,7 @@ const Notion: FC<Props> = ({ main }) => {
               >
                 いいよ！
               </Button>
-            </div>
+            </>
           ) : (
             <Button
               color="secondary"
@@ -55,6 +55,14 @@ const Notion: FC<Props> = ({ main }) => {
               キャンセル
             </Button>
           )}
+          </div>
+          <div className="loading">
+            <div className="snippet" data-title=".dot-pulse">
+              <div className="stage">
+                <div className="dot-pulse"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </Container>
     </Modal>

@@ -21,13 +21,18 @@ const InputForms: VFC<Props> = ({ main }) => {
 
   return (
     <>
-      <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <InputFormName main={main} />
-          <InputFormRoom main={main} />
+      <div className="area" >
+        <ul className="circles">
+          <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+        </ul>
+        <Grid container spacing={0}>
+          <Grid item xs={12}>
+            <InputFormName main={main} />
+            <InputFormRoom main={main} />
+          </Grid>
         </Grid>
-      </Grid>
-      <DeviceSetting main={main} />
+        <DeviceSetting main={main} />
+      </div >
     </>
   )
 }
