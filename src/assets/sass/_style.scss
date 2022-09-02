@@ -3,6 +3,9 @@
     margin: 0;
     box-sizing: border-box;
 }
+input {
+  background: #fff !important;
+}
 
 .App-logo {
     font-size: 16px;
@@ -24,15 +27,8 @@
 }
 
 .App-header {
-  position: static !important;
   background-color: #3f51b5;
   font-size: calc(10px + 1.5vmin);
-  color: white;
-}
-
-.App-footer {
-  background-color: #3f51b5;
-  font-size: calc(4px + 1.5vmin);
   color: white;
 }
 
@@ -200,6 +196,7 @@
 .me_block{
     background-color: #fff;
     padding: 20px 10px;
+    height: 100%;
 }
 .me_block .myHeadPhoto{
     width: 100px;
@@ -316,17 +313,16 @@
   color: rgba(250, 250, 250, 1);
   font-size: 24px;
   text-align: center;
-  opacity: 0;
-  visibility: hidden;
+  display: none;
   z-index: 2147483647;
+  max-width: 90%;
 }
 .overlay .wrap {
     background-color: #fff;
     padding: 20px 10px 40px;
 }
 .overlay.open {
-    opacity: 1;
-    visibility: visible;
+    display: block;
 }
 .overlay .title{
     margin-bottom: 5px;
@@ -467,7 +463,14 @@
     background: #eee;  
     background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
     width: 100%;
-    height:100vh;
+    height: 80vh;
+    margin-top: 9vh;
+}
+@media screen and (min-width:992px){
+  .area {
+    height: 93vh;
+    margin-top: 7vh;
+  }
 }
 .circles{
     position: absolute;

@@ -6,7 +6,7 @@ export default class VideoService {
   nowCallSending: boolean
   nowCallReceiving: boolean
   connectionId: string
-  
+
   callingSound: Audio
 
   constructor(main: Main) {
@@ -14,11 +14,11 @@ export default class VideoService {
     this.nowCallSending = false
     this.nowCallReceiving = false
     this.connectionId = ''
-    const audio = new Audio() 
-    audio.preload = "auto";
-    audio.src = "/sounds/calling.mp3";
-    audio.load();
-    this.callingSound = audio;
+    const audio = new Audio()
+    audio.preload = 'auto'
+    audio.src = '/sounds/calling.mp3'
+    audio.load()
+    this.callingSound = audio
   }
 
   sendRequestCall(connectionId) {
@@ -90,15 +90,14 @@ export default class VideoService {
     this.pauseSound()
     this.main.setAppRoot()
   }
-  
+
   playSound() {
-    this.callingSound.loop = true;
+    this.callingSound.loop = true
     this.callingSound.play()
   }
-  
+
   pauseSound() {
     this.callingSound.pause()
-    this.callingSound.currentTime = 0;
+    this.callingSound.currentTime = 0
   }
-  
 }

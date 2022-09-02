@@ -4,6 +4,8 @@ import useAppRoot from '@/stores/useAppRoot'
 import Header from '@/components/pages/Header'
 import SideMenu from '@/components/pages/SideMenu'
 
+export const Context = React.createContext(null)
+
 const Layout: FC = ({ children }) => {
   const main = useAppRoot()
   const [isMenuOpen, setMenuOpen] = useState(false)
@@ -15,17 +17,18 @@ const Layout: FC = ({ children }) => {
 
   if (!main) return <></>
 
-  const newProps = { children, main }
   const childrenWithProps = React.Children.map(
     children,
-    (child: React.ReactElement) => React.cloneElement(child, { ...newProps })
+    (child: React.ReactElement) => React.cloneElement(child, { children })
   )
 
   return (
     <>
-      <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
-      <div style={appStyle(windowHeight)}>{childrenWithProps}</div>
-      <SideMenu isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
+      <Context.Provider value={main}>
+        <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
+        <div style={appStyle(windowHeight)}>{childrenWithProps}</div>
+        <SideMenu isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
+      </Context.Provider>
     </>
   )
 }
@@ -37,11 +40,11 @@ Layout.propTypes = {
 
 const appStyle = (vh) => {
   return {
-  //   height: vh,
-  //   width: '100vw',
-  //   overflow: 'scroll',
-  //   display: 'flex',
-  //   justifyContent: 'center',
+    //   height: vh,
+    //   width: '100vw',
+    //   overflow: 'scroll',
+    //   display: 'flex',
+    //   justifyContent: 'center',
   }
 }
 export default Layout

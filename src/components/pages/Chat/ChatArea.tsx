@@ -1,6 +1,5 @@
 import Grid from '@material-ui/core/Grid'
-import React, { useEffect, FC, useState } from 'react'
-import Main from '@/services/main'
+import React, { useEffect, FC, useState, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 import Chat from '@/components/pages/Chat/Chat'
@@ -9,6 +8,7 @@ import { URL } from '@/constants/url'
 import ChanelList from '@/components/pages/Chat/ChanelList'
 import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
 import Notion from '@/components/widgets/Notion'
+import { Context } from '@/components/Layout'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,13 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-type Props = {
-  main: Main
-}
-
-const ChatArea: FC<Props> = ({ main }) => {
+const ChatArea: FC = () => {
+  const main = useContext(Context)
   const router = useRouter()
-  const classes = useStyles()
   const [windowHeight, setWindowHeight] = useState(0)
 
   useEffect(() => {
@@ -60,7 +56,7 @@ const ChatArea: FC<Props> = ({ main }) => {
   if (main.room.name === '') return <></>
 
   return (
-    <div className={classes.root}>
+    <div className="area">
       <Grid container spacing={0}>
         <Grid item {...{ xs: 12, md: 3 }}>
           <div className="sp-hide" style={appStyle(windowHeight)}>

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, VFC } from 'react'
+import React, { Dispatch, SetStateAction, useContext, FC } from 'react'
 import {
   Divider,
   Drawer,
@@ -19,9 +19,8 @@ import { useRouter } from 'next/router'
 import Main from '@/services/main'
 import { URL } from '@/constants/url'
 import ChanelList from '@/components/pages/Chat/ChanelList'
-import Grid from '@material-ui/core/Grid'
-import Chat from '@/components/pages/Chat/Chat'
 import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
+import { Context } from '@/components/Layout'
 
 type Props = {
   isMenuOpen: boolean
@@ -29,7 +28,7 @@ type Props = {
   main: Main
 }
 
-const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
+const SideMenu: FC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
   const router = useRouter()
 
   const RecoderIcon = main.recorder.isRecording
@@ -104,6 +103,8 @@ const SideMenu: VFC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
       <div className="pc-hide">
         <ChanelList main={main} />
         <Divider />
+      </div>
+      <div className="pc-hide">
         <ChanelDetail main={main} />
         <Divider />
       </div>

@@ -1,8 +1,8 @@
-import React, { VFC } from 'react'
+import React, { FC } from 'react'
 import ChatArea from '@/components/pages/Chat/ChatArea'
 import Layout from '@/components/Layout'
 
-const Room: VFC = () => {
+const Room: FC = () => {
   return (
     <Layout>
       <ChatArea />

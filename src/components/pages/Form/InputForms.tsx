@@ -1,18 +1,16 @@
 import Grid from '@material-ui/core/Grid'
 import InputFormName from './InputFormName'
 import InputFormRoom from './InputFormRoom'
-import React, { useEffect, VFC } from 'react'
-import Main from '@/services/main'
+import React, { useEffect, FC, useContext } from 'react'
 import { useRouter } from 'next/router'
 import DeviceSetting from '@/components/widgets/DeviceSetting'
+import { Context } from '@/components/Layout'
 
-type Props = {
-  main: Main
-}
-
-const InputForms: VFC<Props> = ({ main }) => {
+const InputForms: FC = () => {
+  const main = useContext(Context)
   const router = useRouter()
 
+  console.log(main)
   useEffect(() => {
     if (main.self.name && main.room.roomId) {
       router.push(main.room.roomId)
@@ -21,9 +19,18 @@ const InputForms: VFC<Props> = ({ main }) => {
 
   return (
     <>
-      <div className="area" >
+      <div className="area">
         <ul className="circles">
-          <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
         </ul>
         <Grid container spacing={0}>
           <Grid item xs={12}>
@@ -32,7 +39,7 @@ const InputForms: VFC<Props> = ({ main }) => {
           </Grid>
         </Grid>
         <DeviceSetting main={main} />
-      </div >
+      </div>
     </>
   )
 }

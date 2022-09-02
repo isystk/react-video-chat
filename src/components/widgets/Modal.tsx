@@ -43,7 +43,13 @@ const Modal: FC<Props> = ({ children, isOpen, hideCloseBtn, handleClose }) => {
           <Fab
             color="default"
             aria-label="add"
-            style={{ position: 'absolute', top: '-25px', right: '-25px' }}
+            style={{
+              position: 'absolute',
+              top: '5px',
+              right: '10px',
+              width: '35px',
+              height: '20px',
+            }}
           >
             <CloseIcon onClick={onClose}>
               <span aria-hidden="true">&times;</span>

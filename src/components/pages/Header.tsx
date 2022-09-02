@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, VFC } from 'react'
+import React, { Dispatch, SetStateAction, useContext, FC } from 'react'
 import {
   AppBar,
   Toolbar,
@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const CommonHeader: VFC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
+const CommonHeader: FC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
   const DEAULT_TITLE = process.env.APP_NAME
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null

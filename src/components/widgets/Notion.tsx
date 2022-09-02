@@ -26,35 +26,35 @@ const Notion: FC<Props> = ({ main }) => {
           </div>
           <div className="myName">{name}</div>
           <div className="btn">
-          {main.video.nowCallReceiving ? (
-            <>
+            {main.video.nowCallReceiving ? (
+              <>
+                <Button
+                  color="secondary"
+                  onClick={(e) => main.video.sendRejectCall(connectionId)}
+                  type="submit"
+                  variant="contained"
+                >
+                  また後で
+                </Button>
+                <Button
+                  color="primary"
+                  onClick={(e) => main.video.sendAcceptCall(connectionId)}
+                  type="submit"
+                  variant="contained"
+                >
+                  いいよ！
+                </Button>
+              </>
+            ) : (
               <Button
                 color="secondary"
-                onClick={(e) => main.video.sendRejectCall(connectionId)}
+                onClick={(e) => main.video.sendCancelCall(connectionId)}
                 type="submit"
                 variant="contained"
               >
-                また後で
+                キャンセル
               </Button>
-              <Button
-                color="primary"
-                onClick={(e) => main.video.sendAcceptCall(connectionId)}
-                type="submit"
-                variant="contained"
-              >
-                いいよ！
-              </Button>
-            </>
-          ) : (
-            <Button
-              color="secondary"
-              onClick={(e) => main.video.sendCancelCall(connectionId)}
-              type="submit"
-              variant="contained"
-            >
-              キャンセル
-            </Button>
-          )}
+            )}
           </div>
           <div className="loading">
             <div className="snippet" data-title=".dot-pulse">
