@@ -8,7 +8,7 @@ input {
 }
 
 .App-logo {
-    font-size: 16px;
+    font-size: 15px;
     display: flex;
     align-items: center;
 }
@@ -172,10 +172,15 @@ input {
     border: 1px solid #777;
     flex-wrap: wrap;
     position: absolute;
-    top: 80%;
+    top: 70%;
     left: 0;
     z-index: 1;
     display: none;
+}
+@media screen and (min-width:992px){
+  .icon_block {
+    top: 80%;
+  }
 }
 .iconTag:hover .icon_block{
     display: flex;
@@ -462,7 +467,7 @@ input {
     background: #eee;  
     background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
     width: 100%;
-    height: 80vh;
+    height: 91vh;
     margin-top: 9vh;
 }
 @media screen and (min-width:992px){

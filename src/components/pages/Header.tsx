@@ -64,7 +64,7 @@ const CommonHeader: FC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
                 onClick={(e) => setAnchorEl(e.currentTarget)}
                 className={classes.noTransform}
               >
-                {main.self.name} さん ({main.self.connectionId})
+                {main.self.name} さん
               </Button>
               <Menu
                 id="user-menu"

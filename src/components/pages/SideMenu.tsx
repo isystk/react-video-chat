@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext, FC } from 'react'
+import React, { Dispatch, SetStateAction, FC } from 'react'
 import {
   Divider,
   Drawer,
@@ -13,14 +13,12 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import FullscreenIcon from '@material-ui/icons/Fullscreen'
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import StopIcon from '@material-ui/icons/Stop'
-import ScreenShareIcon from '@material-ui/icons/ScreenShare'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { useRouter } from 'next/router'
 import Main from '@/services/main'
 import { URL } from '@/constants/url'
 import ChanelList from '@/components/pages/Chat/ChanelList'
 import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
-import { Context } from '@/components/Layout'
 
 type Props = {
   isMenuOpen: boolean
@@ -82,15 +80,7 @@ const SideMenu: FC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
         setMenuOpen(!isMenuOpen)
       },
       !joined,
-    ],
-    画面共有: [
-      <ScreenShareIcon key={0} />,
-      async () => {
-        await main.share.startShare()
-        setMenuOpen(!isMenuOpen)
-      },
-      !joined,
-    ],
+    ]
   }
   return (
     <Drawer open={isMenuOpen} onClose={() => setMenuOpen(!isMenuOpen)}>

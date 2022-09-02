@@ -10,6 +10,7 @@ import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
 import Notion from '@/components/widgets/Notion'
 import Main from '@/services/main'
 import VideoArea from '@/components/pages/Video/VideoArea'
+import {Context} from "@/components/Layout";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,11 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-type Props = {
-  main: Main
-}
-
-const ChatArea: FC<Props> = ({ main }) => {
+const ChatArea: FC = () => {
+  const main = useContext(Context)
   const router = useRouter()
   const [windowHeight, setWindowHeight] = useState(0)
 
