@@ -1,8 +1,8 @@
 import React from 'react'
 import { Fragment, useState } from 'react'
-import { createSignalingChannel } from './createSignalChannel'
-import { startMaster, stopMaster } from './Master'
-import { startViewer, stopViewer } from './Viewer'
+import { createSignalingChannel } from '../../services/Video/createSignalChannel'
+import { startMaster, stopMaster } from '../../services/Video/Master'
+import { startViewer, stopViewer } from '../../services/Video/Viewer'
 import Container from '@material-ui/core/Container'
 
 import {
@@ -142,6 +142,8 @@ export const MyForm = () => {
                   sendVideo: isVideoSend,
                   sendAudio: isAudioSend,
                   useTrickleICE: useTrickleICE,
+                  localConnectionId: "local",
+                  remoteConnectionId: "remote"
                 })
               }}
             >
@@ -157,6 +159,8 @@ export const MyForm = () => {
                   sendVideo: isVideoSend,
                   sendAudio: isAudioSend,
                   useTrickleICE: useTrickleICE,
+                  localConnectionId: "local",
+                  remoteConnectionId: "remote"
                 })
               }}
             >
@@ -198,14 +202,14 @@ export const MyForm = () => {
       <div>
         <h4>remote</h4>
         <video
-          id="remote-video"
+          id="video-remote"
           width="480px"
           height="360px"
           style={{ color: 'black', border: 'solid' }}
         ></video>
         <h4>local</h4>
         <video
-          id="local-video"
+          id="video-local"
           width="240px"
           height="180px"
           style={{ color: 'black', border: 'solid' }}

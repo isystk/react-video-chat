@@ -12,9 +12,7 @@ export default class extends NextDocument<Props> {
   render() {
     return (
       <Html lang="ja">
-        <Head>
-          <title>{process.env.APP_NAME}</title>
-        </Head>
+        <Head></Head>
         <body className="hold-transition sidebar-mini App">
           <Main />
           <NextScript />

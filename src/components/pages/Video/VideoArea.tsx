@@ -1,9 +1,9 @@
 import Grid from '@material-ui/core/Grid'
-import React, {useEffect, FC, useContext} from 'react'
+import React, { FC } from 'react'
 import VideoLocal from './VideoLocal'
 import VideoRemote from './VideoRemote'
 import { makeStyles } from '@material-ui/core/styles'
-import {Context} from "@/components/Layout";
+import Main from '@/services/main'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,10 +16,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const VideoArea: FC = () => {
-  const main = useContext(Context)
+type Props = {
+  main: Main
+}
+
+const VideoArea: FC<Props> = ({main}) => {
   const classes = useStyles()
-  
+
   const grids = {
     0: { xs: 12, sm: 6, md: 6 },
     1: { xs: 12, sm: 6, md: 6 },

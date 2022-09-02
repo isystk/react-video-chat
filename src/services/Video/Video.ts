@@ -1,4 +1,6 @@
-import Main, {Member} from '@/services/main'
+import Main, { Member } from '@/services/main'
+import {startMaster} from '@/services/Video/Master'
+import {startViewer} from '@/services/Video/Viewer'
 
 export default class VideoService {
   main: Main
@@ -31,7 +33,6 @@ export default class VideoService {
       type: 'request_call',
       data: {},
     })
-
     this.main.setAppRoot()
   }
 
@@ -50,8 +51,23 @@ export default class VideoService {
       data: {},
     })
     // ビデオ通話の開始
-    this.isPeerConnected=true
-    this.main.mediaDevice.setMediaStream()
+    this.isPeerConnected = true
+    // this.main.mediaDevice.setMediaStream()
+    
+    window.setTimeout(() => {
+      startMaster({
+        channelName: 'test',
+        natTraversal: "STUN/TURN",
+        widescreen: true,
+        sendVideo: true,
+        sendAudio: false,
+        useTrickleICE: true,
+        localConnectionId: this.main.self.connectionId,
+        remoteConnectionId: this.members[0].connectionId
+      })
+      this.main.setAppRoot()
+    }, 500)
+
     this.main.setAppRoot()
   }
 
@@ -75,22 +91,37 @@ export default class VideoService {
     this.main.setAppRoot()
   }
 
-  acceptCall() {
+  receiveAcceptCall() {
     this.nowCallSending = false
     this.pauseSound()
     // ビデオ通話の開始
-    this.isPeerConnected=true
-    this.main.mediaDevice.setMediaStream()
+    this.isPeerConnected = true
+    // this.main.mediaDevice.setMediaStream()
+
+    window.setTimeout(() => {
+      startViewer({
+        channelName: 'test',
+        natTraversal: "STUN/TURN",
+        widescreen: true,
+        sendVideo: true,
+        sendAudio: false,
+        useTrickleICE: true,
+        localConnectionId: this.main.self.connectionId,
+        remoteConnectionId: this.members[0].connectionId
+      })
+      this.main.setAppRoot()
+    }, 800)
+
     this.main.setAppRoot()
   }
 
-  rejectCall() {
+  receiveRejectCall() {
     this.nowCallSending = false
     this.pauseSound()
     this.main.setAppRoot()
   }
 
-  cancelCall() {
+  receiveCancelCall() {
     this.nowCallReceiving = false
     this.pauseSound()
     this.main.setAppRoot()

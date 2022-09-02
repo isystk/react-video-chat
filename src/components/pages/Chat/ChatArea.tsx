@@ -8,7 +8,8 @@ import { URL } from '@/constants/url'
 import ChanelList from '@/components/pages/Chat/ChanelList'
 import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
 import Notion from '@/components/widgets/Notion'
-import { Context } from '@/components/Layout'
+import Main from '@/services/main'
+import VideoArea from '@/components/pages/Video/VideoArea'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,8 +22,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ChatArea: FC = () => {
-  const main = useContext(Context)
+type Props = {
+  main: Main
+}
+
+const ChatArea: FC<Props> = ({main}) => {
   const router = useRouter()
   const [windowHeight, setWindowHeight] = useState(0)
 
@@ -54,7 +58,7 @@ const ChatArea: FC = () => {
 
   if (main.self.name === '') return <></>
   if (main.room.name === '') return <></>
-  if (main.video.isPeerConnected) return <></>
+  if (main.video.isPeerConnected) return <VideoArea main={main}/>
 
   return (
     <div className="area">
@@ -67,7 +71,7 @@ const ChatArea: FC = () => {
         <Grid item {...{ xs: 12, md: 6 }}>
           <Chat main={main} />
         </Grid>
-        <Grid item {...{ xs: 12, md: 3 }} style={{backgroundColor: '#fff'}}>
+        <Grid item {...{ xs: 12, md: 3 }} style={{ backgroundColor: '#fff' }}>
           <div className="sp-hide">
             <ChanelDetail main={main} />
           </div>

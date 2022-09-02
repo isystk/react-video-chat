@@ -2,7 +2,7 @@ import RecorderService from '@/services/Recorder'
 import MediaDeviceService from '@/services/MediaDevice'
 import { startWebsocket, WebSocket } from '@/utilities/aws'
 import ChanelService from '@/services/Chanel'
-import VideoService from '@/services/Video'
+import VideoService from '@/services/Video/Video'
 
 export type Self = {
   connectionId: string
@@ -19,7 +19,6 @@ export type Member = {
   photo: string
   status: string
 }
-
 
 type Chanels = {
   [key: string]: ChanelService
@@ -259,21 +258,21 @@ export default class MainService {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
-      await this.video.acceptCall()
+      await this.video.receiveAcceptCall()
     })
     this.ws?.on('reject_call', async ({ sendId }) => {
       if (sendId === this.self.connectionId) {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
-      await this.video.rejectCall()
+      await this.video.receiveRejectCall()
     })
     this.ws?.on('cancel_call', async ({ sendId }) => {
       if (sendId === this.self.connectionId) {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
-      await this.video.cancelCall()
+      await this.video.receiveCancelCall()
     })
 
     this.ws?.on('unjoin', async ({ connectionId }) => {

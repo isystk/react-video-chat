@@ -4,7 +4,7 @@ import Main from '@/services/main'
 import Modal from '@/components/widgets/Modal'
 import { Button, CssBaseline } from '@material-ui/core'
 import Container from '@material-ui/core/Container'
-import * as _ from "lodash";
+import * as _ from 'lodash'
 
 type Props = {
   main: Main

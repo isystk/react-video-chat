@@ -14,7 +14,7 @@ import {
   GetIceServerConfigCommand,
   GetIceServerConfigCommandOutput,
 } from '@aws-sdk/client-kinesis-video-signaling'
-import { NatTraversal } from './myForm'
+import { NatTraversal } from '../../components/sample/myForm'
 import { SignalingClient, Role } from 'amazon-kinesis-video-streams-webrtc'
 import { v4 as Uuid } from 'uuid'
 
@@ -42,13 +42,17 @@ interface StartViewerInput {
   sendVideo: boolean
   sendAudio: boolean
   useTrickleICE: boolean
+  localConnectionId: string
+  remoteConnectionId: string
 }
 
 export const startViewer = async (params: StartViewerInput) => {
+  console.log(params)
+  
   // 以下を参考にする
   // https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-js#usage
-  viewer.localView = document.getElementById('local-video')
-  viewer.remoteView = document.getElementById('remote-video')
+  viewer.localView = document.getElementById('video-' + params.localConnectionId)
+  viewer.remoteView = document.getElementById('video-' + params.remoteConnectionId)
 
   // Get signaling channel ARN
   const describeSignalingChannelCommand = new DescribeSignalingChannelCommand({

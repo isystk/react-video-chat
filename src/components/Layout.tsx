@@ -17,9 +17,10 @@ const Layout: FC = ({ children }) => {
 
   if (!main) return <></>
 
+  const newProps = { children, main }
   const childrenWithProps = React.Children.map(
     children,
-    (child: React.ReactElement) => React.cloneElement(child, { children })
+    (child: React.ReactElement) => React.cloneElement(child, {...newProps})
   )
 
   return (
