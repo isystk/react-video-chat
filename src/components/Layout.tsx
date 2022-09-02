@@ -27,7 +27,11 @@ const Layout: FC = ({ children }) => {
       <Context.Provider value={main}>
         <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
         <div style={appStyle(windowHeight)}>{childrenWithProps}</div>
-        <SideMenu isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
+        <SideMenu
+          isMenuOpen={isMenuOpen}
+          setMenuOpen={setMenuOpen}
+          main={main}
+        />
       </Context.Provider>
     </>
   )

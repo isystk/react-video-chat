@@ -1,31 +1,32 @@
-import Main from '@/services/main'
+import Main, {Member} from '@/services/main'
 
 export default class VideoService {
   main: Main
 
   nowCallSending: boolean
   nowCallReceiving: boolean
-  connectionId: string
+  members: Member[]
 
   callingSound: Audio
+  isPeerConnected: boolean
 
   constructor(main: Main) {
     this.main = main
     this.nowCallSending = false
     this.nowCallReceiving = false
-    this.connectionId = ''
+    this.members = []
     const audio = new Audio()
     audio.preload = 'auto'
     audio.src = '/sounds/calling.mp3'
     audio.load()
     this.callingSound = audio
+    this.isPeerConnected = false
   }
 
   sendRequestCall(connectionId) {
     this.nowCallSending = true
     this.playSound()
-    this.connectionId = connectionId
-
+    this.members = [...this.members, this.main.members[connectionId]]
     this.main.ws?.unicast(connectionId, {
       type: 'request_call',
       data: {},
@@ -37,7 +38,7 @@ export default class VideoService {
   receiveCall(connectionId) {
     this.nowCallReceiving = true
     this.playSound()
-    this.connectionId = connectionId
+    this.members = [...this.members, this.main.members[connectionId]]
     this.main.setAppRoot()
   }
 
@@ -48,6 +49,9 @@ export default class VideoService {
       type: 'accept_call',
       data: {},
     })
+    // ビデオ通話の開始
+    this.isPeerConnected=true
+    this.main.mediaDevice.setMediaStream()
     this.main.setAppRoot()
   }
 
@@ -75,7 +79,8 @@ export default class VideoService {
     this.nowCallSending = false
     this.pauseSound()
     // ビデオ通話の開始
-    console.log('success')
+    this.isPeerConnected=true
+    this.main.mediaDevice.setMediaStream()
     this.main.setAppRoot()
   }
 

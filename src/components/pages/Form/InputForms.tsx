@@ -10,7 +10,6 @@ const InputForms: FC = () => {
   const main = useContext(Context)
   const router = useRouter()
 
-  console.log(main)
   useEffect(() => {
     if (main.self.name && main.room.roomId) {
       router.push(main.room.roomId)

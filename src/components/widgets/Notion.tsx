@@ -4,17 +4,18 @@ import Main from '@/services/main'
 import Modal from '@/components/widgets/Modal'
 import { Button, CssBaseline } from '@material-ui/core'
 import Container from '@material-ui/core/Container'
+import * as _ from "lodash";
 
 type Props = {
   main: Main
 }
 
 const Notion: FC<Props> = ({ main }) => {
-  if (main.video.connectionId == '') return <></>
+  if (main.video.members.length === 0) return <></>
 
   const isOpen = main.video.nowCallSending || main.video.nowCallReceiving
 
-  const { connectionId, name, photo } = main.members[main.video.connectionId]
+  const { connectionId, name, photo } = main.video.members[0]
 
   return (
     <Modal isOpen={isOpen} hideCloseBtn={true}>

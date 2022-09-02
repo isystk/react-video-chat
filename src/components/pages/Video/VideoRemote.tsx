@@ -1,4 +1,4 @@
-import React, { VFC, useRef } from 'react'
+import React, { FC, useRef } from 'react'
 
 import Button from '@material-ui/core/Button'
 import Video from './Video'
@@ -9,7 +9,7 @@ type Props = {
   member: Member
 }
 
-const VideoRemote: VFC<Props> = ({ main, member }) => {
+const VideoRemote: FC<Props> = ({ main, member }) => {
   const videoRef = useRef(null)
 
   if (main.room.name === '') return <></>

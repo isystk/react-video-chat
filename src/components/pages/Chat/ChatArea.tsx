@@ -54,6 +54,7 @@ const ChatArea: FC = () => {
 
   if (main.self.name === '') return <></>
   if (main.room.name === '') return <></>
+  if (main.video.isPeerConnected) return <></>
 
   return (
     <div className="area">
@@ -66,7 +67,7 @@ const ChatArea: FC = () => {
         <Grid item {...{ xs: 12, md: 6 }}>
           <Chat main={main} />
         </Grid>
-        <Grid item {...{ xs: 12, md: 3 }}>
+        <Grid item {...{ xs: 12, md: 3 }} style={{backgroundColor: '#fff'}}>
           <div className="sp-hide">
             <ChanelDetail main={main} />
           </div>
