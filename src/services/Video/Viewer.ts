@@ -48,11 +48,15 @@ interface StartViewerInput {
 
 export const startViewer = async (params: StartViewerInput) => {
   console.log(params)
-  
+
   // 以下を参考にする
   // https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-js#usage
-  viewer.localView = document.getElementById('video-' + params.localConnectionId)
-  viewer.remoteView = document.getElementById('video-' + params.remoteConnectionId)
+  viewer.localView = document.getElementById(
+    'video-' + params.localConnectionId
+  )
+  viewer.remoteView = document.getElementById(
+    'video-' + params.remoteConnectionId
+  )
 
   // Get signaling channel ARN
   const describeSignalingChannelCommand = new DescribeSignalingChannelCommand({

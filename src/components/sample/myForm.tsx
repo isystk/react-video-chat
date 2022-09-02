@@ -142,8 +142,8 @@ export const MyForm = () => {
                   sendVideo: isVideoSend,
                   sendAudio: isAudioSend,
                   useTrickleICE: useTrickleICE,
-                  localConnectionId: "local",
-                  remoteConnectionId: "remote"
+                  localConnectionId: 'local',
+                  remoteConnectionId: 'remote',
                 })
               }}
             >
@@ -159,8 +159,8 @@ export const MyForm = () => {
                   sendVideo: isVideoSend,
                   sendAudio: isAudioSend,
                   useTrickleICE: useTrickleICE,
-                  localConnectionId: "local",
-                  remoteConnectionId: "remote"
+                  localConnectionId: 'local',
+                  remoteConnectionId: 'remote',
                 })
               }}
             >

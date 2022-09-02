@@ -20,7 +20,7 @@ type Props = {
   main: Main
 }
 
-const VideoArea: FC<Props> = ({main}) => {
+const VideoArea: FC<Props> = ({ main }) => {
   const classes = useStyles()
 
   const grids = {

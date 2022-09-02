@@ -1,6 +1,6 @@
 import Main, { Member } from '@/services/main'
-import {startMaster} from '@/services/Video/Master'
-import {startViewer} from '@/services/Video/Viewer'
+import { startMaster } from '@/services/Video/Master'
+import { startViewer } from '@/services/Video/Viewer'
 
 export default class VideoService {
   main: Main
@@ -53,17 +53,17 @@ export default class VideoService {
     // ビデオ通話の開始
     this.isPeerConnected = true
     // this.main.mediaDevice.setMediaStream()
-    
+
     window.setTimeout(() => {
       startMaster({
         channelName: 'test',
-        natTraversal: "STUN/TURN",
+        natTraversal: 'STUN/TURN',
         widescreen: true,
         sendVideo: true,
         sendAudio: false,
         useTrickleICE: true,
         localConnectionId: this.main.self.connectionId,
-        remoteConnectionId: this.members[0].connectionId
+        remoteConnectionId: this.members[0].connectionId,
       })
       this.main.setAppRoot()
     }, 500)
@@ -101,13 +101,13 @@ export default class VideoService {
     window.setTimeout(() => {
       startViewer({
         channelName: 'test',
-        natTraversal: "STUN/TURN",
+        natTraversal: 'STUN/TURN',
         widescreen: true,
         sendVideo: true,
         sendAudio: false,
         useTrickleICE: true,
         localConnectionId: this.main.self.connectionId,
-        remoteConnectionId: this.members[0].connectionId
+        remoteConnectionId: this.members[0].connectionId,
       })
       this.main.setAppRoot()
     }, 800)

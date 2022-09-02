@@ -56,11 +56,15 @@ interface StartMasterInput {
 
 export const startMaster = async (params: StartMasterInput) => {
   console.log(params)
-  
+
   // 以下を参考にする
   // https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-js#usage
-  master.localView = document.getElementById('video-' + params.localConnectionId)
-  master.remoteView = document.getElementById('video-' + params.remoteConnectionId)
+  master.localView = document.getElementById(
+    'video-' + params.localConnectionId
+  )
+  master.remoteView = document.getElementById(
+    'video-' + params.remoteConnectionId
+  )
 
   // Get signaling channel ARN
   const describeSignalingChannelCommand = new DescribeSignalingChannelCommand({

@@ -26,7 +26,7 @@ type Props = {
   main: Main
 }
 
-const ChatArea: FC<Props> = ({main}) => {
+const ChatArea: FC<Props> = ({ main }) => {
   const router = useRouter()
   const [windowHeight, setWindowHeight] = useState(0)
 
@@ -58,7 +58,7 @@ const ChatArea: FC<Props> = ({main}) => {
 
   if (main.self.name === '') return <></>
   if (main.room.name === '') return <></>
-  if (main.video.isPeerConnected) return <VideoArea main={main}/>
+  if (main.video.isPeerConnected) return <VideoArea main={main} />
 
   return (
     <div className="area">
