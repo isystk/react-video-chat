@@ -80,7 +80,7 @@ const SideMenu: FC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
         setMenuOpen(!isMenuOpen)
       },
       !joined,
-    ]
+    ],
   }
   return (
     <Drawer open={isMenuOpen} onClose={() => setMenuOpen(!isMenuOpen)}>

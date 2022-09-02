@@ -4,7 +4,7 @@ import InputFormRoom from './InputFormRoom'
 import React, { useEffect, FC, useContext } from 'react'
 import { useRouter } from 'next/router'
 import DeviceSetting from '@/components/widgets/DeviceSetting'
-import { Context } from '@/components/Layout'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 const InputForms: FC = () => {
   const main = useContext(Context)

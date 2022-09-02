@@ -1,6 +1,5 @@
 import Grid from '@material-ui/core/Grid'
 import React, { useEffect, FC, useState, useContext } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 import Chat from '@/components/pages/Chat/Chat'
 import Recorder from '@/components/widgets/Recorder'
@@ -8,20 +7,8 @@ import { URL } from '@/constants/url'
 import ChanelList from '@/components/pages/Chat/ChanelList'
 import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
 import Notion from '@/components/widgets/Notion'
-import Main from '@/services/main'
 import VideoArea from '@/components/pages/Video/VideoArea'
-import {Context} from "@/components/Layout";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-}))
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 const ChatArea: FC = () => {
   const main = useContext(Context)

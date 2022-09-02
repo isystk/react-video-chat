@@ -95,7 +95,7 @@ const Chat = ({ main }: IProps) => {
           </div>
         </div>
         <div className="myIcon2">
-          <a href="#" onClick={() => alert("作成中")}>
+          <a href="#" onClick={() => alert('作成中')}>
             <AttachFileIcon color="action" />
           </a>
         </div>
