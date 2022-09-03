@@ -20,6 +20,13 @@ const InputForms: FC = () => {
     <>
       <div className="area">
         <ul className="circles">
+          <Grid container spacing={0}>
+            <Grid item xs={12}>
+              <InputFormName main={main} />
+              <InputFormRoom main={main} />
+            </Grid>
+          </Grid>
+          <DeviceSetting main={main} />
           <li></li>
           <li></li>
           <li></li>
@@ -31,13 +38,6 @@ const InputForms: FC = () => {
           <li></li>
           <li></li>
         </ul>
-        <Grid container spacing={0}>
-          <Grid item xs={12}>
-            <InputFormName main={main} />
-            <InputFormRoom main={main} />
-          </Grid>
-        </Grid>
-        <DeviceSetting main={main} />
       </div>
     </>
   )

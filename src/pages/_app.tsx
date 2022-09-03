@@ -1,14 +1,12 @@
-import React from 'react'
-import App, { AppProps } from 'next/app'
-// 全体に適応する外部 CSS を読み込む
 import '@/assets/sass/app.scss'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
-
-import reducers from '@/stores'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import React from 'react'
+import reducers from '@/stores'
+import thunk from 'redux-thunk'
+import type  { AppProps } from 'next/app'
 
 // 開発環境の場合は、redux-devtools-extension を利用できるようにする
 const enhancer =
@@ -17,18 +15,14 @@ const enhancer =
     : applyMiddleware(thunk)
 const store = createStore(reducers, enhancer)
 
-class MyApp extends App {
-  render(): JSX.Element {
-    const { Component, pageProps }: AppProps = this.props
-
-    return (
-      <MuiThemeProvider>
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
-      </MuiThemeProvider>
-    )
-  }
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+  return (
+    <MuiThemeProvider>
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
+    </MuiThemeProvider>
+  )
 }
 
-export default MyApp
+export default App
