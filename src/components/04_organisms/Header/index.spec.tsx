@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import renderer from 'react-test-renderer'
-import Header from '@/components/pages/Header'
+import Header from '@/components/04_organisms/Header'
 import '@testing-library/jest-dom/extend-expect'
 import { renderHook } from '@testing-library/react-hooks'
 import Main from '@/services/main'

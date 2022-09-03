@@ -2,7 +2,7 @@ import React from 'react'
 import { MemoryRouter } from 'react-router'
 import { storiesOf } from '@storybook/react'
 import MainService from '@/services/main'
-import Header from '@/components/pages/Header'
+import Header from '@/components/04_organisms/Header'
 
 storiesOf('commons/Header', module)
   .addDecorator((getStory) => <MemoryRouter>{getStory()}</MemoryRouter>)

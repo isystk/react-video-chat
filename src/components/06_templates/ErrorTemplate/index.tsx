@@ -1,9 +1,12 @@
-import HtmlSkeleton, { HtmlSkeletonProps, Title } from '@/components/05_layouts/HtmlSkeleton'
+import HtmlSkeleton, {
+  HtmlSkeletonProps,
+  Title,
+} from '@/components/05_layouts/HtmlSkeleton'
 import { connect } from '@/components/hoc'
 import React from 'react'
 import { ContainerProps } from 'types'
 import * as styles from './styles'
-import {Container, Typography} from "@material-ui/core";
+import { Container, Typography } from '@material-ui/core'
 
 /** ErrorTemplate Props */
 export type ErrorTemplateProps = Omit<HtmlSkeletonProps, 'children'>
@@ -11,7 +14,7 @@ export type ErrorTemplateProps = Omit<HtmlSkeletonProps, 'children'>
 export type PresenterProps = ErrorTemplateProps & { statusCode: string }
 
 /** Presenter Component */
-const ErrorTemplatePresenter: React.FC<PresenterProps> = ({statusCode}) => (
+const ErrorTemplatePresenter: React.FC<PresenterProps> = ({ statusCode }) => (
   <HtmlSkeleton>
     <Title>Error</Title>
     <Container {...styles.container}>
@@ -25,10 +28,9 @@ const ErrorTemplatePresenter: React.FC<PresenterProps> = ({statusCode}) => (
 )
 
 /** Container Component */
-const ErrorTemplateContainer: React.FC<ContainerProps<ErrorTemplateProps, PresenterProps>> = ({
-  presenter,
-  ...props
-}) => {
+const ErrorTemplateContainer: React.FC<
+  ContainerProps<ErrorTemplateProps, PresenterProps>
+> = ({ presenter, ...props }) => {
   return presenter({ ...props })
 }
 

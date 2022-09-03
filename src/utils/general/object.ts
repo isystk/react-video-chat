@@ -6,7 +6,8 @@ import { NonEmptyArray, Unbox } from 'types'
  * @param argment - 判定対象の値
  * @returns 文字列か否かを示す真偽値
  */
-export const isString = (argment: unknown): argment is string => typeof argment === 'string'
+export const isString = (argment: unknown): argment is string =>
+  typeof argment === 'string'
 
 /**
  * 値がオブジェクトか否かを示す真偽値を返す
@@ -14,7 +15,9 @@ export const isString = (argment: unknown): argment is string => typeof argment 
  * @param argment - 判定対象の値
  * @returns 配列か否かを示す真偽値
  */
-export const isObject = (argment: unknown): argment is Record<string, unknown> =>
+export const isObject = (
+  argment: unknown
+): argment is Record<string, unknown> =>
   !isNullish(argment) && !isArray(argment) && typeof argment === 'object'
 
 /**
@@ -23,7 +26,8 @@ export const isObject = (argment: unknown): argment is Record<string, unknown> =
  * @param argment - 判定対象の値
  * @returns 配列か否かを示す真偽値
  */
-export const isArray = (argment: unknown): argment is unknown[] => Array.isArray(argment)
+export const isArray = (argment: unknown): argment is unknown[] =>
+  Array.isArray(argment)
 
 /**
  * 指定された配列が要素を持つか否かを示す真偽値を返す
@@ -31,7 +35,9 @@ export const isArray = (argment: unknown): argment is unknown[] => Array.isArray
  * @param argment - 判定対象の配列
  * @returns 要素を持つか否かを示す真偽値
  */
-export const isNonEmptyArray = <T>(argment: readonly T[]): argment is NonEmptyArray<T> => !isBlank(argment)
+export const isNonEmptyArray = <T>(
+  argment: readonly T[]
+): argment is NonEmptyArray<T> => !isBlank(argment)
 
 /**
  * ReactNodeオブジェクトがReactElementか否かを示す真偽値を返す
@@ -39,7 +45,9 @@ export const isNonEmptyArray = <T>(argment: readonly T[]): argment is NonEmptyAr
  * @param reactNode - 判定対象のReactNodeオブジェクト
  * @returns ReactElementか否かを示す真偽値
  */
-export const isReactElement = (reactNode: React.ReactNode): reactNode is React.ReactElement => isObject(reactNode)
+export const isReactElement = (
+  reactNode: React.ReactNode
+): reactNode is React.ReactElement => isObject(reactNode)
 
 /**
  * 値がnullまたはundefinedか否かを示す真偽値を返す
@@ -61,7 +69,8 @@ export const isNullish = (argment: unknown): argment is null | undefined => {
  */
 export const isBlank = (argment: unknown): boolean => {
   if (isNullish(argment)) return true
-  if (typeof argment === 'string' || isArray(argment)) return argment.length === 0
+  if (typeof argment === 'string' || isArray(argment))
+    return argment.length === 0
   if (isObject(argment)) return Object.keys(argment).length === 0
   return false
 }
@@ -102,8 +111,10 @@ export const hasValue = (argment: unknown): boolean => {
  * @param targetArray - 検索先となる値
  * @returns 含まれているか否かを示す真偽値
  */
-export const includes = (valueToFind: unknown, ...targetArray: readonly unknown[]): boolean =>
-  targetArray.includes(valueToFind)
+export const includes = (
+  valueToFind: unknown,
+  ...targetArray: readonly unknown[]
+): boolean => targetArray.includes(valueToFind)
 
 /**
  * 値が指定キーのプロパティを持つか否かを示す真偽値を返す
@@ -112,8 +123,10 @@ export const includes = (valueToFind: unknown, ...targetArray: readonly unknown[
  * @param key - 検索するプロパティ名
  * @returns プロパティを持つか否かを示す真偽値
  */
-export const hasProperty = <K extends string | number>(target: Record<K, unknown>, key: string | number): key is K =>
-  key in target
+export const hasProperty = <K extends string | number>(
+  target: Record<K, unknown>,
+  key: string | number
+): key is K => key in target
 
 /**
  * 要素を持つ配列の最初の要素を返す
@@ -129,7 +142,8 @@ export const first = <T>(array: Readonly<NonEmptyArray<T>>): T => array[0]
  * @param array - 要素を抽出する配列
  * @returns 配列の最後の要素
  */
-export const last = <T>(array: Readonly<NonEmptyArray<T>>): T => array[array.length - 1] as T
+export const last = <T>(array: Readonly<NonEmptyArray<T>>): T =>
+  array[array.length - 1] as T
 
 /**
  * 配列にArray.prototype.spliceが実施された状態の新規配列を返す
@@ -140,7 +154,12 @@ export const last = <T>(array: Readonly<NonEmptyArray<T>>): T => array[array.len
  * @param item - 配列に新規で追加する要素
  * @returns コピー元配列にArray.prototype.spliceが実施された状態の配列
  */
-export const splice = <T>(array: readonly T[], start: number, deleteCount: number, ...item: readonly T[]): T[] => {
+export const splice = <T>(
+  array: readonly T[],
+  start: number,
+  deleteCount: number,
+  ...item: readonly T[]
+): T[] => {
   const copyArray = [...array]
   copyArray.splice(start, deleteCount, ...item)
   return copyArray
@@ -160,7 +179,7 @@ export const breedObject = <T extends Record<string, unknown>>(
   value: Unbox<T>
 ): T => ({
   ...object,
-  [property]: value
+  [property]: value,
 })
 
 /**
@@ -190,4 +209,5 @@ export const breedArray = <T extends Record<string, unknown>>(
  * @param argment - コピー元配列
  * @returns JSONを用いてコピーしたオブジェクト
  */
-export const copy = <T>(argment: T): T => JSON.parse(JSON.stringify(argment)) as T
+export const copy = <T>(argment: T): T =>
+  JSON.parse(JSON.stringify(argment)) as T

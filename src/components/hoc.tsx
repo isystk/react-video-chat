@@ -15,7 +15,10 @@ export function connect<ComponentProps, PresenterProps>(
   Container: React.FC<ContainerProps<ComponentProps, PresenterProps>>
 ): React.FC<ComponentProps> {
   const Component: React.FC<ComponentProps> = (props) => (
-    <Container presenter={(presenterProps) => <Presenter {...presenterProps} />} {...props} />
+    <Container
+      presenter={(presenterProps) => <Presenter {...presenterProps} />}
+      {...props}
+    />
   )
   Component.displayName = displayName
   return Component
@@ -29,13 +32,24 @@ export function connect<ComponentProps, PresenterProps>(
  * @param Container - Container
  * @returns 接続済みコンポーネント
  */
-export function connectRef<RefObject, ComponentProps, PresenterProps extends { ref: Ref<RefObject> }>(
+export function connectRef<
+  RefObject,
+  ComponentProps,
+  PresenterProps extends { ref: Ref<RefObject> }
+>(
   displayName: string,
   Presenter: ForwardRefComponent<RefObject, Omit<PresenterProps, 'ref'>>,
-  Container: ForwardRefComponent<RefObject, ContainerProps<ComponentProps, PresenterProps>>
+  Container: ForwardRefComponent<
+    RefObject,
+    ContainerProps<ComponentProps, PresenterProps>
+  >
 ): ForwardRefComponent<RefObject, ComponentProps> {
   const Component = forwardRef<RefObject, ComponentProps>((props, ref) => (
-    <Container presenter={({ ref, ...props }) => <Presenter ref={ref} {...props} />} ref={ref} {...props} />
+    <Container
+      presenter={({ ref, ...props }) => <Presenter ref={ref} {...props} />}
+      ref={ref}
+      {...props}
+    />
   ))
   Component.displayName = displayName
 

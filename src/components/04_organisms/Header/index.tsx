@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const CommonHeader: FC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
+const Header: FC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
   const DEAULT_TITLE = process.env.APP_NAME
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
@@ -88,4 +88,4 @@ const CommonHeader: FC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
   )
 }
 
-export default CommonHeader
+export default Header

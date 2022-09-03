@@ -4,5 +4,5 @@ export const container = {
   align: 'center',
   justify: 'center',
   py: 12,
-  bg: 'gray.50'
+  bg: 'gray.50',
 } as const
