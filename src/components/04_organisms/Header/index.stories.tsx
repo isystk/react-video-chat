@@ -1,36 +1,20 @@
+import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import { MemoryRouter } from 'react-router'
-import { storiesOf } from '@storybook/react'
-import MainService from '@/services/main'
-import Header from '@/components/04_organisms/Header'
+import Header from './index'
 
-storiesOf('commons/Header', module)
-  .addDecorator((getStory) => <MemoryRouter>{getStory()}</MemoryRouter>)
-  .addDecorator((story) => {
-    document.body.classList.add('App')
-    return story()
-  })
-  .add('Logout', () => {
-    const mainService = {
-      room: {
-        name: '',
-      },
-      self: {
-        name: '',
-      },
-    } as MainService
-    return (
-      <Header isMenuOpen={false} setMenuOpen={() => ({})} main={mainService} />
-    )
-  })
-  .add('Logined', () => {
-    const main = {
-      room: {
-        name: 'sample',
-      },
-      self: {
-        name: 'isystk',
-      },
-    } as MainService
-    return <Header isMenuOpen={false} setMenuOpen={() => ({})} main={main} />
-  })
+export default {
+  title: '04_organisms/Header',
+  component: Header,
+} as Meta
+
+const mainLogout = {
+  room: {name: ''}, self: {name: ''}
+};
+export const Logout: Story = () => <Header isMenuOpen={false} setMenuOpen={() => ({})} main={mainLogout} />
+Logout.storyName = 'ログアウト'
+
+const mainLogin = {
+  room: {name: 'test'}, self: {name: 'isystk'}
+};
+export const Login: Story = () => <Header isMenuOpen={false} setMenuOpen={() => ({})} main={mainLogin} />
+Login.storyName = 'ログイン'

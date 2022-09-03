@@ -7,34 +7,11 @@ input {
   background: #fff !important;
 }
 
-.App-logo {
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-}
-
 .Room-joins {
   font-size: 12px;
   display: flex;
   align-items: center;
   margin-left: 10px;
-}
-
-@media screen and (min-width:992px){
-  .App-logo {
-    font-size: 24px;
-  }
-}
-
-.App-header {
-  background-color: #3f51b5;
-  font-size: calc(10px + 1.5vmin);
-  color: white;
-  position: inherit !important;
-}
-
-.App-link {
-  color: white;
 }
 
 .video-wrapper {
@@ -467,7 +444,12 @@ input {
     background: #eee;  
     background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
     width: 100%;
+    height: 91.5vh;
+}
+@media screen and (min-width:992px){
+  .area {
     height: 93vh;
+  }
 }
 .circles{
     position: relative;

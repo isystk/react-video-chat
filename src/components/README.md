@@ -35,3 +35,32 @@
 #### ※ その他
  状態を持たないコンポーネントに対してもContainer Componentを作成する。<br/>
  必要ではないが、スタイルの画一や改修の可能性を考慮して作成することとする。
+
+
+#### テンプレート
+```
+import { ContainerProps, WithChildren } from 'types'
+
+/** XxxxProps Props */
+export type XxxxProps = WithChildren
+/** Presenter Props */
+export type PresenterProps = XxxxProps & { main }
+
+/** Presenter Component */
+const XxxxPresenter: FC<PresenterProps> = ({ main, ...props }) => (
+  <>
+  </>
+)
+
+/** Container Component */
+const XxxxContainer: React.FC< ContainerProps<XxxxProps, PresenterProps> > = ({ presenter, children, ...props }) => {
+  const main = useAppRoot()
+  return presenter({ main, children, ...props, })
+}
+
+export default connect<XxxxProps, PresenterProps>(
+'Xxxx',
+XxxxPresenter,
+XxxxContainer
+)
+```
