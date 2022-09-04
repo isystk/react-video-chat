@@ -6,7 +6,7 @@ version = 0.1
 [stg.deploy.parameters]
 stack_name = "webrtc"
 s3_bucket = "aws-isystk-com-sam"
-s3_prefix = "nextjs-webrtc-aws"
+s3_prefix = "react-video-chat"
 region = "ap-northeast-1"
 profile = "lambda-user"
 confirm_changeset = true

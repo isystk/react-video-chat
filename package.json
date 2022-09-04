@@ -1,6 +1,6 @@
 {
-  "name": "nextjs-webrtc-aws",
-  "description": "Next.js & Web-RTC の学習用アプリケーションです。AWS Kinesis Video Streamを利用してビデオ通話、画面共有、チャット機能、録画機能、デバイス選択 などの機能を作成しました。",
+  "name": "react-video-chat",
+  "description": "React.js(Next.js)で作成したビデオ&チャットアプリケーションです。チャット機能は、AWS Lambda の WebSocket機能を利用しています。ビデオ通話には、AWS Kinesis Video Streamを利用しています。",
   "version": "1.0.0",
   "scripts": {
     "dev": "NODE_ENV=development next",

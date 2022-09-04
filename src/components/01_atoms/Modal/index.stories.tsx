@@ -9,7 +9,7 @@ export default {
 } as Meta
 
 const Template: Story = () => (
-  <Modal isOpen={true} >
+  <Modal isOpen={true}>
     <Container component="main">
       <div style={{ width: '300px' }}>Sample</div>
     </Container>

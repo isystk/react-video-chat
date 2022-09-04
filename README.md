@@ -1,20 +1,20 @@
-🌙 nextjs-webrtc-aws
+🌙 react-video-chat
 ====
 
-![GitHub issues](https://img.shields.io/github/issues/isystk/nextjs-webrtc-aws)
-![GitHub forks](https://img.shields.io/github/forks/isystk/nextjs-webrtc-aws)
-![GitHub stars](https://img.shields.io/github/stars/isystk/nextjs-webrtc-aws)
-![GitHub license](https://img.shields.io/github/license/isystk/nextjs-webrtc-aws)
+![GitHub issues](https://img.shields.io/github/issues/isystk/react-video-chat)
+![GitHub forks](https://img.shields.io/github/forks/isystk/react-video-chat)
+![GitHub stars](https://img.shields.io/github/stars/isystk/react-video-chat)
+![GitHub license](https://img.shields.io/github/license/isystk/react-video-chat)
 
 ## 📗 プロジェクトの概要
 
-Next.js & WebSocket の学習用アプリケーションです。
-AWS Lambda の WebSocketを利用してチャット機能を作成しています。
-ビデオ通話は、AWS Kinesis Video Stream を利用しています。
+React.js(Next.js)で作成したビデオ&チャットアプリケーションです。<br/>
+チャット機能は、AWS Lambda の WebSocket機能を利用しています。<br/>
+ビデオ通話には、AWS Kinesis Video Streamを利用しています。
 
 ## 🌐 Demo
 
-https://nextjs-webrtc-aws.web.app
+https://react-video-chat.web.app
 
 ![投稿画面](./app.png "投稿画面")
 
@@ -37,17 +37,22 @@ https://nextjs-webrtc-aws.web.app
 ├── next-env.d.ts
 ├── next.config.js
 ├── node_modules
+├── public
+│   ├── apple-touch-icon.png
+│   ├── favicon.ico
+│   ├── images
+│   ├── manifest.json
+│   ├── ogp-image.png
+│   └── sounds
 ├── src
 │   ├── @types
-│   ├── __tests__
 │   ├── assets
 │   ├── components
 │   ├── constants
 │   ├── pages
 │   ├── services
 │   ├── stores
-│   ├── stories
-│   └── utilities
+│   └── utils
 ├── tsconfig.jest.json
 ├── tsconfig.json
 └── yarn.lock
@@ -107,7 +112,7 @@ $ yarn dev
 
 ## 🎫 Licence
 
-[MIT](https://github.com/isystk/nextjs-webrtc-aws/blob/master/LICENSE)
+[MIT](https://github.com/isystk/react-video-chat/blob/master/LICENSE)
 
 ## 👀 Author
 
