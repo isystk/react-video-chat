@@ -40,22 +40,23 @@
 #### テンプレート
 ```
 import { ContainerProps, WithChildren } from 'types'
+import { useStyles } from './styles'
 
 /** XxxxProps Props */
-export type XxxxProps = WithChildren
+export type XxxxProps = WithChildren & { main }
 /** Presenter Props */
-export type PresenterProps = XxxxProps & { main }
+export type PresenterProps = XxxxProps & { classes }
 
 /** Presenter Component */
-const XxxxPresenter: FC<PresenterProps> = ({ main, ...props }) => (
+const XxxxPresenter: FC<PresenterProps> = ({ main, classes, ...props }) => (
   <>
   </>
 )
 
 /** Container Component */
-const XxxxContainer: React.FC< ContainerProps<XxxxProps, PresenterProps> > = ({ presenter, children, ...props }) => {
-  const main = useAppRoot()
-  return presenter({ main, children, ...props, })
+const XxxxContainer: React.FC< ContainerProps<XxxxProps, PresenterProps> > = ({ presenter, children, main, ...props }) => {
+  const classes = useStyles()
+  return presenter({ children, main, classes, ...props, })
 }
 
 export default connect<XxxxProps, PresenterProps>(

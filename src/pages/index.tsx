@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
-import InputForms from '@/components/pages/Form/InputForms'
+import InputForms from '@/components/04_organisms/InputForms'
 
 const Index: FC = () => {
   return (

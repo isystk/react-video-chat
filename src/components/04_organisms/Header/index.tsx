@@ -18,9 +18,9 @@ import Logo from '@/components/01_atoms/Logo'
 import { useStyles } from './styles'
 
 /** HeaderProps Props */
-export type HeaderProps = WithChildren & { main, isMenuOpen, setMenuOpen }
+export type HeaderProps = WithChildren & { main; isMenuOpen; setMenuOpen }
 /** Presenter Props */
-export type PresenterProps = HeaderProps & { classes, anchorEl, setAnchorEl }
+export type PresenterProps = HeaderProps & { classes; anchorEl; setAnchorEl }
 
 /** Presenter Component */
 const HeaderPresenter: FC<PresenterProps> = ({
@@ -29,7 +29,7 @@ const HeaderPresenter: FC<PresenterProps> = ({
   setMenuOpen,
   classes,
   anchorEl,
-  setAnchorEl
+  setAnchorEl,
 }) => (
   <>
     <AppBar position="static">
@@ -96,7 +96,7 @@ const HeaderContainer: React.FC<
     classes,
     ...props,
     anchorEl,
-    setAnchorEl
+    setAnchorEl,
   })
 }
 

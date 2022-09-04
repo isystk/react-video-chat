@@ -1,6 +1,6 @@
 import Grid from '@material-ui/core/Grid'
-import InputFormName from './InputFormName'
-import InputFormRoom from './InputFormRoom'
+import InputFormName from '@/components/03_molecules/InputFormName'
+import InputFormRoom from '@/components/03_molecules/InputFormRoom'
 import React, { useEffect, FC, useContext } from 'react'
 import { useRouter } from 'next/router'
 import DeviceSetting from '@/components/widgets/DeviceSetting'

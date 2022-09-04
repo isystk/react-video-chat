@@ -1,20 +1,23 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import Logo from './index'
+import InputFormRoom from './index'
 import MainService from '@/services/main'
 
 export default {
-  title: '01_atoms/Logo',
-  component: Logo,
+  title: '03_molecules/InputFormRoom',
+  component: InputFormRoom,
 } as Meta
 
 const main = {
+  self: {
+    name: 'isystk',
+  },
   room: {
-    name: 'test',
+    name: '',
   },
 } as MainService
 
-const Template: Story = () => <Logo main={main} />
+const Template: Story = () => <InputFormRoom main={main} />
 
 export const Primary = Template.bind({})
 Primary.storyName = 'プライマリ'

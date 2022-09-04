@@ -20,7 +20,6 @@ export default class VideoService {
     const audio = new Audio()
     audio.preload = 'auto'
     audio.src = '/sounds/calling.mp3'
-    audio.load()
     this.callingSound = audio
     this.isPeerConnected = false
   }
@@ -128,6 +127,7 @@ export default class VideoService {
   }
 
   playSound() {
+    this.callingSound.load()
     this.callingSound.loop = true
     this.callingSound.play()
   }

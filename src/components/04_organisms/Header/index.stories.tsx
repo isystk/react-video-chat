@@ -8,13 +8,19 @@ export default {
 } as Meta
 
 const mainLogout = {
-  room: {name: ''}, self: {name: ''}
-};
-export const Logout: Story = () => <Header isMenuOpen={false} setMenuOpen={() => ({})} main={mainLogout} />
+  room: { name: '' },
+  self: { name: '' },
+}
+export const Logout: Story = () => (
+  <Header isMenuOpen={false} setMenuOpen={() => ({})} main={mainLogout} />
+)
 Logout.storyName = 'ログアウト'
 
 const mainLogin = {
-  room: {name: 'test'}, self: {name: 'isystk'}
-};
-export const Login: Story = () => <Header isMenuOpen={false} setMenuOpen={() => ({})} main={mainLogin} />
+  room: { name: 'test' },
+  self: { name: 'isystk' },
+}
+export const Login: Story = () => (
+  <Header isMenuOpen={false} setMenuOpen={() => ({})} main={mainLogin} />
+)
 Login.storyName = 'ログイン'
