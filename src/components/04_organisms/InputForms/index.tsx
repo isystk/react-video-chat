@@ -3,7 +3,7 @@ import InputFormName from '@/components/03_molecules/InputFormName'
 import InputFormRoom from '@/components/03_molecules/InputFormRoom'
 import React, { useEffect, FC, useContext } from 'react'
 import { useRouter } from 'next/router'
-import DeviceSetting from '@/components/widgets/DeviceSetting'
+import DeviceSetting from '@/components/04_organisms/DeviceSetting'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 const InputForms: FC = () => {

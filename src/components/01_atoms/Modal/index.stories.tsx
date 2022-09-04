@@ -1,0 +1,20 @@
+import { Meta, Story } from '@storybook/react'
+import React from 'react'
+import Modal from './index'
+import { Container, CssBaseline } from '@material-ui/core'
+
+export default {
+  title: '01_atoms/Modal',
+  component: Modal,
+} as Meta
+
+const Template: Story = () => (
+  <Modal isOpen={true} >
+    <Container component="main">
+      <div style={{ width: '300px' }}>Sample</div>
+    </Container>
+  </Modal>
+)
+
+export const Primary = Template.bind({})
+Primary.storyName = 'プライマリ'

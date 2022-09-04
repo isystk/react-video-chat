@@ -6,17 +6,37 @@ import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
-import {connect} from "@/components/hoc";
+import { connect } from '@/components/hoc'
 
 /** InputFormNameProps Props */
 export type InputFormNameProps = WithChildren & { main }
 /** Presenter Props */
-export type PresenterProps = InputFormNameProps & { classes, label, name, setName, isComposed, setIsComposed, initializeLocalPeer, disabled }
+export type PresenterProps = InputFormNameProps & {
+  classes
+  label
+  name
+  setName
+  isComposed
+  setIsComposed
+  initializeLocalPeer
+  disabled
+}
 
 /** Presenter Component */
-const InputFormNamePresenter: FC<PresenterProps> = ({ main, classes, label, name, setName, isComposed, setIsComposed, initializeLocalPeer, disabled,  ...props }) => (
+const InputFormNamePresenter: FC<PresenterProps> = ({
+  main,
+  classes,
+  label,
+  name,
+  setName,
+  isComposed,
+  setIsComposed,
+  initializeLocalPeer,
+  disabled,
+  ...props
+}) => (
   <>
-      <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
@@ -59,7 +79,9 @@ const InputFormNamePresenter: FC<PresenterProps> = ({ main, classes, label, name
 )
 
 /** Container Component */
-const InputFormNameContainer: React.FC< ContainerProps<InputFormNameProps, PresenterProps> > = ({ presenter, children, main, ...props }) => {
+const InputFormNameContainer: React.FC<
+  ContainerProps<InputFormNameProps, PresenterProps>
+> = ({ presenter, children, main, ...props }) => {
   const classes = useStyles()
 
   const label = 'あなたの名前'
@@ -82,7 +104,19 @@ const InputFormNameContainer: React.FC< ContainerProps<InputFormNameProps, Prese
   )
 
   if (main.self.name !== '') return <></>
-  return presenter({ children, main, classes,  label, name, setName, isComposed, setIsComposed, initializeLocalPeer, disabled,  ...props, })
+  return presenter({
+    children,
+    main,
+    classes,
+    label,
+    name,
+    setName,
+    isComposed,
+    setIsComposed,
+    initializeLocalPeer,
+    disabled,
+    ...props,
+  })
 }
 
 export default connect<InputFormNameProps, PresenterProps>(

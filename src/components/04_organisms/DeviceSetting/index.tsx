@@ -2,8 +2,13 @@ import React, { FC, useEffect, useState } from 'react'
 
 import Select from '@material-ui/core/Select'
 import Main from '@/services/main'
-import Modal from '@/components/widgets/Modal'
-import { CssBaseline, InputLabel, MenuItem } from '@material-ui/core'
+import Modal from '@/components/01_atoms/Modal'
+import {
+  CssBaseline,
+  FormControl,
+  InputLabel,
+  MenuItem,
+} from '@material-ui/core'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -63,8 +68,7 @@ const DeviceSetting: FC<Props> = ({ main }) => {
       handleClose={() => main.mediaDevice.closeMediaDevice()}
     >
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <form className={classes.form} noValidate>
+        <form className={classes.form}>
           <InputLabel style={{ textAlign: 'left', marginTop: '20px' }}>
             カメラ入力
           </InputLabel>

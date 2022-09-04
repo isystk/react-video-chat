@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 
 import Main from '@/services/main'
-import Modal from '@/components/widgets/Modal'
+import Modal from '@/components/01_atoms/Modal'
 
 type Props = {
   main: Main

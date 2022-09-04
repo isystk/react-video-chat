@@ -6,17 +6,37 @@ import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
-import {connect} from "@/components/hoc";
+import { connect } from '@/components/hoc'
 
 /** InputFormRoomProps Props */
 export type InputFormRoomProps = WithChildren & { main }
 /** Presenter Props */
-export type PresenterProps = InputFormRoomProps & { classes, label, name, setName, isComposed, setIsComposed, initializeRemotePeer, disabled }
+export type PresenterProps = InputFormRoomProps & {
+  classes
+  label
+  name
+  setName
+  isComposed
+  setIsComposed
+  initializeRemotePeer
+  disabled
+}
 
 /** Presenter Component */
-const InputFormRoomPresenter: FC<PresenterProps> = ({ main, classes, label, name, setName, isComposed, setIsComposed, initializeRemotePeer, disabled, ...props }) => (
+const InputFormRoomPresenter: FC<PresenterProps> = ({
+  main,
+  classes,
+  label,
+  name,
+  setName,
+  isComposed,
+  setIsComposed,
+  initializeRemotePeer,
+  disabled,
+  ...props
+}) => (
   <>
-     <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
@@ -59,9 +79,11 @@ const InputFormRoomPresenter: FC<PresenterProps> = ({ main, classes, label, name
 )
 
 /** Container Component */
-const InputFormRoomContainer: React.FC< ContainerProps<InputFormRoomProps, PresenterProps> > = ({ presenter, children, main, ...props }) => {
+const InputFormRoomContainer: React.FC<
+  ContainerProps<InputFormRoomProps, PresenterProps>
+> = ({ presenter, children, main, ...props }) => {
   const classes = useStyles()
-   const label = '部屋の名前'
+  const label = '部屋の名前'
   const [disabled, setDisabled] = useState(true)
   const [name, setName] = useState('')
   const [isComposed, setIsComposed] = useState(false)
@@ -88,7 +110,19 @@ const InputFormRoomContainer: React.FC< ContainerProps<InputFormRoomProps, Prese
   if (main.self.name === '') return <></>
   if (main.room.name !== '') return <></>
 
-  return presenter({ children, main, classes, label, name, setName, isComposed, setIsComposed, initializeRemotePeer, disabled, ...props, })
+  return presenter({
+    children,
+    main,
+    classes,
+    label,
+    name,
+    setName,
+    isComposed,
+    setIsComposed,
+    initializeRemotePeer,
+    disabled,
+    ...props,
+  })
 }
 
 export default connect<InputFormRoomProps, PresenterProps>(
