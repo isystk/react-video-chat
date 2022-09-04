@@ -2,11 +2,12 @@ import Grid from '@material-ui/core/Grid'
 import React, { useEffect, FC, useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import Chat from '@/components/pages/Chat/Chat'
-import Recorder from '@/components/widgets/Recorder'
+import RecorderModal from '@/components/04_organisms/RecorderModal'
 import { URL } from '@/constants/url'
 import ChanelList from '@/components/pages/Chat/ChanelList'
 import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
-import Notion from '@/components/widgets/Notion'
+import SendCallModal from '@/components/04_organisms/SendCallModal'
+import ReceiveCallModal from '@/components/04_organisms/ReceiveCallModal'
 import VideoArea from '@/components/pages/Video/VideoArea'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
@@ -62,8 +63,13 @@ const ChatArea: FC = () => {
           </div>
         </Grid>
       </Grid>
-      <Recorder main={main} />
-      <Notion main={main} />
+      <RecorderModal main={main} />
+      {
+        main.video.nowCallSending && <SendCallModal main={main}/>
+      }
+      {
+        main.video.nowCallReceiving && <ReceiveCallModal main={main} />
+      }
     </div>
   )
 }

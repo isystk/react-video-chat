@@ -1,0 +1,64 @@
+import React, { FC } from 'react'
+import Modal from '@/components/01_atoms/Modal'
+import { Button, CssBaseline } from '@material-ui/core'
+import Container from '@material-ui/core/Container'
+import { ContainerProps, WithChildren } from 'types'
+import { useStyles } from './styles'
+import {connect} from "@/components/hoc";
+
+/** SendCallModalProps Props */
+export type SendCallModalProps = WithChildren & { main }
+/** Presenter Props */
+export type PresenterProps = SendCallModalProps & { classes, isOpen, connectionId, name, photo,  }
+
+/** Presenter Component */
+const SendCallModalPresenter: FC<PresenterProps> = ({ main, classes, isOpen, connectionId, name, photo,  ...props }) => (
+  <>
+    <Modal isOpen={isOpen} hideCloseBtn={true}>
+      <Container component="main">
+        <CssBaseline />
+        <div className="notion">
+          <div className="myHeadPhoto">
+            <img src={photo} alt="" />
+          </div>
+          <div className="myName">{name}</div>
+          <div className="btn">
+            <Button
+              color="secondary"
+              onClick={(e) => main.video.sendCancelCall(connectionId)}
+              type="submit"
+              variant="contained"
+            >
+              キャンセル
+            </Button>
+          </div>
+          <div className="loading">
+            <div className="snippet" data-title=".dot-pulse">
+              <div className="stage">
+                <div className="dot-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Modal>
+  </>
+)
+
+/** Container Component */
+const SendCallModalContainer: React.FC< ContainerProps<SendCallModalProps, PresenterProps> > = ({ presenter, children, main, ...props }) => {
+  const classes = useStyles()
+
+  if (main.video.members.length === 0) return <></>
+
+  const isOpen = main.video.nowCallSending
+
+  const { connectionId, name, photo } = main.video.members[0]
+  return presenter({ children, main, classes, isOpen, connectionId, name, photo,  ...props, })
+}
+
+export default connect<SendCallModalProps, PresenterProps>(
+  'SendCallModal',
+  SendCallModalPresenter,
+  SendCallModalContainer
+)
