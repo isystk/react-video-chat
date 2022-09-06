@@ -1,6 +1,6 @@
 import RecorderService from '@/services/Recorder'
 import MediaDeviceService from '@/services/MediaDevice'
-import { startWebsocket, WebSocket } from '@/utilities/aws'
+import { startWebsocket, WebSocket } from '@/utils/aws'
 import ChanelService from '@/services/Chanel'
 import VideoService from '@/services/Video/Video'
 
