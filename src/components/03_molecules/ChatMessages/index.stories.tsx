@@ -20,6 +20,11 @@ const main = {
       name: 'aaa',
       photo: 'images/friends/BigBoss.png',
     },
+    bbb: {
+      connectionId: 'bbb',
+      name: 'bbb',
+      photo: 'images/friends/David.png',
+    },
   },
   chanels: {
     all: {
@@ -35,6 +40,18 @@ const main = {
             type: 'text',
             data: 'hello',
             sendId: 'aaa',
+            datetime: Date(),
+          },
+          {
+            type: 'stamp',
+            data: 'smile',
+            sendId: 'aaa',
+            datetime: Date(),
+          },
+          {
+            type: 'text',
+            data: 'see you',
+            sendId: 'bbb',
             datetime: Date(),
           },
         ],

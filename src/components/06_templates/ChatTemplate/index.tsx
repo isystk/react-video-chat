@@ -9,7 +9,7 @@ import ChanelList from '@/components/03_molecules/ChanelList'
 import ChanelInfo from '@/components/03_molecules/ChanelInfo'
 import SendCallModal from '@/components/04_organisms/SendCallModal'
 import ReceiveCallModal from '@/components/04_organisms/ReceiveCallModal'
-import VideoArea from '@/components/pages/Video/VideoArea'
+import VideoTemplate from '@/components/06_templates/VideoTemplate'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
@@ -91,7 +91,7 @@ const ChatTemplateContainer: React.FC<
 
   if (main.self.name === '') return <></>
   if (main.room.name === '') return <></>
-  if (main.video.isPeerConnected) return <VideoArea main={main} />
+  if (main.video.isPeerConnected) return <VideoTemplate main={main} />
   return presenter({ children, main, classes, windowHeight, ...props })
 }
 

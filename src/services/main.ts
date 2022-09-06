@@ -20,6 +20,10 @@ export type Member = {
   status: string
 }
 
+type Members = {
+  [key: string]: Member
+}
+
 type Chanels = {
   [key: string]: ChanelService
 }
@@ -27,7 +31,7 @@ type Chanels = {
 export default class MainService {
   _setAppRoot: (main: MainService) => void
   ws: WebSocket | null
-  members: Member[]
+  members: Members
   room: Room
   self: Self
   chanels: Chanels
@@ -39,7 +43,7 @@ export default class MainService {
   constructor(setAppRoot: (appRoot: MainService) => void) {
     this._setAppRoot = setAppRoot
     this.ws = null
-    this.members = []
+    this.members = {}
     this.room = { roomId: '', name: '' }
     this.self = { connectionId: '', name: '', photo: '' }
     this.chanels = {}
