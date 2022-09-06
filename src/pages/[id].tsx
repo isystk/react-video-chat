@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
-import ChatArea from '@/components/pages/Chat/ChatArea'
+import ChatTemplate from '@/components/06_templates/ChatTemplate'
 import Layout, { Title } from '@/components/05_layouts/HtmlSkeleton'
 
 const Room: FC = () => {
   return (
     <Layout>
       <Title>チャットルーム</Title>
-      <ChatArea />
+      <ChatTemplate />
     </Layout>
   )
 }

@@ -21,7 +21,11 @@ const main = {
 } as MainService
 
 const Template: Story = () => (
-  <SideMenu main={main} setMenuOpen={(isOpen) => console.log(isOpen)} isMenuOpen={true} />
+  <SideMenu
+    main={main}
+    setMenuOpen={(isOpen) => console.log(isOpen)}
+    isMenuOpen={true}
+  />
 )
 
 export const Primary = Template.bind({})

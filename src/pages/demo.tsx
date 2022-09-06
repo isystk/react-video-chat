@@ -1,8 +1,8 @@
 import React from 'react'
 import { Fragment, useState } from 'react'
-import { createSignalingChannel } from '../../services/Video/createSignalChannel'
-import { startMaster, stopMaster } from '../../services/Video/Master'
-import { startViewer, stopViewer } from '../../services/Video/Viewer'
+import { createSignalingChannel } from '@/services/Video/createSignalChannel'
+import { startMaster, stopMaster } from '@/services/Video/Master'
+import { startViewer, stopViewer } from '@/services/Video/Viewer'
 import Container from '@material-ui/core/Container'
 
 import {
@@ -24,7 +24,7 @@ const VideoResolution = {
 
 export type NatTraversal = 'STUN/TURN' | 'TURN' | 'DISABLED'
 
-export const MyForm = () => {
+const App = () => {
   const [channelName, setChannelName] = useState('')
   const [isVideoSend, setIsVideoSend] = useState(false)
   const [isAudioSend, setIsAudioSend] = useState(false)
@@ -218,3 +218,5 @@ export const MyForm = () => {
     </Fragment>
   )
 }
+
+export default App

@@ -16,8 +16,8 @@ import StopIcon from '@material-ui/icons/Stop'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { useRouter } from 'next/router'
 import { URL } from '@/constants/url'
-import ChanelList from '@/components/pages/Chat/ChanelList'
-import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
+import ChanelList from '@/components/03_molecules/ChanelList'
+import ChanelInfo from '@/components/03_molecules/ChanelInfo'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
@@ -54,7 +54,7 @@ const SideMenuPresenter: FC<PresenterProps> = ({
         <Divider />
       </div>
       <div className="pc-hide">
-        <ChanelDetail main={main} />
+        <ChanelInfo main={main} />
         <Divider />
       </div>
       <List>
