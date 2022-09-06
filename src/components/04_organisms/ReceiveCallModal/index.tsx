@@ -4,15 +4,29 @@ import { Button, CssBaseline } from '@material-ui/core'
 import Container from '@material-ui/core/Container'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
-import {connect} from "@/components/hoc";
+import { connect } from '@/components/hoc'
 
 /** ReceiveCallModalProps Props */
 export type ReceiveCallModalProps = WithChildren & { main }
 /** Presenter Props */
-export type PresenterProps = ReceiveCallModalProps & { classes, isOpen, connectionId, name, photo,  }
+export type PresenterProps = ReceiveCallModalProps & {
+  classes
+  isOpen
+  connectionId
+  name
+  photo
+}
 
 /** Presenter Component */
-const ReceiveCallModalPresenter: FC<PresenterProps> = ({ main, classes, isOpen, connectionId, name, photo,  ...props }) => (
+const ReceiveCallModalPresenter: FC<PresenterProps> = ({
+  main,
+  classes,
+  isOpen,
+  connectionId,
+  name,
+  photo,
+  ...props
+}) => (
   <>
     <Modal isOpen={isOpen} hideCloseBtn={true}>
       <Container component="main">
@@ -54,7 +68,9 @@ const ReceiveCallModalPresenter: FC<PresenterProps> = ({ main, classes, isOpen, 
 )
 
 /** Container Component */
-const ReceiveCallModalContainer: React.FC< ContainerProps<ReceiveCallModalProps, PresenterProps> > = ({ presenter, children, main, ...props }) => {
+const ReceiveCallModalContainer: React.FC<
+  ContainerProps<ReceiveCallModalProps, PresenterProps>
+> = ({ presenter, children, main, ...props }) => {
   const classes = useStyles()
 
   if (main.video.members.length === 0) return <></>
@@ -62,7 +78,16 @@ const ReceiveCallModalContainer: React.FC< ContainerProps<ReceiveCallModalProps,
   const isOpen = main.video.nowCallReceiving
 
   const { connectionId, name, photo } = main.video.members[0]
-  return presenter({ children, main, classes, isOpen, connectionId, name, photo,  ...props, })
+  return presenter({
+    children,
+    main,
+    classes,
+    isOpen,
+    connectionId,
+    name,
+    photo,
+    ...props,
+  })
 }
 
 export default connect<ReceiveCallModalProps, PresenterProps>(

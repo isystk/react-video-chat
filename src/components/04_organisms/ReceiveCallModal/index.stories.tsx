@@ -13,11 +13,11 @@ const main = {
     members: [
       {
         name: 'aaa',
-        photo: '/images/friends/David.png'
+        photo: '/images/friends/David.png',
       },
     ],
-    nowCallReceiving: true
-  }
+    nowCallReceiving: true,
+  },
 } as MainService
 
 const Template: Story = () => <ReceiveCallModal main={main} />

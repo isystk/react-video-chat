@@ -4,15 +4,29 @@ import { Button, CssBaseline } from '@material-ui/core'
 import Container from '@material-ui/core/Container'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
-import {connect} from "@/components/hoc";
+import { connect } from '@/components/hoc'
 
 /** SendCallModalProps Props */
 export type SendCallModalProps = WithChildren & { main }
 /** Presenter Props */
-export type PresenterProps = SendCallModalProps & { classes, isOpen, connectionId, name, photo,  }
+export type PresenterProps = SendCallModalProps & {
+  classes
+  isOpen
+  connectionId
+  name
+  photo
+}
 
 /** Presenter Component */
-const SendCallModalPresenter: FC<PresenterProps> = ({ main, classes, isOpen, connectionId, name, photo,  ...props }) => (
+const SendCallModalPresenter: FC<PresenterProps> = ({
+  main,
+  classes,
+  isOpen,
+  connectionId,
+  name,
+  photo,
+  ...props
+}) => (
   <>
     <Modal isOpen={isOpen} hideCloseBtn={true}>
       <Container component="main">
@@ -46,7 +60,9 @@ const SendCallModalPresenter: FC<PresenterProps> = ({ main, classes, isOpen, con
 )
 
 /** Container Component */
-const SendCallModalContainer: React.FC< ContainerProps<SendCallModalProps, PresenterProps> > = ({ presenter, children, main, ...props }) => {
+const SendCallModalContainer: React.FC<
+  ContainerProps<SendCallModalProps, PresenterProps>
+> = ({ presenter, children, main, ...props }) => {
   const classes = useStyles()
 
   if (main.video.members.length === 0) return <></>
@@ -54,7 +70,16 @@ const SendCallModalContainer: React.FC< ContainerProps<SendCallModalProps, Prese
   const isOpen = main.video.nowCallSending
 
   const { connectionId, name, photo } = main.video.members[0]
-  return presenter({ children, main, classes, isOpen, connectionId, name, photo,  ...props, })
+  return presenter({
+    children,
+    main,
+    classes,
+    isOpen,
+    connectionId,
+    name,
+    photo,
+    ...props,
+  })
 }
 
 export default connect<SendCallModalProps, PresenterProps>(

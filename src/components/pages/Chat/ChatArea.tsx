@@ -64,12 +64,8 @@ const ChatArea: FC = () => {
         </Grid>
       </Grid>
       <RecorderModal main={main} />
-      {
-        main.video.nowCallSending && <SendCallModal main={main}/>
-      }
-      {
-        main.video.nowCallReceiving && <ReceiveCallModal main={main} />
-      }
+      {main.video.nowCallSending && <SendCallModal main={main} />}
+      {main.video.nowCallReceiving && <ReceiveCallModal main={main} />}
     </div>
   )
 }

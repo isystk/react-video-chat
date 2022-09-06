@@ -1,20 +1,20 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import RecorderModal from './index'
+import InputFormChat from './index'
 import MainService from '@/services/main'
 
 export default {
-  title: '04_organisms/RecorderModal',
-  component: RecorderModal,
+  title: '03_molecules/InputFormChat',
+  component: InputFormChat,
 } as Meta
 
 const main = {
-  recorder: {
-    isOpen: true,
+  self: {
+    name: '',
   },
 } as MainService
 
-const Template: Story = () => <RecorderModal main={main} />
+const Template: Story = () => <InputFormChat main={main} />
 
 export const Primary = Template.bind({})
 Primary.storyName = 'プライマリ'

@@ -44,20 +44,6 @@ input {
     }
 }
 
-/* チャット入力 */
-.myIcon2{
-    padding: 19px 5px;
-    text-align: center;
-    cursor: pointer;
-}
-.myIcon2 img{
-    width: 24px;
-    height: auto;
-}
-.sendMsg{
-    margin: 12px !important;
-}
-
 /* チャネル一覧 */
 .chat_list{
     overflow-y: scroll;
@@ -137,41 +123,15 @@ input {
     flex-direction: column;
     padding: 20px 20px 0 20px;
 }
-.chat_box .chat_input{
-    display: flex;
-    background-color: #fff;
-    overflow: hidden;
-}
-.icon_block{
-    width: 320px;
-    height: 110px;
-    background-color: #fff;
-    border: 1px solid #777;
-    flex-wrap: wrap;
-    position: absolute;
-    top: 70%;
-    left: 0;
-    z-index: 1;
-    display: none;
-}
-@media screen and (min-width:992px){
-  .icon_block {
-    top: 80%;
-  }
-}
-.iconTag:hover .icon_block{
-    display: flex;
-    z-index: 1;
-}
 .emoji_icon{
-    width: 30px;
-    margin: 10px;
+  width: 30px;
+  margin: 10px;
 }
 .emoji_icon img{
-    width: 100%;
+  width: 100%;
 }
 .emoji_icon:hover{
-    background-color: #888888;
+  background-color: #888888;
 }
 
 /* チャネル詳細 */

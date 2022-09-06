@@ -15,18 +15,69 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import StopIcon from '@material-ui/icons/Stop'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { useRouter } from 'next/router'
-import Main from '@/services/main'
 import { URL } from '@/constants/url'
 import ChanelList from '@/components/pages/Chat/ChanelList'
 import ChanelDetail from '@/components/pages/Chat/ChanelDetail'
+import { ContainerProps, WithChildren } from 'types'
+import { useStyles } from './styles'
+import { connect } from '@/components/hoc'
 
-type Props = {
-  isMenuOpen: boolean
-  setMenuOpen: Dispatch<SetStateAction<boolean>>
-  main: Main
+/** SideMenuProps Props */
+export type SideMenuProps = WithChildren & { main; setMenuOpen; isMenuOpen }
+/** Presenter Props */
+export type PresenterProps = SideMenuProps & {
+  classes
+  menu
+  setMenuOpen
+  isMenuOpen
 }
 
-const SideMenu: FC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
+/** Presenter Component */
+const SideMenuPresenter: FC<PresenterProps> = ({
+  main,
+  classes,
+  menu,
+  setMenuOpen,
+  isMenuOpen,
+  ...props
+}) => (
+  <>
+    <Drawer open={isMenuOpen} onClose={() => setMenuOpen(!isMenuOpen)}>
+      <div style={{ marginLeft: 'auto' }}>
+        <IconButton onClick={() => setMenuOpen(!isMenuOpen)}>
+          <ChevronLeftIcon />
+        </IconButton>
+      </div>
+      <Divider />
+      <div className="pc-hide">
+        <ChanelList main={main} />
+        <Divider />
+      </div>
+      <div className="pc-hide">
+        <ChanelDetail main={main} />
+        <Divider />
+      </div>
+      <List>
+        {Object.keys(menu).map((key, index) => {
+          const [icon, func, disabled] = menu[key]
+          return (
+            <ListItem button key={index} onClick={func} disabled={disabled}>
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={key} />
+            </ListItem>
+          )
+        })}
+      </List>
+    </Drawer>
+  </>
+)
+
+/** Container Component */
+const SideMenuContainer: React.FC<
+  ContainerProps<SideMenuProps, PresenterProps>
+> = ({ presenter, children, main, setMenuOpen, isMenuOpen, ...props }) => {
+  const classes = useStyles()
+
   const router = useRouter()
 
   const RecoderIcon = main.recorder.isRecording
@@ -82,35 +133,19 @@ const SideMenu: FC<Props> = ({ isMenuOpen, setMenuOpen, main }) => {
       !joined,
     ],
   }
-  return (
-    <Drawer open={isMenuOpen} onClose={() => setMenuOpen(!isMenuOpen)}>
-      <div style={{ marginLeft: 'auto' }}>
-        <IconButton onClick={() => setMenuOpen(!isMenuOpen)}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </div>
-      <Divider />
-      <div className="pc-hide">
-        <ChanelList main={main} />
-        <Divider />
-      </div>
-      <div className="pc-hide">
-        <ChanelDetail main={main} />
-        <Divider />
-      </div>
-      <List>
-        {Object.keys(menu).map((key, index) => {
-          const [icon, func, disabled] = menu[key]
-          return (
-            <ListItem button key={index} onClick={func} disabled={disabled}>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={key} />
-            </ListItem>
-          )
-        })}
-      </List>
-    </Drawer>
-  )
+  return presenter({
+    children,
+    main,
+    classes,
+    menu,
+    setMenuOpen,
+    isMenuOpen,
+    ...props,
+  })
 }
 
-export default SideMenu
+export default connect<SideMenuProps, PresenterProps>(
+  'SideMenu',
+  SideMenuPresenter,
+  SideMenuContainer
+)

@@ -3,7 +3,7 @@ import Main from '@/services/main'
 import Modal from '@/components/01_atoms/Modal'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
-import {connect} from "@/components/hoc";
+import { connect } from '@/components/hoc'
 
 /** RecorderModalProps Props */
 export type RecorderModalProps = WithChildren & { main }
@@ -11,7 +11,11 @@ export type RecorderModalProps = WithChildren & { main }
 export type PresenterProps = RecorderModalProps & { classes }
 
 /** Presenter Component */
-const RecorderModalPresenter: FC<PresenterProps> = ({ main, classes, ...props }) => (
+const RecorderModalPresenter: FC<PresenterProps> = ({
+  main,
+  classes,
+  ...props
+}) => (
   <>
     <Modal
       isOpen={main.recorder.isOpen}
@@ -26,7 +30,9 @@ const RecorderModalPresenter: FC<PresenterProps> = ({ main, classes, ...props })
 )
 
 /** Container Component */
-const RecorderModalContainer: React.FC< ContainerProps<RecorderModalProps, PresenterProps> > = ({ presenter, children, main, ...props }) => {
+const RecorderModalContainer: React.FC<
+  ContainerProps<RecorderModalProps, PresenterProps>
+> = ({ presenter, children, main, ...props }) => {
   const classes = useStyles()
 
   useEffect(() => {
@@ -55,7 +61,7 @@ const RecorderModalContainer: React.FC< ContainerProps<RecorderModalProps, Prese
       }
     }, 1000)
   }, [main.recorder.isOpen])
-  return presenter({ children, main, classes, ...props, })
+  return presenter({ children, main, classes, ...props })
 }
 
 export default connect<RecorderModalProps, PresenterProps>(

@@ -12,7 +12,11 @@ const mainLogout = {
   self: { name: '' },
 }
 export const Logout: Story = () => (
-  <Header isMenuOpen={false} setMenuOpen={() => ({})} main={mainLogout} />
+  <Header
+    isMenuOpen={false}
+    setMenuOpen={(isOpen) => console.log(isOpen)}
+    main={mainLogout}
+  />
 )
 Logout.storyName = 'ログアウト'
 
@@ -21,6 +25,10 @@ const mainLogin = {
   self: { name: 'isystk' },
 }
 export const Login: Story = () => (
-  <Header isMenuOpen={false} setMenuOpen={() => ({})} main={mainLogin} />
+  <Header
+    isMenuOpen={false}
+    setMenuOpen={(isOpen) => console.log(isOpen)}
+    main={mainLogin}
+  />
 )
 Login.storyName = 'ログイン'
