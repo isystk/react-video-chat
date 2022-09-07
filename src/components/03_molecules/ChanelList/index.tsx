@@ -2,18 +2,23 @@ import * as React from 'react'
 import * as _ from 'lodash'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { connect } from '@/components/hoc'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import MainService from '@/services/main'
 
 /** ChanelListProps Props */
-export type ChanelListProps = WithChildren & { main }
+export type ChanelListProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = ChanelListProps & { classes }
+export type PresenterProps = ChanelListProps & {
+  classes
+  main 
+}
 
 /** Presenter Component */
 const ChanelListPresenter: FC<PresenterProps> = ({
-  main,
   classes,
+  main,
   ...props
 }) => (
   <>
@@ -43,9 +48,16 @@ const ChanelListPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const ChanelListContainer: React.FC<
   ContainerProps<ChanelListProps, PresenterProps>
-> = ({ presenter, children, main, ...props }) => {
+> = ({ presenter, children, ...props }) => {
+  const main = useContext<MainService | null>(Context)
+  if (!main) return <></>
   const classes = useStyles()
-  return presenter({ children, main, classes, ...props })
+  return presenter({
+    children,
+    main,
+    classes,
+    ...props,
+  })
 }
 
 export default connect<ChanelListProps, PresenterProps>(

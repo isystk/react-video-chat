@@ -84,10 +84,11 @@
     "husky": "^8.0.1",
     "jest": "^27.5.1",
     "lint-staged": "^13.0.3",
-    "storybook-addon-redux-listener": "^0.1.7",
     "prettier": "^2.7.1",
-    "ts-jest": "^28.0.8",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "storybook-addon-next-router": "^4.0.0",
+    "storybook-addon-redux-listener": "^0.1.7",
+    "ts-jest": "^28.0.8"
   },
   "license": "MIT"
 }

@@ -2,24 +2,24 @@ import { Meta, Story } from '@storybook/react'
 import React, { useRef } from 'react'
 import Video from './index'
 import MainService from '@/services/main'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 export default {
   title: '03_molecules/Video',
   component: Video,
 } as Meta
 
-const main = {
-  self: {
-    name: 'isystk',
-  },
-} as MainService
-
-const Template: Story = () => {
+const Template: Story = (props) => {
+  const main = new MainService(() => ({}))
+  main.setName('isystk')
   const videoRef = useRef(null)
   return (
-    <Video isLocal={true} member={main.self} main={main} videoRef={videoRef} />
+    <Context.Provider value={main}>
+      <Video isLocal={true} member={main.self} videoRef={videoRef} />
+    </Context.Provider>
   )
 }
 
 export const Primary = Template.bind({})
 Primary.storyName = 'プライマリ'
+Primary.args = {}

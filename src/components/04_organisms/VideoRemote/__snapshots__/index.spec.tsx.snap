@@ -32,7 +32,7 @@ exports[`VideoRemote Match Snapshot 1`] = `
     />
     <video
       autoPlay={true}
-      id="video-aaa"
+      id="video-bbb"
       style={
         Object {
           "display": "block",
@@ -46,7 +46,7 @@ exports[`VideoRemote Match Snapshot 1`] = `
       <h3
         className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
       >
-        aaa
+        bbb
       </h3>
     </div>
     <span

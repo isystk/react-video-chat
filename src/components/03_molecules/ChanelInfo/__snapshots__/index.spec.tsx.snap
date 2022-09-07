@@ -1,3 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ChanelInfo Match Snapshot 1`] = `null`;
+exports[`ChanelInfo Match Snapshot 1`] = `
+<div
+  className="me_block"
+>
+  <div
+    className="myHeadPhoto"
+  >
+    <img
+      alt=""
+      src="images/friends/Alpha_Team.png"
+    />
+  </div>
+  <div
+    className="myName"
+  >
+    すべて
+  </div>
+  <div
+    className="myTitle"
+  >
+    ルーム内のすべてのメンバー
+  </div>
+  <div
+    className="myVideo"
+  >
+    <svg
+      aria-hidden={true}
+      className="MuiSvgIcon-root"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M21 6.5l-4 4V7c0-.55-.45-1-1-1H9.82L21 17.18V6.5zM3.27 2L2 3.27 4.73 6H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.21 0 .39-.08.54-.18L19.73 21 21 19.73 3.27 2z"
+      />
+    </svg>
+  </div>
+</div>
+`;

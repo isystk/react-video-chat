@@ -5,15 +5,15 @@ import { connect } from '@/components/hoc'
 import { useStyles } from './styles'
 
 /** LogoProps Props */
-export type LogoProps = WithChildren
+export type LogoProps = WithChildren & { name }
 /** Presenter Props */
-export type PresenterProps = LogoProps & { main }
+export type PresenterProps = LogoProps & { classes }
 
 /** Presenter Component */
-const LogoPresenter: FC<PresenterProps> = ({ main, DEAULT_TITLE }) => (
+const LogoPresenter: FC<PresenterProps> = ({ name, classes }) => (
   <>
     <Typography variant="h6" component="div">
-      {main.room.name || DEAULT_TITLE}
+      {name}
     </Typography>
   </>
 )
@@ -25,11 +25,9 @@ const LogoContainer: React.FC<ContainerProps<LogoProps, PresenterProps>> = ({
   ...props
 }) => {
   const classes = useStyles()
-  const DEAULT_TITLE = process.env.APP_NAME
   return presenter({
     children,
     classes,
-    DEAULT_TITLE,
     ...props,
   })
 }

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import { ContainerProps, WithChildren } from 'types'
 import {
   AppBar,
@@ -16,9 +16,11 @@ import * as _ from 'lodash'
 import { connect } from '@/components/hoc'
 import Logo from '@/components/01_atoms/Logo'
 import { useStyles } from './styles'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import MainService from '@/services/main'
 
 /** HeaderProps Props */
-export type HeaderProps = WithChildren & { main; isMenuOpen; setMenuOpen }
+export type HeaderProps = WithChildren & { isMenuOpen; setMenuOpen }
 /** Presenter Props */
 export type PresenterProps = HeaderProps & { classes; anchorEl; setAnchorEl }
 
@@ -41,7 +43,7 @@ const HeaderPresenter: FC<PresenterProps> = ({
         >
           <MenuIcon />
         </IconButton>
-        <Logo main={main} />
+        <Logo />
         <Typography variant="h6" component="div" className={classes.title}>
           {main.self.name !== '' && main.room.name !== '' && (
             <div className="Room-joins">
@@ -87,12 +89,15 @@ const HeaderPresenter: FC<PresenterProps> = ({
 const HeaderContainer: React.FC<
   ContainerProps<HeaderProps, PresenterProps>
 > = ({ presenter, children, ...props }) => {
+  const main = useContext<MainService | null>(Context)
+  if (!main) return <></>
+  const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null)
-  const classes = useStyles()
   return presenter({
     children,
+    main,
     classes,
     ...props,
     anchorEl,

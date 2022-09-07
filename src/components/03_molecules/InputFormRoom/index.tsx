@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, {FC, useContext, useEffect, useState} from 'react'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -7,11 +7,14 @@ import Container from '@material-ui/core/Container'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
+import MainService from "@/services/main";
+import {Context} from "@/components/05_layouts/HtmlSkeleton";
 
 /** InputFormRoomProps Props */
-export type InputFormRoomProps = WithChildren & { main }
+export type InputFormRoomProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = InputFormRoomProps & {
+  main
   classes
   label
   name
@@ -81,7 +84,9 @@ const InputFormRoomPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const InputFormRoomContainer: React.FC<
   ContainerProps<InputFormRoomProps, PresenterProps>
-> = ({ presenter, children, main, ...props }) => {
+> = ({ presenter, children, ...props }) => {
+  const main = useContext<MainService|null>(Context)
+  if (!main) return <></>
   const classes = useStyles()
   const label = '部屋の名前'
   const [disabled, setDisabled] = useState(true)

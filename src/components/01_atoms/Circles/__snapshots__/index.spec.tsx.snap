@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Circles Match Snapshot 1`] = `
+<ul
+  className="circles"
+>
+  <li />
+  <li />
+  <li />
+  <li />
+  <li />
+  <li />
+  <li />
+  <li />
+  <li />
+  <li />
+</ul>
+`;

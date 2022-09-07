@@ -2,16 +2,42 @@ import React, { useState } from 'react'
 import renderer from 'react-test-renderer'
 import ChanelList from './index'
 import '@testing-library/jest-dom/extend-expect'
-import { renderHook } from '@testing-library/react-hooks'
-import Main from '@/services/main'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import MainService from '@/services/main'
+import ChanelService from '@/services/Chanel'
 
 describe('ChanelList', () => {
   it('Match Snapshot', () => {
-    const stateMain = renderHook(() => useState<Main | null>(null))
-    const [, setAppRoot] = stateMain.result.current
-    const main = new Main(setAppRoot)
-    if (main === null) return
-    const component = renderer.create(<ChanelList main={main} />)
+    const main = new MainService(() => ({}))
+    main.setName('isystk')
+    main.setRoomId('test')
+    main.addChanel(
+      new ChanelService(
+        main,
+        'all',
+        'すべて',
+        'all',
+        'images/friends/Alpha_Team.png',
+        'ルーム内のすべてのメンバー'
+      )
+    )
+    main.addChanel(
+      new ChanelService(
+        main,
+        'own',
+        '自分',
+        'all',
+        'images/friends/BigBoss.png',
+        'BigBoss'
+      )
+    )
+    main.setChanelId('all')
+
+    const component = renderer.create(
+      <Context.Provider value={main}>
+        <ChanelList />
+      </Context.Provider>
+    )
     const tree = component.toJSON()
 
     expect(tree).toMatchSnapshot()

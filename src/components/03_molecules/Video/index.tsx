@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, {FC, useContext, useEffect, useRef} from 'react'
 import {
   Card,
   CardActionArea,
@@ -12,11 +12,14 @@ import useDimensions from '@/stores/useDimentions'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
+import MainService from "@/services/main";
+import {Context} from "@/components/05_layouts/HtmlSkeleton";
 
 /** VideoProps Props */
-export type VideoProps = WithChildren & { main; isLocal; videoRef; member }
+export type VideoProps = WithChildren & { isLocal, videoRef, member }
 /** Presenter Props */
 export type PresenterProps = VideoProps & {
+  main
   classes
   refCard
   dimensionsCard
@@ -66,7 +69,7 @@ const VideoPresenter: FC<PresenterProps> = ({
         <VolumeButton
           isLocal={isLocal}
           refVolumeButton={refVolumeButton}
-          main={main}
+          isMute={isLocal && main.self.muted}
         />
         {videoRef.current && videoRef.current.srcObject && (
           <AudioAnalyser
@@ -83,9 +86,10 @@ const VideoPresenter: FC<PresenterProps> = ({
 const VideoContainer: React.FC<ContainerProps<VideoProps, PresenterProps>> = ({
   presenter,
   children,
-  main,
   ...props
 }) => {
+  const main = useContext<MainService|null>(Context)
+  if (!main) return <></>
   const classes = useStyles()
 
   const refCard = useRef(null)

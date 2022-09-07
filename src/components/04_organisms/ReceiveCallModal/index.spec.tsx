@@ -1,17 +1,33 @@
-import React, { useState } from 'react'
+import React from 'react'
 import renderer from 'react-test-renderer'
 import ReceiveCallModal from './index'
 import '@testing-library/jest-dom/extend-expect'
-import { renderHook } from '@testing-library/react-hooks'
-import Main from '@/services/main'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import MainService from "@/services/main";
 
 describe('ReceiveCallModal', () => {
   it('Match Snapshot', () => {
-    const stateMain = renderHook(() => useState<Main | null>(null))
-    const [, setAppRoot] = stateMain.result.current
-    const main = new Main(setAppRoot)
-    if (main === null) return
-    const component = renderer.create(<ReceiveCallModal main={main} />)
+    const main = new MainService(() => ({}))
+    main.setName('isystk')
+    main.setRoomId('test')
+    main.addMember({
+      connectionId: 'bbb',
+      name: 'bbb',
+      photo: 'images/friends/David.png',
+    })
+    main.video.members = [
+      {
+        connectionId: 'bbb',
+        name: 'bbb',
+        photo: 'images/friends/David.png',
+      },
+    ]
+    main.video.nowCallReceiving = true
+    const component = renderer.create(
+      <Context.Provider value={main}>
+        <ReceiveCallModal />
+      </Context.Provider>
+    )
     const tree = component.toJSON()
 
     expect(tree).toMatchSnapshot()

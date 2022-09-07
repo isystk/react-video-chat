@@ -17,7 +17,6 @@ export type Member = {
   connectionId: string
   name: string
   photo: string
-  status: string
 }
 
 type Members = {
@@ -146,7 +145,6 @@ export default class MainService {
   async addMember(data: Member) {
     console.log('addMember', data)
 
-    data.status = 'online'
     const newMember = {
       [data.connectionId]: data,
     }

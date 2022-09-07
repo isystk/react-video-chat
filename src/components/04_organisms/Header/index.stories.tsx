@@ -1,34 +1,35 @@
 import { Meta, Story } from '@storybook/react'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import React from 'react'
 import Header from './index'
+import MainService from '@/services/main'
 
 export default {
   title: '04_organisms/Header',
   component: Header,
 } as Meta
 
-const mainLogout = {
-  room: { name: '' },
-  self: { name: '' },
+const Template: Story = ({ name = '', roomId = '' }) => {
+  const main = new MainService(() => ({}))
+  main.setName(name)
+  main.setRoomId(roomId)
+  return (
+    <Context.Provider value={main}>
+      <Header
+        isMenuOpen={false}
+        setMenuOpen={(isOpen) => console.log(isOpen)}
+      />
+    </Context.Provider>
+  )
 }
-export const Logout: Story = () => (
-  <Header
-    isMenuOpen={false}
-    setMenuOpen={(isOpen) => console.log(isOpen)}
-    main={mainLogout}
-  />
-)
-Logout.storyName = 'ログアウト'
 
-const mainLogin = {
-  room: { name: 'test' },
-  self: { name: 'isystk' },
-}
-export const Login: Story = () => (
-  <Header
-    isMenuOpen={false}
-    setMenuOpen={(isOpen) => console.log(isOpen)}
-    main={mainLogin}
-  />
-)
+export const Logout = Template.bind({})
+Logout.storyName = 'ログアウト'
+Logout.args = {}
+
+export const Login = Template.bind({})
 Login.storyName = 'ログイン'
+Login.args = {
+  name: 'isystk',
+  roomId: 'test',
+}

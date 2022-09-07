@@ -1,10 +1,11 @@
 import Grid from '@material-ui/core/Grid'
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import VideoLocal from '../../04_organisms/VideoLocal'
 import VideoRemote from '../../04_organisms/VideoRemote'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 /** VideoTemplateProps Props */
 export type VideoTemplateProps = WithChildren & { main }
@@ -22,15 +23,13 @@ const VideoTemplatePresenter: FC<PresenterProps> = ({
     <div className={classes.root}>
       <Grid container spacing={0}>
         <Grid item {...grid}>
-          <VideoLocal main={main} />
+          <VideoLocal />
         </Grid>
         {main.video.members.map(function (member, idx) {
-          return member.status === 'online' ? (
+          return (
             <Grid item {...grid} key={idx}>
-              <VideoRemote main={main} member={member} />
+              <VideoRemote member={member} />
             </Grid>
-          ) : (
-            <div key={idx}></div>
           )
         })}
       </Grid>
@@ -41,7 +40,8 @@ const VideoTemplatePresenter: FC<PresenterProps> = ({
 /** Container Component */
 const VideoTemplateContainer: React.FC<
   ContainerProps<VideoTemplateProps, PresenterProps>
-> = ({ presenter, children, main, ...props }) => {
+> = ({ presenter, children, ...props }) => {
+  const main = useContext(Context)
   const classes = useStyles()
   const grids = {
     0: { xs: 12, sm: 6, md: 6 },

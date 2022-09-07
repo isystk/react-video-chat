@@ -1,23 +1,31 @@
 import HtmlSkeleton, {
+  Context,
   HtmlSkeletonProps,
   Title,
 } from '@/components/05_layouts/HtmlSkeleton'
 import { connect } from '@/components/hoc'
-import React from 'react'
+import React, { useContext } from 'react'
 import { ContainerProps } from 'types'
-import * as styles from './styles'
+import { useStyles } from './styles'
 import { Container, Typography } from '@material-ui/core'
 
 /** ErrorTemplate Props */
-export type ErrorTemplateProps = Omit<HtmlSkeletonProps, 'children'>
+export type ErrorTemplateProps = Omit<HtmlSkeletonProps, 'children'> & {
+  statusCode: string
+}
 /** Presenter Props */
-export type PresenterProps = ErrorTemplateProps & { statusCode: string }
+export type PresenterProps = ErrorTemplateProps & { main; classes }
 
 /** Presenter Component */
-const ErrorTemplatePresenter: React.FC<PresenterProps> = ({ statusCode }) => (
+const ErrorTemplatePresenter: React.FC<PresenterProps> = ({
+  statusCode,
+  main,
+  classes,
+  ...props
+}) => (
   <HtmlSkeleton>
     <Title>Error</Title>
-    <Container {...styles.container}>
+    <Container className={classes.container}>
       <div>
         <Typography component="h1" variant="h5">
           {statusCode} エラーが発生しました。
@@ -31,7 +39,9 @@ const ErrorTemplatePresenter: React.FC<PresenterProps> = ({ statusCode }) => (
 const ErrorTemplateContainer: React.FC<
   ContainerProps<ErrorTemplateProps, PresenterProps>
 > = ({ presenter, ...props }) => {
-  return presenter({ ...props })
+  const classes = useStyles()
+  const main = useContext(Context)
+  return presenter({ classes, main, ...props })
 }
 
 /** ErrorTemplate */

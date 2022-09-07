@@ -1,16 +1,20 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import VolumeButton from './index'
-import MainService from '@/services/main'
 
 export default {
   title: '01_atoms/VolumeButton',
   component: VolumeButton,
 } as Meta
 
-const main = {} as MainService
-
-const Template: Story = () => <VolumeButton main={main} />
+const Template: Story = (props) => {
+  return <VolumeButton {...props} />
+}
 
 export const Primary = Template.bind({})
 Primary.storyName = 'プライマリ'
+Primary.args = { isMute: false }
+
+export const Mute = Template.bind({})
+Mute.storyName = 'ミュート'
+Mute.args = { isMute: true }

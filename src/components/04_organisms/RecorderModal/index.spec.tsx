@@ -4,14 +4,20 @@ import RecorderModal from './index'
 import '@testing-library/jest-dom/extend-expect'
 import { renderHook } from '@testing-library/react-hooks'
 import Main from '@/services/main'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import MainService from "@/services/main";
 
 describe('RecorderModal', () => {
   it('Match Snapshot', () => {
-    const stateMain = renderHook(() => useState<Main | null>(null))
-    const [, setAppRoot] = stateMain.result.current
-    const main = new Main(setAppRoot)
-    if (main === null) return
-    const component = renderer.create(<RecorderModal main={main} />)
+    const main = new MainService(() => ({}))
+    main.setName('isystk')
+    main.setRoomId('test')
+    main.recorder.isOpen = true
+    const component = renderer.create(
+      <Context.Provider value={main}>
+        <RecorderModal />
+      </Context.Provider>
+    )
     const tree = component.toJSON()
 
     expect(tree).toMatchSnapshot()

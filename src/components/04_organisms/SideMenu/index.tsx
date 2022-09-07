@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, FC } from 'react'
+import React, { FC, useContext } from 'react'
 import {
   Divider,
   Drawer,
@@ -21,11 +21,14 @@ import ChanelInfo from '@/components/03_molecules/ChanelInfo'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import MainService from '@/services/main'
 
 /** SideMenuProps Props */
-export type SideMenuProps = WithChildren & { main; setMenuOpen; isMenuOpen }
+export type SideMenuProps = WithChildren & { setMenuOpen, isMenuOpen }
 /** Presenter Props */
 export type PresenterProps = SideMenuProps & {
+  main
   classes
   menu
   setMenuOpen
@@ -50,11 +53,11 @@ const SideMenuPresenter: FC<PresenterProps> = ({
       </div>
       <Divider />
       <div className="pc-hide">
-        <ChanelList main={main} />
+        <ChanelList />
         <Divider />
       </div>
       <div className="pc-hide">
-        <ChanelInfo main={main} />
+        <ChanelInfo />
         <Divider />
       </div>
       <List>
@@ -75,7 +78,9 @@ const SideMenuPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const SideMenuContainer: React.FC<
   ContainerProps<SideMenuProps, PresenterProps>
-> = ({ presenter, children, main, setMenuOpen, isMenuOpen, ...props }) => {
+> = ({ presenter, children, setMenuOpen, isMenuOpen, ...props }) => {
+  const main = useContext<MainService | null>(Context)
+  if (!main) return <></>
   const classes = useStyles()
 
   const router = useRouter()

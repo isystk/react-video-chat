@@ -9,17 +9,22 @@ import { connect } from '@/components/hoc'
 
 /** VolumeButtonProps Props */
 export type VolumeButtonProps = WithChildren & {
-  main
+  isMute
   isLocal
   refVolumeButton
   color
 }
 /** Presenter Props */
-export type PresenterProps = VolumeButtonProps & { classes }
+export type PresenterProps = VolumeButtonProps & {
+  classes
+  isLocal
+  refVolumeButton
+  color
+  Icon
+}
 
 /** Presenter Component */
 const VolumeButtonPresenter: FC<PresenterProps> = ({
-  main,
   classes,
   isLocal,
   refVolumeButton,
@@ -49,18 +54,15 @@ const VolumeButtonContainer: React.FC<
 > = ({
   presenter,
   children,
-  main,
-  isLocal,
+  isMute,
   refVolumeButton,
   color = 'black',
   ...props
 }) => {
   const classes = useStyles()
-  const Icon = isLocal && main.self.muted ? VolumeOffIcon : VolumeUpIcon
+  const Icon = isMute ? VolumeOffIcon : VolumeUpIcon
   return presenter({
     children,
-    main,
-    isLocal,
     refVolumeButton,
     color,
     classes,

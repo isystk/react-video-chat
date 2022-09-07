@@ -1,5 +1,5 @@
 import TextField from '@material-ui/core/TextField'
-import React, { FC, useCallback, useEffect, useState } from 'react'
+import React, {FC, useCallback, useContext, useEffect, useState} from 'react'
 import Button from '@material-ui/core/Button'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
@@ -8,12 +8,15 @@ import TagFacesIcon from '@material-ui/icons/TagFaces'
 import AttachFileIcon from '@material-ui/icons/AttachFile'
 import SendIcon from '@material-ui/icons/Send'
 import { Stamps } from '@/services/Chat'
+import {Context} from "@/components/05_layouts/HtmlSkeleton";
+import MainService from "@/services/main";
 
 /** InputFormChatProps Props */
-export type InputFormChatProps = WithChildren & { main }
+export type InputFormChatProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = InputFormChatProps & {
   classes
+  main
   Stamps
   label
   setMessage
@@ -28,8 +31,8 @@ export type PresenterProps = InputFormChatProps & {
 
 /** Presenter Component */
 const InputFormChatPresenter: FC<PresenterProps> = ({
-  main,
   classes,
+  main,
   Stamps,
   label,
   setMessage,
@@ -99,7 +102,9 @@ const InputFormChatPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const InputFormChatContainer: React.FC<
   ContainerProps<InputFormChatProps, PresenterProps>
-> = ({ presenter, children, main, ...props }) => {
+> = ({ presenter, children, ...props }) => {
+  const main = useContext<MainService | null>(Context)
+  if (!main) return <></>
   const classes = useStyles()
   const label = 'メッセージを入力してください'
   const [disabled, setDisabled] = useState(true)

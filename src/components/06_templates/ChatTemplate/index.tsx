@@ -32,24 +32,24 @@ const ChatTemplatePresenter: FC<PresenterProps> = ({
       <Grid container spacing={0}>
         <Grid item {...{ xs: 12, md: 3 }}>
           <div className="sp-hide" style={appStyle(windowHeight)}>
-            <ChanelList main={main} />
+            <ChanelList />
           </div>
         </Grid>
         <Grid item {...{ xs: 12, md: 6 }}>
           <div className="chat_box">
-            <ChatMessages main={main} />
-            <InputFormChat main={main} />
+            <ChatMessages />
+            <InputFormChat />
           </div>
         </Grid>
         <Grid item {...{ xs: 12, md: 3 }} style={{ backgroundColor: '#fff' }}>
           <div className="sp-hide">
-            <ChanelInfo main={main} />
+            <ChanelInfo />
           </div>
         </Grid>
       </Grid>
-      <RecorderModal main={main} />
-      {main.video.nowCallSending && <SendCallModal main={main} />}
-      {main.video.nowCallReceiving && <ReceiveCallModal main={main} />}
+      <RecorderModal />
+      {main.video.nowCallSending && <SendCallModal />}
+      {main.video.nowCallReceiving && <ReceiveCallModal />}
     </div>
   </>
 )
@@ -91,7 +91,7 @@ const ChatTemplateContainer: React.FC<
 
   if (main.self.name === '') return <></>
   if (main.room.name === '') return <></>
-  if (main.video.isPeerConnected) return <VideoTemplate main={main} />
+  if (main.video.isPeerConnected) return <VideoTemplate />
   return presenter({ children, main, classes, windowHeight, ...props })
 }
 

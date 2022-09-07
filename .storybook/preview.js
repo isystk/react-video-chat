@@ -4,6 +4,7 @@ import {applyMiddleware, createStore} from "redux";
 import reducers from '../src/stores'
 import createStorybookListener from 'storybook-addon-redux-listener'
 import thunk from "redux-thunk";
+import { RouterContext } from "next/dist/shared/lib/router-context"
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -12,6 +13,9 @@ export const parameters = {
       color: /(background|color)$/i,
       date: /Date$/,
     },
+  },
+  nextRouter: {
+    Provider: RouterContext.Provider,
   },
 }
 

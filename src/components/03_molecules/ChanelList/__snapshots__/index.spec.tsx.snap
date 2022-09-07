@@ -4,5 +4,70 @@ exports[`ChanelList Match Snapshot 1`] = `
 <div
   className="chat_list"
   id="myChatList"
-/>
+>
+  <div
+    className="chatListTag active"
+    onClick={[Function]}
+  >
+    <div
+      className="head"
+    >
+      <img
+        alt=""
+        src="images/friends/Alpha_Team.png"
+      />
+    </div>
+    <div
+      className="mytext"
+    >
+      <div
+        className="name"
+      >
+        すべて
+      </div>
+      <div
+        className="dec"
+      >
+        ルーム内のすべてのメンバー
+      </div>
+    </div>
+    <div
+      className="msg_num"
+    >
+      7
+    </div>
+  </div>
+  <div
+    className="chatListTag "
+    onClick={[Function]}
+  >
+    <div
+      className="head"
+    >
+      <img
+        alt=""
+        src="images/friends/BigBoss.png"
+      />
+    </div>
+    <div
+      className="mytext"
+    >
+      <div
+        className="name"
+      >
+        自分
+      </div>
+      <div
+        className="dec"
+      >
+        BigBoss
+      </div>
+    </div>
+    <div
+      className="msg_num"
+    >
+      7
+    </div>
+  </div>
+</div>
 `;

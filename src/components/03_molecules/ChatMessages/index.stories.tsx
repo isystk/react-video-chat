@@ -2,66 +2,66 @@ import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import ChatMessages from './index'
 import MainService from '@/services/main'
+import ChanelService from "@/services/Chanel";
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 export default {
   title: '03_molecules/ChatMessages',
   component: ChatMessages,
 } as Meta
 
-const main = {
-  self: {
-    connectionId: 'aaa',
-    name: 'aaa',
-    photo: 'images/friends/BigBoss.png',
-  },
-  members: {
-    aaa: {
-      connectionId: 'aaa',
-      name: 'aaa',
-      photo: 'images/friends/BigBoss.png',
+const Template: Story = (props) => {
+  const main = new MainService(() => ({}))
+  main.setName('isystk')
+  main.setRoomId('test')
+  main.addChanel(
+    new ChanelService(
+      main,
+      'all',
+      'すべて',
+      'all',
+      'images/friends/Alpha_Team.png',
+      'ルーム内のすべてのメンバー'
+    )
+  )
+  main.setChanelId('all')
+  main.addMember({
+    connectionId: 'bbb',
+    name: 'bbb',
+    photo: 'images/friends/David.png', 
+  })
+  main.self.connectionId = 'aaa'
+  main.chanels['all'].chat.messages = [
+    {
+      type: 'text',
+      data: 'hello',
+      chanelId: 'all',
+      sendId: 'aaa',
+      datetime: '2022-09-07 12:00:00',
     },
-    bbb: {
-      connectionId: 'bbb',
-      name: 'bbb',
-      photo: 'images/friends/David.png',
+    {
+      type: 'stamp',
+      data: 'smile',
+      chanelId: 'all',
+      sendId: 'aaa',
+      datetime: '2022-09-07 13:00:00',
     },
-  },
-  chanels: {
-    all: {
-      id: 'all',
-      name: 'すべて',
-      type: 'all',
-      photo: 'images/friends/Alpha_Team.png',
-      detail: 'ルーム内のすべてのメンバー',
-      chat: {
-        chanelId: 'test',
-        messages: [
-          {
-            type: 'text',
-            data: 'hello',
-            sendId: 'aaa',
-            datetime: Date(),
-          },
-          {
-            type: 'stamp',
-            data: 'smile',
-            sendId: 'aaa',
-            datetime: Date(),
-          },
-          {
-            type: 'text',
-            data: 'see you',
-            sendId: 'bbb',
-            datetime: Date(),
-          },
-        ],
-      },
+    {
+      type: 'text',
+      data: 'see you',
+      chanelId: 'all',
+      sendId: 'bbb',
+      datetime: '2022-09-07 14:00:00',
     },
-  },
-  selectChanelId: 'all',
-} as MainService
+  ];
 
-const Template: Story = () => <ChatMessages main={main} />
+  return (
+    <Context.Provider value={main}>
+      <ChatMessages />
+    </Context.Provider>
+  )
+}
 
 export const Primary = Template.bind({})
 Primary.storyName = 'プライマリ'
+Primary.args = {}

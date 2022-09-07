@@ -1,14 +1,15 @@
-import React, { FC, useEffect } from 'react'
-import Main from '@/services/main'
+import React, {FC, useContext, useEffect} from 'react'
 import Modal from '@/components/01_atoms/Modal'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
+import {Context} from "@/components/05_layouts/HtmlSkeleton";
+import MainService from "@/services/main";
 
 /** RecorderModalProps Props */
-export type RecorderModalProps = WithChildren & { main }
+export type RecorderModalProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = RecorderModalProps & { classes }
+export type PresenterProps = RecorderModalProps & { main, classes }
 
 /** Presenter Component */
 const RecorderModalPresenter: FC<PresenterProps> = ({
@@ -32,7 +33,9 @@ const RecorderModalPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const RecorderModalContainer: React.FC<
   ContainerProps<RecorderModalProps, PresenterProps>
-> = ({ presenter, children, main, ...props }) => {
+> = ({ presenter, children, ...props }) => {
+  const main = useContext<MainService | null>(Context)
+  if (!main) return <></>
   const classes = useStyles()
 
   useEffect(() => {

@@ -50,9 +50,9 @@ const HtmlSkeletonPresenter: FC<PresenterProps> = ({
       <link rel="manifest" href="/manifest.json" />
     </Head>
     <Context.Provider value={main}>
-      <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
+      <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
       <div>{children}</div>
-      <SideMenu isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} main={main} />
+      <SideMenu isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
     </Context.Provider>
   </>
 )

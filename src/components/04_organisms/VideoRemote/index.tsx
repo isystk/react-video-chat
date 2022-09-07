@@ -1,36 +1,35 @@
-import React, { FC, useRef } from 'react'
+import React, {FC, useRef} from 'react'
 import Video from '../../03_molecules/Video'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 
 /** VideoRemoteProps Props */
-export type VideoRemoteProps = WithChildren & { main; member }
+export type VideoRemoteProps = WithChildren & { member }
 /** Presenter Props */
-export type PresenterProps = VideoRemoteProps & { classes; member; videoRef }
+export type PresenterProps = VideoRemoteProps & { classes, member, videoRef }
 
 /** Presenter Component */
 const VideoRemotePresenter: FC<PresenterProps> = ({
-  main,
   classes,
   member,
   videoRef,
   ...props
 }) => (
   <>
-    <Video isLocal={false} member={member} main={main} videoRef={videoRef} />
+    <Video isLocal={false} member={member} videoRef={videoRef} />
   </>
 )
 
 /** Container Component */
 const VideoRemoteContainer: React.FC<
   ContainerProps<VideoRemoteProps, PresenterProps>
-> = ({ presenter, children, main, ...props }) => {
+> = ({ presenter, children, ...props }) => {
   const classes = useStyles()
 
   const videoRef = useRef(null)
 
-  return presenter({ children, main, classes, videoRef, ...props })
+  return presenter({ children, classes, videoRef, ...props })
 }
 
 export default connect<VideoRemoteProps, PresenterProps>(

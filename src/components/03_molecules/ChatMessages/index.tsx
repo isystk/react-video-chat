@@ -1,16 +1,18 @@
 import * as React from 'react'
 import { Stamps } from '@/services/Chat'
-import { FC, useEffect, useState } from 'react'
+import {FC, useContext, useEffect, useState} from 'react'
 import * as _ from 'lodash'
 import moment from 'moment'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
+import MainService from "@/services/main";
+import {Context} from "@/components/05_layouts/HtmlSkeleton";
 
 /** ChatMessagesProps Props */
-export type ChatMessagesProps = WithChildren & { main }
+export type ChatMessagesProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = ChatMessagesProps & { classes; windowHeight }
+export type PresenterProps = ChatMessagesProps & { main, classes, windowHeight }
 
 /** Presenter Component */
 const ChatMessagesPresenter: FC<PresenterProps> = ({
@@ -23,6 +25,7 @@ const ChatMessagesPresenter: FC<PresenterProps> = ({
     <div id="chatRoom" className="chat_message" style={appStyle(windowHeight)}>
       {main.chanels[main.selectChanelId].chat.messages.map((message, index) => {
         const isMe = message.sendId === main.self.connectionId
+        console.log(message.sendId, main.self.connectionId)
         const member = main.members[message.sendId]
         const isStamp = 'stamp' === message.type
         return (
@@ -51,7 +54,9 @@ const ChatMessagesPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const ChatMessagesContainer: React.FC<
   ContainerProps<ChatMessagesProps, PresenterProps>
-> = ({ presenter, children, main, ...props }) => {
+> = ({ presenter, children, ...props }) => {
+  const main = useContext<MainService | null>(Context)
+  if (!main) return <></>
   const classes = useStyles()
   const [windowHeight, setWindowHeight] = useState(0)
 

@@ -28,11 +28,9 @@ const CirclesPresenter: FC<PresenterProps> = ({ children, ...props }) => (
 )
 
 /** Container Component */
-const CirclesContainer: React.FC<ContainerProps<CirclesProps, PresenterProps>> = ({
-  presenter,
-  children,
-  ...props
-}) => {
+const CirclesContainer: React.FC<
+  ContainerProps<CirclesProps, PresenterProps>
+> = ({ presenter, children, ...props }) => {
   const classes = useStyles()
   return presenter({
     children,

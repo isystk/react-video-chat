@@ -39,13 +39,15 @@
 
 #### テンプレート
 ```
+import React, { FC, useContext } from 'react'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
+import {Context} from "@/components/05_layouts/HtmlSkeleton";
 
 /** XxxxProps Props */
-export type XxxxProps = WithChildren & { main }
+export type XxxxProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = XxxxProps & { classes }
+export type PresenterProps = XxxxProps & { main, classes }
 
 /** Presenter Component */
 const XxxxPresenter: FC<PresenterProps> = ({ main, classes, ...props }) => (
@@ -54,9 +56,20 @@ const XxxxPresenter: FC<PresenterProps> = ({ main, classes, ...props }) => (
 )
 
 /** Container Component */
-const XxxxContainer: React.FC< ContainerProps<XxxxProps, PresenterProps> > = ({ presenter, children, main, ...props }) => {
+const XxxxContainer: React.FC<ContainerProps<XxxxProps, PresenterProps>> = ({
+  presenter,
+  children,
+  ...props
+}) => {
+  const main = useContext<MainService|null>(Context)
+  if (!main) return <></>
   const classes = useStyles()
-  return presenter({ children, main, classes, ...props, })
+  return presenter({
+    children,
+    main,
+    classes,
+    ...props,
+  })
 }
 
 export default connect<XxxxProps, PresenterProps>(

@@ -1,31 +1,38 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import ChanelInfo from './index'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
+import ChanelService from '@/services/Chanel'
 
 export default {
   title: '03_molecules/ChanelInfo',
   component: ChanelInfo,
 } as Meta
 
-const main = {
-  chanels: {
-    all: {
-      id: 'all',
-      name: 'すべて',
-      type: 'all',
-      photo: 'images/friends/Alpha_Team.png',
-      detail: 'ルーム内のすべてのメンバー',
-      chat: {
-        chanelId: 'test',
-        messages: [],
-      },
-    },
-  },
-  selectChanelId: 'all',
-} as MainService
+const Template: Story = (props) => {
+  const main = new MainService(() => ({}))
+  main.setName('isystk')
+  main.setRoomId('test')
+  main.addChanel(
+    new ChanelService(
+      main,
+      'all',
+      'すべて',
+      'all',
+      'images/friends/Alpha_Team.png',
+      'ルーム内のすべてのメンバー'
+    )
+  )
+  main.setChanelId('all')
 
-const Template: Story = () => <ChanelInfo main={main} />
+  return (
+    <Context.Provider value={main}>
+      <ChanelInfo />
+    </Context.Provider>
+  )
+}
 
 export const Primary = Template.bind({})
 Primary.storyName = 'プライマリ'
+Primary.args = {}

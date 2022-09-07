@@ -7,9 +7,9 @@ import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 
 /** ModalProps Props */
-export type ModalProps = WithChildren & { isOpen; hideCloseBtn; handleClose }
+export type ModalProps = WithChildren & { isOpen, hideCloseBtn, handleClose }
 /** Presenter Props */
-export type PresenterProps = ModalProps & { classes; onClose; Portal }
+export type PresenterProps = ModalProps & { classes, onClose, Portal }
 
 /** Presenter Component */
 const ModalPresenter: FC<PresenterProps> = ({
