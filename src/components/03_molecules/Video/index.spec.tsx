@@ -12,11 +12,7 @@ describe('Video', () => {
     const videoRef = jest.fn()
     const component = renderer.create(
       <Context.Provider value={main}>
-        <Video
-          isLocal={true}
-          member={main.self}
-          videoRef={videoRef}
-        />
+        <Video isLocal={true} member={main.self} videoRef={videoRef} />
       </Context.Provider>
     )
     const tree = component.toJSON()

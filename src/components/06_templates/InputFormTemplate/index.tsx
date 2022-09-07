@@ -9,6 +9,7 @@ import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
+import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
 
 /** InputFormTemplateProps Props */
 export type InputFormTemplateProps = WithChildren
@@ -21,7 +22,8 @@ const InputFormTemplatePresenter: FC<PresenterProps> = ({
   classes,
   ...props
 }) => (
-  <>
+  <HtmlSkeleton>
+    <Title>ログイン</Title>
     <div className="area">
       <Circles>
         <Grid container spacing={0}>
@@ -33,15 +35,14 @@ const InputFormTemplatePresenter: FC<PresenterProps> = ({
         <DeviceSettingModal />
       </Circles>
     </div>
-  </>
+  </HtmlSkeleton>
 )
 
 /** Container Component */
 const InputFormTemplateContainer: React.FC<
   ContainerProps<InputFormTemplateProps, PresenterProps>
-> = ({ presenter, children, ...props }) => {
+> = ({ presenter, children, main, ...props }) => {
   const classes = useStyles()
-  const main = useContext(Context)
   const router = useRouter()
 
   useEffect(() => {

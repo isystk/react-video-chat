@@ -1,13 +1,18 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import VideoTemplate from './index'
+import VideoTemplate, {VideoTemplateProps} from './index'
 import '@testing-library/jest-dom/extend-expect'
 import MainService, { Member } from '@/services/main'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import ChanelService from '@/services/Chanel'
+import {applyMiddleware, createStore} from "redux";
+import thunk from "redux-thunk";
+import { Provider } from 'react-redux'
+import reducers from '@/stores'
 
 describe('VideoTemplate', () => {
   it('Match Snapshot', () => {
+    const enhancer = applyMiddleware(thunk)
+    const store = createStore(reducers, enhancer)
     const main = new MainService(() => ({}))
     main.setName('isystk')
     main.setRoomId('test')
@@ -36,10 +41,11 @@ describe('VideoTemplate', () => {
       } as Member,
     ]
 
+    const props: VideoTemplateProps = {main}
     const component = renderer.create(
-      <Context.Provider value={main}>
-        <VideoTemplate />
-      </Context.Provider>
+      <Provider store={store}>
+        <VideoTemplate {...props} />
+      </Provider>
     )
     const tree = component.toJSON()
 

@@ -3,8 +3,8 @@ import renderer from 'react-test-renderer'
 import ChatMessages from './index'
 import '@testing-library/jest-dom/extend-expect'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
-import MainService from "@/services/main";
-import ChanelService from "@/services/Chanel";
+import MainService from '@/services/main'
+import ChanelService from '@/services/Chanel'
 
 describe('ChatMessages', () => {
   it('Match Snapshot', () => {
@@ -50,7 +50,7 @@ describe('ChatMessages', () => {
         sendId: 'bbb',
         datetime: '2022-09-07 14:00:00',
       },
-    ];
+    ]
 
     const component = renderer.create(
       <Context.Provider value={main}>

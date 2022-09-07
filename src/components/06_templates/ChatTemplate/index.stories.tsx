@@ -1,8 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import ChatTemplate from './index'
+import ChatTemplate, {ChatTemplateProps} from './index'
 import MainService from '@/services/main'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import ChanelService from '@/services/Chanel'
 
 export default {
@@ -10,7 +9,7 @@ export default {
   component: ChatTemplate,
 } as Meta
 
-const Template: Story = (props) => {
+const Template: Story = () => {
   const main = new MainService(() => ({}))
   main.setName('isystk')
   main.setRoomId('test')
@@ -25,11 +24,16 @@ const Template: Story = (props) => {
     )
   )
   main.setChanelId('all')
-
+  main.addMember({
+    connectionId: 'bbb',
+    name: 'bbb',
+    photo: 'images/friends/David.png',
+  })
+  main.setChanelId('all')
+  main.setAppRoot()
+  const props: ChatTemplateProps = {main}
   return (
-    <Context.Provider value={main}>
-      <ChatTemplate />
-    </Context.Provider>
+    <ChatTemplate {...props} />
   )
 }
 

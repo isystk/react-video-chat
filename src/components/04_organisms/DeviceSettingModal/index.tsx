@@ -7,7 +7,7 @@ import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import { connect } from '@/components/hoc'
-import MainService from "@/services/main";
+import MainService from '@/services/main'
 
 /** DeviceSettingModalProps Props */
 export type DeviceSettingModalProps = WithChildren
@@ -99,7 +99,7 @@ const DeviceSettingModalPresenter: FC<PresenterProps> = ({
 const DeviceSettingModalContainer: React.FC<
   ContainerProps<DeviceSettingModalProps, PresenterProps>
 > = ({ presenter, children, ...props }) => {
-  const main = useContext<MainService|null>(Context)
+  const main = useContext<MainService | null>(Context)
   if (!main) return <></>
   const classes = useStyles()
 
@@ -114,7 +114,6 @@ const DeviceSettingModalContainer: React.FC<
     navigator.mediaDevices
       .enumerateDevices()
       .then(function (devices) {
-        console.log(devices)
         const videoinput = devices.filter((e) => e.kind === 'videoinput')
         const audioinput = devices.filter((e) => e.kind === 'audioinput')
         const audiooutput = devices.filter((e) => e.kind === 'audiooutput')

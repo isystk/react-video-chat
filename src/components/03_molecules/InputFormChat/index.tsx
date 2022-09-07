@@ -1,5 +1,5 @@
 import TextField from '@material-ui/core/TextField'
-import React, {FC, useCallback, useContext, useEffect, useState} from 'react'
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
@@ -8,8 +8,8 @@ import TagFacesIcon from '@material-ui/icons/TagFaces'
 import AttachFileIcon from '@material-ui/icons/AttachFile'
 import SendIcon from '@material-ui/icons/Send'
 import { Stamps } from '@/services/Chat'
-import {Context} from "@/components/05_layouts/HtmlSkeleton";
-import MainService from "@/services/main";
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import MainService from '@/services/main'
 
 /** InputFormChatProps Props */
 export type InputFormChatProps = WithChildren

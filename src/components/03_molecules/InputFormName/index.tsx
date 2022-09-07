@@ -1,20 +1,20 @@
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
-import React, {FC, useCallback, useContext, useEffect, useState} from 'react'
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
-import MainService from "@/services/main";
-import {Context} from "@/components/05_layouts/HtmlSkeleton";
+import MainService from '@/services/main'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 /** InputFormNameProps Props */
 export type InputFormNameProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = InputFormNameProps & {
-  main,
+  main
   classes
   label
   name
@@ -85,7 +85,7 @@ const InputFormNamePresenter: FC<PresenterProps> = ({
 const InputFormNameContainer: React.FC<
   ContainerProps<InputFormNameProps, PresenterProps>
 > = ({ presenter, children, ...props }) => {
-  const main = useContext<MainService|null>(Context)
+  const main = useContext<MainService | null>(Context)
   if (!main) return <></>
   const classes = useStyles()
 

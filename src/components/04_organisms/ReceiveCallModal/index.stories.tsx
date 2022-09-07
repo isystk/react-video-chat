@@ -16,7 +16,7 @@ const Template: Story = (props) => {
   main.addMember({
     connectionId: 'bbb',
     name: 'bbb',
-    photo: 'images/friends/David.png', 
+    photo: 'images/friends/David.png',
   })
   main.video.members = [
     {
@@ -25,10 +25,10 @@ const Template: Story = (props) => {
       photo: 'images/friends/David.png',
     },
   ]
-  main.video.nowCallReceiving= true
+  main.video.nowCallReceiving = true
   return (
     <Context.Provider value={main}>
-      <ReceiveCallModal/>
+      <ReceiveCallModal />
     </Context.Provider>
   )
 }

@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
-import ChatTemplate from '@/components/06_templates/ChatTemplate'
-import Layout, { Title } from '@/components/05_layouts/HtmlSkeleton'
+import ChatTemplate, {ChatTemplateProps} from '@/components/06_templates/ChatTemplate'
+import useAppRoot from "@/stores/useAppRoot";
 
 const Room: FC = () => {
+  const main = useAppRoot()
+  if (!main) return <></> 
+  const props: ChatTemplateProps = {main}
   return (
-    <Layout>
-      <Title>チャットルーム</Title>
-      <ChatTemplate />
-    </Layout>
+    <ChatTemplate {...props} />
   )
 }
 

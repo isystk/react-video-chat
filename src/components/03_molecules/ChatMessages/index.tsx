@@ -1,24 +1,25 @@
 import * as React from 'react'
 import { Stamps } from '@/services/Chat'
-import {FC, useContext, useEffect, useState} from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import * as _ from 'lodash'
 import moment from 'moment'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
-import MainService from "@/services/main";
-import {Context} from "@/components/05_layouts/HtmlSkeleton";
+import MainService from '@/services/main'
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 /** ChatMessagesProps Props */
 export type ChatMessagesProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = ChatMessagesProps & { main, classes, windowHeight }
+export type PresenterProps = ChatMessagesProps & { main, classes, windowHeight, appStyle }
 
 /** Presenter Component */
 const ChatMessagesPresenter: FC<PresenterProps> = ({
   main,
   classes,
   windowHeight,
+  appStyle,
   ...props
 }) => (
   <>
@@ -65,14 +66,15 @@ const ChatMessagesContainer: React.FC<
   }, [])
 
   if (_.size(main.chanels) === 0) return <></>
-  return presenter({ children, main, classes, windowHeight, ...props })
-}
 
-const appStyle = (vh) => {
-  return {
-    height: vh - 64 - 69,
-    overflowY: 'scroll',
+  const appStyle = (vh) => {
+    return {
+      height: vh - 64 - 69,
+      overflowY: 'scroll',
+    }
   }
+  
+  return presenter({ children, main, classes, windowHeight, appStyle, ...props })
 }
 
 export default connect<ChatMessagesProps, PresenterProps>(

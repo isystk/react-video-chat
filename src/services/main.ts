@@ -127,7 +127,7 @@ export default class MainService {
           '自分'
         )
       )
-
+      
       await this.setAppRoot()
     } catch (error) {
       console.error(error)

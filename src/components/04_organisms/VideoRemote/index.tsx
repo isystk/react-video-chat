@@ -1,4 +1,4 @@
-import React, {FC, useRef} from 'react'
+import React, { FC, useRef } from 'react'
 import Video from '../../03_molecules/Video'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
@@ -7,7 +7,7 @@ import { connect } from '@/components/hoc'
 /** VideoRemoteProps Props */
 export type VideoRemoteProps = WithChildren & { member }
 /** Presenter Props */
-export type PresenterProps = VideoRemoteProps & { classes, member, videoRef }
+export type PresenterProps = VideoRemoteProps & { classes; member; videoRef }
 
 /** Presenter Component */
 const VideoRemotePresenter: FC<PresenterProps> = ({

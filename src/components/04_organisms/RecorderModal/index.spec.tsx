@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { renderHook } from '@testing-library/react-hooks'
 import Main from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
-import MainService from "@/services/main";
+import MainService from '@/services/main'
 
 describe('RecorderModal', () => {
   it('Match Snapshot', () => {

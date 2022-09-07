@@ -2,7 +2,6 @@ import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import InputFormTemplate from './index'
 import MainService from '@/services/main'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 export default {
   title: '06_templates/InputFormTemplate',
@@ -12,10 +11,9 @@ export default {
 const Template: Story = ({ name = '' }) => {
   const main = new MainService(() => ({}))
   main.setName(name)
+  const props: InputFormTemplate = {main}
   return (
-    <Context.Provider value={main}>
-      <InputFormTemplate />
-    </Context.Provider>
+    <InputFormTemplate {...props} />
   )
 }
 

@@ -19,7 +19,6 @@ const Template: Story = () => {
       <RecorderModal />
     </Context.Provider>
   )
-
 }
 
 export const Primary = Template.bind({})

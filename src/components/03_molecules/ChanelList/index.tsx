@@ -12,7 +12,7 @@ export type ChanelListProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = ChanelListProps & {
   classes
-  main 
+  main
 }
 
 /** Presenter Component */

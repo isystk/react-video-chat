@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer'
 import InputFormRoom from './index'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import '@testing-library/jest-dom/extend-expect'
-import MainService from "@/services/main";
+import MainService from '@/services/main'
 
 describe('InputFormRoom', () => {
   it('Match Snapshot', () => {

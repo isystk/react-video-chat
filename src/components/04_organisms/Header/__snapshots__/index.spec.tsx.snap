@@ -42,7 +42,9 @@ exports[`Header Match Snapshot 1`] = `
     </button>
     <div
       className="MuiTypography-root MuiTypography-h6"
-    />
+    >
+      test
+    </div>
     <div
       className="MuiTypography-root makeStyles-title-2 MuiTypography-h6"
     >

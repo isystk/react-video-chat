@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
-import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
-import InputFormTemplate from '@/components/06_templates/InputFormTemplate'
+import InputFormTemplate, {InputFormTemplateProps} from '@/components/06_templates/InputFormTemplate'
+import useAppRoot from "@/stores/useAppRoot";
 
 const Index: FC = () => {
+  const main = useAppRoot()
+  if (!main) return <></> 
+  const props: InputFormTemplateProps = {main}
   return (
-    <HtmlSkeleton>
-      <Title>ログイン</Title>
-      <InputFormTemplate />
-    </HtmlSkeleton>
+    <InputFormTemplate {...props} />
   )
 }
 

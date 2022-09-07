@@ -52,6 +52,7 @@ interface StartMasterInput {
   useTrickleICE: boolean
   localConnectionId: string
   remoteConnectionId: string
+  mediaStream: MediaStream | null
 }
 
 export const startMaster = async (params: StartMasterInput) => {
@@ -179,7 +180,7 @@ export const startMaster = async (params: StartMasterInput) => {
   // Otherwise, the browser will throw an error saying that either video or audio has to be enabled.
   if (params.sendVideo || params.sendAudio) {
     try {
-      master.localStream = await navigator.mediaDevices.getUserMedia(
+      master.localStream = params.mediaStream || await navigator.mediaDevices.getUserMedia(
         constraints
       )
       master.localView.srcObject = master.localStream

@@ -11,10 +11,11 @@ import { Container, Typography } from '@material-ui/core'
 
 /** ErrorTemplate Props */
 export type ErrorTemplateProps = Omit<HtmlSkeletonProps, 'children'> & {
+  main; 
   statusCode: string
 }
 /** Presenter Props */
-export type PresenterProps = ErrorTemplateProps & { main; classes }
+export type PresenterProps = ErrorTemplateProps & { classes }
 
 /** Presenter Component */
 const ErrorTemplatePresenter: React.FC<PresenterProps> = ({
@@ -38,9 +39,8 @@ const ErrorTemplatePresenter: React.FC<PresenterProps> = ({
 /** Container Component */
 const ErrorTemplateContainer: React.FC<
   ContainerProps<ErrorTemplateProps, PresenterProps>
-> = ({ presenter, ...props }) => {
+> = ({ presenter, main, ...props }) => {
   const classes = useStyles()
-  const main = useContext(Context)
   return presenter({ classes, main, ...props })
 }
 

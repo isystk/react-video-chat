@@ -53,7 +53,10 @@ export default class VideoService {
     this.isPeerConnected = true
     // this.main.mediaDevice.setMediaStream()
 
-    window.setTimeout(() => {
+    window.setTimeout(async () => {
+      // メディアストリームを取得
+      await this.main.mediaDevice.setMediaStream()
+
       startMaster({
         channelName: 'test',
         natTraversal: 'STUN/TURN',
@@ -63,6 +66,7 @@ export default class VideoService {
         useTrickleICE: true,
         localConnectionId: this.main.self.connectionId,
         remoteConnectionId: this.members[0].connectionId,
+        mediaStream: this.main.mediaDevice.mediaStream
       })
       this.main.setAppRoot()
     }, 500)
@@ -97,7 +101,10 @@ export default class VideoService {
     this.isPeerConnected = true
     // this.main.mediaDevice.setMediaStream()
 
-    window.setTimeout(() => {
+    window.setTimeout(async () => {
+      // メディアストリームを取得
+      await this.main.mediaDevice.setMediaStream()
+
       startViewer({
         channelName: 'test',
         natTraversal: 'STUN/TURN',
@@ -107,6 +114,7 @@ export default class VideoService {
         useTrickleICE: true,
         localConnectionId: this.main.self.connectionId,
         remoteConnectionId: this.members[0].connectionId,
+        mediaStream: this.main.mediaDevice.mediaStream
       })
       this.main.setAppRoot()
     }, 800)

@@ -43,7 +43,7 @@ const HeaderPresenter: FC<PresenterProps> = ({
         >
           <MenuIcon />
         </IconButton>
-        <Logo />
+        <Logo name={main.room.name} />
         <Typography variant="h6" component="div" className={classes.title}>
           {main.self.name !== '' && main.room.name !== '' && (
             <div className="Room-joins">

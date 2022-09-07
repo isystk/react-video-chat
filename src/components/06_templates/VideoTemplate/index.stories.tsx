@@ -2,7 +2,6 @@ import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import VideoTemplate from './index'
 import MainService, { Member } from '@/services/main'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import ChanelService from '@/services/Chanel'
 
 export default {
@@ -10,7 +9,7 @@ export default {
   component: VideoTemplate,
 } as Meta
 
-const Template: Story = (props) => {
+const Template: Story = () => {
   const main = new MainService(() => ({}))
   main.setName('isystk')
   main.setRoomId('test')
@@ -38,10 +37,9 @@ const Template: Story = (props) => {
       photo: 'images/friends/BigBoss.png',
     } as Member,
   ]
+  const props: VideoTemplate = {main}
   return (
-    <Context.Provider value={main}>
-      <VideoTemplate />
-    </Context.Provider>
+    <VideoTemplate {...props}/>
   )
 }
 

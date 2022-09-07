@@ -5,7 +5,7 @@ import VideoRemote from '../../04_organisms/VideoRemote'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
 
 /** VideoTemplateProps Props */
 export type VideoTemplateProps = WithChildren & { main }
@@ -16,10 +16,12 @@ export type PresenterProps = VideoTemplateProps & { classes; grid }
 const VideoTemplatePresenter: FC<PresenterProps> = ({
   main,
   classes,
+  title,
   grid,
   ...props
 }) => (
-  <>
+  <HtmlSkeleton>
+    <Title>{title}</Title>
     <div className={classes.root}>
       <Grid container spacing={0}>
         <Grid item {...grid}>
@@ -34,14 +36,13 @@ const VideoTemplatePresenter: FC<PresenterProps> = ({
         })}
       </Grid>
     </div>
-  </>
+  </HtmlSkeleton>
 )
 
 /** Container Component */
 const VideoTemplateContainer: React.FC<
   ContainerProps<VideoTemplateProps, PresenterProps>
-> = ({ presenter, children, ...props }) => {
-  const main = useContext(Context)
+> = ({ presenter, children, main, ...props }) => {
   const classes = useStyles()
   const grids = {
     0: { xs: 12, sm: 6, md: 6 },
@@ -56,7 +57,7 @@ const VideoTemplateContainer: React.FC<
   const grid = grids[Math.min(main.video.members.length, 7)]
 
   if (!main.video.isPeerConnected) return <></>
-  return presenter({ children, main, classes, grid, ...props })
+  return presenter({ children, main, classes, title: main.room.name, grid, ...props })
 }
 
 export default connect<VideoTemplateProps, PresenterProps>(

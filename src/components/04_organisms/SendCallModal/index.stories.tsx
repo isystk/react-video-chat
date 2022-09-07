@@ -25,7 +25,7 @@ const Template: Story = (props) => {
       photo: 'images/friends/David.png',
     },
   ]
-  main.video.nowCallSending= true
+  main.video.nowCallSending = true
   return (
     <Context.Provider value={main}>
       <SendCallModal />

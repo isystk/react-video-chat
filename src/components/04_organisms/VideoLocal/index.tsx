@@ -1,16 +1,16 @@
-import React, {FC, useContext, useEffect, useRef} from 'react'
+import React, { FC, useContext, useEffect, useRef } from 'react'
 
 import Video from '../../03_molecules/Video'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
-import {Context} from "@/components/05_layouts/HtmlSkeleton";
-import MainService from "@/services/main";
+import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import MainService from '@/services/main'
 
 /** VideoLocalProps Props */
 export type VideoLocalProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = VideoLocalProps & { main, classes, videoRef }
+export type PresenterProps = VideoLocalProps & { main; classes; videoRef }
 
 /** Presenter Component */
 const VideoLocalPresenter: FC<PresenterProps> = ({

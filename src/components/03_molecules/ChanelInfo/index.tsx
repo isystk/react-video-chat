@@ -58,9 +58,10 @@ const ChanelInfoContainer: React.FC<
   ContainerProps<ChanelInfoProps, PresenterProps>
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
-  if (!main || _.size(main.chanels) === 0) return <></>
+  if (!main) return <></>
   const classes = useStyles()
 
+  if (_.size(main.chanels) === 0) return <></>
   const { id, name, type, photo, detail } = main.chanels[main.selectChanelId]
   return presenter({
     children,

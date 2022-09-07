@@ -25,7 +25,7 @@ import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
 
 /** SideMenuProps Props */
-export type SideMenuProps = WithChildren & { setMenuOpen, isMenuOpen }
+export type SideMenuProps = WithChildren & { setMenuOpen; isMenuOpen }
 /** Presenter Props */
 export type PresenterProps = SideMenuProps & {
   main

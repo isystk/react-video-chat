@@ -17,7 +17,6 @@ const Template: Story = (props) => {
       <InputFormChat />
     </Context.Provider>
   )
-
 }
 
 export const Primary = Template.bind({})

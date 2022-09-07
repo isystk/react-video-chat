@@ -10,13 +10,13 @@ import ChanelInfo from '@/components/03_molecules/ChanelInfo'
 import SendCallModal from '@/components/04_organisms/SendCallModal'
 import ReceiveCallModal from '@/components/04_organisms/ReceiveCallModal'
 import VideoTemplate from '@/components/06_templates/VideoTemplate'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
+import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
 
 /** ChatTemplateProps Props */
-export type ChatTemplateProps = WithChildren
+export type ChatTemplateProps = WithChildren & {main}
 /** Presenter Props */
 export type PresenterProps = ChatTemplateProps & { main; classes; windowHeight }
 
@@ -25,9 +25,11 @@ const ChatTemplatePresenter: FC<PresenterProps> = ({
   main,
   classes,
   windowHeight,
+  appStyle,
   ...props
 }) => (
-  <>
+  <HtmlSkeleton>
+    <Title>{main.room.name}</Title>
     <div className="area">
       <Grid container spacing={0}>
         <Grid item {...{ xs: 12, md: 3 }}>
@@ -51,15 +53,14 @@ const ChatTemplatePresenter: FC<PresenterProps> = ({
       {main.video.nowCallSending && <SendCallModal />}
       {main.video.nowCallReceiving && <ReceiveCallModal />}
     </div>
-  </>
+  </HtmlSkeleton>
 )
 
 /** Container Component */
 const ChatTemplateContainer: React.FC<
   ContainerProps<ChatTemplateProps, PresenterProps>
-> = ({ presenter, children, ...props }) => {
+> = ({ presenter, children, main, ...props }) => {
   const classes = useStyles()
-  const main = useContext(Context)
   const router = useRouter()
   const [windowHeight, setWindowHeight] = useState(0)
 
@@ -91,14 +92,14 @@ const ChatTemplateContainer: React.FC<
 
   if (main.self.name === '') return <></>
   if (main.room.name === '') return <></>
-  if (main.video.isPeerConnected) return <VideoTemplate />
-  return presenter({ children, main, classes, windowHeight, ...props })
-}
+  if (main.video.isPeerConnected) return <VideoTemplate main={main}/>
 
-const appStyle = (vh) => {
-  return {
-    height: vh - 64,
+  const appStyle = (vh) => {
+    return {
+      height: vh - 64,
+    }
   }
+  return presenter({ children, main, classes, windowHeight,appStyle, ...props })
 }
 
 export default connect<ChatTemplateProps, PresenterProps>(
