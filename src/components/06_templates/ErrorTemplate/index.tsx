@@ -11,7 +11,7 @@ import { Container, Typography } from '@material-ui/core'
 
 /** ErrorTemplate Props */
 export type ErrorTemplateProps = Omit<HtmlSkeletonProps, 'children'> & {
-  main; 
+  main
   statusCode: string
 }
 /** Presenter Props */

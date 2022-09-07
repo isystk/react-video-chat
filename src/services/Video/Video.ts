@@ -66,7 +66,7 @@ export default class VideoService {
         useTrickleICE: true,
         localConnectionId: this.main.self.connectionId,
         remoteConnectionId: this.members[0].connectionId,
-        mediaStream: this.main.mediaDevice.mediaStream
+        mediaStream: this.main.mediaDevice.mediaStream,
       })
       this.main.setAppRoot()
     }, 500)
@@ -114,7 +114,7 @@ export default class VideoService {
         useTrickleICE: true,
         localConnectionId: this.main.self.connectionId,
         remoteConnectionId: this.members[0].connectionId,
-        mediaStream: this.main.mediaDevice.mediaStream
+        mediaStream: this.main.mediaDevice.mediaStream,
       })
       this.main.setAppRoot()
     }, 800)

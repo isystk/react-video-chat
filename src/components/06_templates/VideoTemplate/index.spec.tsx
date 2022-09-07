@@ -1,11 +1,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import VideoTemplate, {VideoTemplateProps} from './index'
+import VideoTemplate, { VideoTemplateProps } from './index'
 import '@testing-library/jest-dom/extend-expect'
 import MainService, { Member } from '@/services/main'
 import ChanelService from '@/services/Chanel'
-import {applyMiddleware, createStore} from "redux";
-import thunk from "redux-thunk";
+import { applyMiddleware, createStore } from 'redux'
+import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import reducers from '@/stores'
 
@@ -41,7 +41,7 @@ describe('VideoTemplate', () => {
       } as Member,
     ]
 
-    const props: VideoTemplateProps = {main}
+    const props: VideoTemplateProps = { main }
     const component = renderer.create(
       <Provider store={store}>
         <VideoTemplate {...props} />

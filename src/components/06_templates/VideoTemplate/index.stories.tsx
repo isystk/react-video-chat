@@ -37,10 +37,8 @@ const Template: Story = () => {
       photo: 'images/friends/BigBoss.png',
     } as Member,
   ]
-  const props: VideoTemplate = {main}
-  return (
-    <VideoTemplate {...props}/>
-  )
+  const props: VideoTemplate = { main }
+  return <VideoTemplate {...props} />
 }
 
 export const Primary = Template.bind({})

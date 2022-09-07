@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import ChatTemplate, {ChatTemplateProps} from './index'
+import ChatTemplate, { ChatTemplateProps } from './index'
 import MainService from '@/services/main'
 import ChanelService from '@/services/Chanel'
 
@@ -31,10 +31,8 @@ const Template: Story = () => {
   })
   main.setChanelId('all')
   main.setAppRoot()
-  const props: ChatTemplateProps = {main}
-  return (
-    <ChatTemplate {...props} />
-  )
+  const props: ChatTemplateProps = { main }
+  return <ChatTemplate {...props} />
 }
 
 export const Primary = Template.bind({})

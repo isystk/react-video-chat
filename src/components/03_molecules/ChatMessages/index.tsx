@@ -12,7 +12,12 @@ import { Context } from '@/components/05_layouts/HtmlSkeleton'
 /** ChatMessagesProps Props */
 export type ChatMessagesProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = ChatMessagesProps & { main, classes, windowHeight, appStyle }
+export type PresenterProps = ChatMessagesProps & {
+  main
+  classes
+  windowHeight
+  appStyle
+}
 
 /** Presenter Component */
 const ChatMessagesPresenter: FC<PresenterProps> = ({
@@ -73,8 +78,15 @@ const ChatMessagesContainer: React.FC<
       overflowY: 'scroll',
     }
   }
-  
-  return presenter({ children, main, classes, windowHeight, appStyle, ...props })
+
+  return presenter({
+    children,
+    main,
+    classes,
+    windowHeight,
+    appStyle,
+    ...props,
+  })
 }
 
 export default connect<ChatMessagesProps, PresenterProps>(

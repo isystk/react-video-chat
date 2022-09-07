@@ -191,9 +191,9 @@ export const startViewer = async (params: StartViewerInput) => {
     // Otherwise, the browser will throw an error saying that either video or audio has to be enabled.
     if (params.sendVideo || params.sendAudio) {
       try {
-        viewer.localStream = params.mediaStream || await navigator.mediaDevices.getUserMedia(
-          constraints
-        )
+        viewer.localStream =
+          params.mediaStream ||
+          (await navigator.mediaDevices.getUserMedia(constraints))
         viewer.localStream
           .getTracks()
           .forEach((track: MediaStreamTrack) =>

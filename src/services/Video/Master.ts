@@ -180,9 +180,9 @@ export const startMaster = async (params: StartMasterInput) => {
   // Otherwise, the browser will throw an error saying that either video or audio has to be enabled.
   if (params.sendVideo || params.sendAudio) {
     try {
-      master.localStream = params.mediaStream || await navigator.mediaDevices.getUserMedia(
-        constraints
-      )
+      master.localStream =
+        params.mediaStream ||
+        (await navigator.mediaDevices.getUserMedia(constraints))
       master.localView.srcObject = master.localStream
 
       // 以下を参考にした

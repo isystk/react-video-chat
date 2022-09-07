@@ -11,10 +11,8 @@ export default {
 const Template: Story = ({ name = '' }) => {
   const main = new MainService(() => ({}))
   main.setName(name)
-  const props: InputFormTemplate = {main}
-  return (
-    <InputFormTemplate {...props} />
-  )
+  const props: InputFormTemplate = { main }
+  return <InputFormTemplate {...props} />
 }
 
 export const InputYourName = Template.bind({})

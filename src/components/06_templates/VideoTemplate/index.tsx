@@ -10,7 +10,7 @@ import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
 /** VideoTemplateProps Props */
 export type VideoTemplateProps = WithChildren & { main }
 /** Presenter Props */
-export type PresenterProps = VideoTemplateProps & { classes; grid }
+export type PresenterProps = VideoTemplateProps & { classes; title; grid }
 
 /** Presenter Component */
 const VideoTemplatePresenter: FC<PresenterProps> = ({
@@ -57,7 +57,14 @@ const VideoTemplateContainer: React.FC<
   const grid = grids[Math.min(main.video.members.length, 7)]
 
   if (!main.video.isPeerConnected) return <></>
-  return presenter({ children, main, classes, title: main.room.name, grid, ...props })
+  return presenter({
+    children,
+    main,
+    classes,
+    title: main.room.name,
+    grid,
+    ...props,
+  })
 }
 
 export default connect<VideoTemplateProps, PresenterProps>(

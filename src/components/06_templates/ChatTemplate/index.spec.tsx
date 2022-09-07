@@ -1,11 +1,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import ChatTemplate, {ChatTemplateProps} from './index'
+import ChatTemplate, { ChatTemplateProps } from './index'
 import '@testing-library/jest-dom/extend-expect'
 import MainService from '@/services/main'
 import ChanelService from '@/services/Chanel'
-import {applyMiddleware, createStore} from "redux";
-import thunk from "redux-thunk";
+import { applyMiddleware, createStore } from 'redux'
+import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import reducers from '@/stores'
 
@@ -27,7 +27,7 @@ describe('ChatTemplate', () => {
       )
     )
     main.setChanelId('all')
-    const props: ChatTemplateProps = {main}
+    const props: ChatTemplateProps = { main }
     const component = renderer.create(
       <Provider store={store}>
         <ChatTemplate {...props} />

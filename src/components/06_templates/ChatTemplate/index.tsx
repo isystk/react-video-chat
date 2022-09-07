@@ -16,7 +16,7 @@ import { connect } from '@/components/hoc'
 import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
 
 /** ChatTemplateProps Props */
-export type ChatTemplateProps = WithChildren & {main}
+export type ChatTemplateProps = WithChildren & { main }
 /** Presenter Props */
 export type PresenterProps = ChatTemplateProps & { main; classes; windowHeight }
 
@@ -92,14 +92,21 @@ const ChatTemplateContainer: React.FC<
 
   if (main.self.name === '') return <></>
   if (main.room.name === '') return <></>
-  if (main.video.isPeerConnected) return <VideoTemplate main={main}/>
+  if (main.video.isPeerConnected) return <VideoTemplate main={main} />
 
   const appStyle = (vh) => {
     return {
       height: vh - 64,
     }
   }
-  return presenter({ children, main, classes, windowHeight,appStyle, ...props })
+  return presenter({
+    children,
+    main,
+    classes,
+    windowHeight,
+    appStyle,
+    ...props,
+  })
 }
 
 export default connect<ChatTemplateProps, PresenterProps>(
