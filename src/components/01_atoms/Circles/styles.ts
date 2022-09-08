@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
     listStyle: 'none',
     width: '20px',
     height: '20px',
-    background: '#fff',
+    background: '#f1f1f1',
     animation: '$fadeOutRotation 25s linear infinite',
     bottom: '-150px',
   },

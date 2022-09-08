@@ -1,10 +1,10 @@
 import Grid from '@material-ui/core/Grid'
-import React, { useEffect, FC, useState, useContext } from 'react'
+import React, { useEffect, FC, useState } from 'react'
 import { useRouter } from 'next/router'
 import ChatMessages from '@/components/03_molecules/ChatMessages'
 import InputFormChat from '@/components/03_molecules/InputFormChat'
 import RecorderModal from '@/components/04_organisms/RecorderModal'
-import { URL } from '@/constants/url'
+import { Url } from '@/constants/url'
 import ChanelList from '@/components/03_molecules/ChanelList'
 import ChanelInfo from '@/components/03_molecules/ChanelInfo'
 import SendCallModal from '@/components/04_organisms/SendCallModal'
@@ -77,7 +77,7 @@ const ChatTemplateContainer: React.FC<
 
   useEffect(() => {
     if (main.self.name === '') {
-      router.push(URL.HOME)
+      router.push(Url.TOP)
     }
   }, [main.self.name])
 

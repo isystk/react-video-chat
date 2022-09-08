@@ -7,6 +7,7 @@ import SideMenu from '@/components/04_organisms/SideMenu'
 import Title, { TitleProps } from './Title'
 import Head from 'next/head'
 import { isReactElement } from '@/utils/general/object'
+import { CssBaseline } from '@material-ui/core'
 
 /** HtmlSkeleton Props */
 export type HtmlSkeletonProps = WithChildren
@@ -50,6 +51,7 @@ const HtmlSkeletonPresenter: FC<PresenterProps> = ({
       <link rel="manifest" href="/manifest.json" />
     </Head>
     <Context.Provider value={main}>
+      <CssBaseline />
       <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
       <div>{children}</div>
       <SideMenu isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />

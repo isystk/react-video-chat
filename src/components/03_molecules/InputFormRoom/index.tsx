@@ -1,6 +1,5 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
@@ -8,6 +7,7 @@ import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
+import FormBox from '@/components/01_atoms/FormBox'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 /** InputFormRoomProps Props */
@@ -39,13 +39,12 @@ const InputFormRoomPresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <>
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          {label}を入力してください
-        </Typography>
-        <form className={classes.form} noValidate>
+    <Container component="main">
+      <FormBox title="ログイン">
+        <>
+          <Typography component="h1" variant="h5">
+            {label}を入力してください
+          </Typography>
           <TextField
             autoFocus
             fullWidth
@@ -75,8 +74,8 @@ const InputFormRoomPresenter: FC<PresenterProps> = ({
           >
             決定
           </Button>
-        </form>
-      </div>
+        </>
+      </FormBox>
     </Container>
   </>
 )

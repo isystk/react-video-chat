@@ -1,6 +1,7 @@
 import React, { FC, useContext } from 'react'
 import Modal from '@/components/01_atoms/Modal'
-import { Button, CssBaseline } from '@material-ui/core'
+import DotPulse from '@/components/01_atoms/DotPulse'
+import { Button } from '@material-ui/core'
 import Container from '@material-ui/core/Container'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
@@ -34,8 +35,7 @@ const ReceiveCallModalPresenter: FC<PresenterProps> = ({
   <>
     <Modal isOpen={isOpen} hideCloseBtn={true}>
       <Container component="main">
-        <CssBaseline />
-        <div className="notion">
+        <div className={classes.notion}>
           <div className="myHeadPhoto">
             <img src={photo} alt="" />
           </div>
@@ -61,7 +61,7 @@ const ReceiveCallModalPresenter: FC<PresenterProps> = ({
           <div className="loading">
             <div className="snippet" data-title=".dot-pulse">
               <div className="stage">
-                <div className="dot-pulse"></div>
+                <DotPulse />
               </div>
             </div>
           </div>

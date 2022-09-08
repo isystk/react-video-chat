@@ -49,7 +49,7 @@ exports[`Header Match Snapshot 1`] = `
       className="MuiTypography-root makeStyles-title-2 MuiTypography-h6"
     >
       <div
-        className="Room-joins"
+        className="makeStyles-members-3"
       >
         <svg
           aria-hidden={true}

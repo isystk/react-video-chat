@@ -7,6 +7,12 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  members: {
+    fontSize: '12px',
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: '10px',
+  },
 }))
 
 export { useStyles }

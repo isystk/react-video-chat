@@ -15,7 +15,7 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import StopIcon from '@material-ui/icons/Stop'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { useRouter } from 'next/router'
-import { URL } from '@/constants/url'
+import { Url } from '@/constants/url'
 import ChanelList from '@/components/03_molecules/ChanelList'
 import ChanelInfo from '@/components/03_molecules/ChanelInfo'
 import { ContainerProps, WithChildren } from 'types'
@@ -120,7 +120,7 @@ const SideMenuContainer: React.FC<
       <ExitToAppIcon key={0} />,
       async () => {
         await main.leave()
-        await router.push(URL.HOME)
+        await router.push(Url.TOP)
         setMenuOpen(!isMenuOpen)
       },
       !joined,

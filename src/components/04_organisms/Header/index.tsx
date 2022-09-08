@@ -46,7 +46,7 @@ const HeaderPresenter: FC<PresenterProps> = ({
         <Logo name={main.room.name} />
         <Typography variant="h6" component="div" className={classes.title}>
           {main.self.name !== '' && main.room.name !== '' && (
-            <div className="Room-joins">
+            <div className={classes.members}>
               <PeopleAltIcon></PeopleAltIcon>
               <span>{_.size(main.members) + 1}</span>
             </div>

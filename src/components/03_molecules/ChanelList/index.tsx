@@ -22,23 +22,21 @@ const ChanelListPresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <>
-    <div id="myChatList" className="chat_list">
+    <div className={classes.chanelList}>
       {_.map(main.chanels, (chanel, index) => (
         <div
-          className={`chatListTag ${
-            main.selectChanelId === chanel.id ? 'active' : ''
-          }`}
+          className={`tag ${main.selectChanelId === chanel.id ? 'active' : ''}`}
           key={index}
           onClick={async () => await main.setChanelId(chanel.id)}
         >
           <div className="head">
             <img src={chanel.photo} alt="" />
           </div>
-          <div className="mytext">
+          <div className="text">
             <div className="name">{chanel.name}</div>
             <div className="dec">{chanel.detail}</div>
           </div>
-          <div className="msg_num">7</div>
+          <div className="num">7</div>
         </div>
       ))}
     </div>
