@@ -12,15 +12,17 @@ const useStyles = makeStyles((theme) => ({
     '& .message-text': {
       padding: '9px 14px',
       fontSize: '16px',
-      marginBottom: '5px',
+      marginBottom: '10px',
     },
     '& .message-time': {
       fontSize: '12px',
       color: '#777',
     },
-    '& .other-message .message-time': {
-      width: '66px',
-      marginLeft: '65px',
+    '& .message-user': {
+      fontSize: '12px',
+      color: '#777',
+      width: '50px',
+      textAlign: 'center',
     },
     '& .you-message': {
       justifyContent: 'end',
@@ -48,11 +50,16 @@ const useStyles = makeStyles((theme) => ({
         border: '1px solid #ddd',
         borderRadius: '14px 14px 14px 0',
       },
+      '& .message-time': {
+        width: '66px',
+        marginLeft: '65px',
+      },
     },
     '& .head': {
       width: '50px',
       height: '50px',
       borderRadius: '50%',
+      marginBottom: '5px',
     },
   },
 }))

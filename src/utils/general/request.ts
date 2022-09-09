@@ -1,4 +1,4 @@
-import { API_URL } from '@/constants/api'
+import { API_TYPES } from '@/constants/api'
 import { isNullish } from './object'
 
 /** HTTP Request Method */
@@ -29,7 +29,7 @@ export const ContentType = {
 export const request = async (
   method: typeof Method[keyof typeof Method],
   contentType: typeof ContentType[keyof typeof ContentType],
-  url: API_URL,
+  url: API_TYPES,
   headers: HeadersInit = {},
   parameters: Record<string, unknown> = {}
 ): Promise<Response> => {

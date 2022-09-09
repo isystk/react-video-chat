@@ -78,6 +78,7 @@ export const range = (start: number, end: number, step = 1): number[] => {
 export const hashCode = (target: unknown): number => {
   let hash = 0
   if (!isNullish(target)) {
+    console.log('target', target)
     const valStr = JSON.stringify(target)
     for (let i = 0; i < valStr.length; i++) {
       hash = hash * 31 + valStr.charCodeAt(i)

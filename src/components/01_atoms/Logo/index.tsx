@@ -3,6 +3,7 @@ import { ContainerProps, WithChildren } from 'types'
 import { Typography } from '@material-ui/core'
 import { connect } from '@/components/hoc'
 import { useStyles } from './styles'
+import { APP_NAME } from '@/constants'
 
 /** LogoProps Props */
 export type LogoProps = WithChildren & { name }
@@ -22,12 +23,17 @@ const LogoPresenter: FC<PresenterProps> = ({ name, classes }) => (
 const LogoContainer: React.FC<ContainerProps<LogoProps, PresenterProps>> = ({
   presenter,
   children,
+  name,
   ...props
 }) => {
   const classes = useStyles()
+  if (!name) {
+    name = APP_NAME
+  }
   return presenter({
     children,
     classes,
+    name,
     ...props,
   })
 }

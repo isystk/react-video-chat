@@ -1,4 +1,4 @@
-import { APP_MODE } from 'const'
+import { APP_MODE } from '@/constants'
 
 /**
  * ブラウザ環境か否かを示す真偽値を返す

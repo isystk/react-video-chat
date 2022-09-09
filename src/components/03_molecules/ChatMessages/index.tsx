@@ -32,6 +32,7 @@ const ChatMessagesPresenter: FC<PresenterProps> = ({
       {main.chanels[main.selectChanelId].chat.messages.map((message, index) => {
         const isMe = message.sendId === main.self.connectionId
         const member = main.members[message.sendId]
+        console.log(member)
         const isStamp = 'stamp' === message.type
         return (
           <div
@@ -45,6 +46,7 @@ const ChatMessagesPresenter: FC<PresenterProps> = ({
               ) : (
                 <div className="message-text">{message.data}</div>
               )}
+              <div className="message-user">{!isMe && member.name}</div>
               <div className="message-time">
                 {moment(message.datetime).format('MM/DD HH:mm')}
               </div>
