@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     left: '0',
     zIndex: '1',
     display: 'flex',
+    '@media screen and (min-width:992px)': {
+      left: '310px',
+    },
   },
   myIcon2: {
     padding: '19px 5px',

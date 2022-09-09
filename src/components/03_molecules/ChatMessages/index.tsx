@@ -31,7 +31,6 @@ const ChatMessagesPresenter: FC<PresenterProps> = ({
     <div id="chatRoom" className="chat_message" style={appStyle(windowHeight)}>
       {main.chanels[main.selectChanelId].chat.messages.map((message, index) => {
         const isMe = message.sendId === main.self.connectionId
-        console.log(message.sendId, main.self.connectionId)
         const member = main.members[message.sendId]
         const isStamp = 'stamp' === message.type
         return (

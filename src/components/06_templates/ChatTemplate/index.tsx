@@ -38,10 +38,8 @@ const ChatTemplatePresenter: FC<PresenterProps> = ({
           </div>
         </Grid>
         <Grid item {...{ xs: 12, md: 6 }}>
-          <div className="chat_box">
-            <ChatMessages />
-            <InputFormChat />
-          </div>
+          <ChatMessages />
+          <InputFormChat />
         </Grid>
         <Grid item {...{ xs: 12, md: 3 }} style={{ backgroundColor: '#fff' }}>
           <div className="sp-hide">
