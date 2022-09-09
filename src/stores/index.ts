@@ -1,4 +1,4 @@
-import {configureStore, createSlice, PayloadAction} from '@reduxjs/toolkit'
+import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'react'
 import MainService from '@/services/main'
 
@@ -38,6 +38,6 @@ export const setAppRoot =
 
 export const store = configureStore({
   reducer: {
-    app: AppSlice.reducer
+    app: AppSlice.reducer,
   },
-});
+})

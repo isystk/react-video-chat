@@ -2,7 +2,7 @@ import '@/assets/sass/app.scss'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from '@material-ui/core/styles'
 import React from 'react'
-import {store} from '@/stores'
+import { store } from '@/stores'
 import type { AppProps } from 'next/app'
 import { createTheme } from '@material-ui/core/styles'
 

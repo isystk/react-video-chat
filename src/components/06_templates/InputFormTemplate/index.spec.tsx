@@ -4,7 +4,7 @@ import InputFormTemplate, { InputFormTemplateProps } from './index'
 import '@testing-library/jest-dom/extend-expect'
 import MainService from '@/services/main'
 import { Provider } from 'react-redux'
-import {store} from '@/stores'
+import { store } from '@/stores'
 
 describe('InputFormTemplate', () => {
   it('Match Snapshot', () => {

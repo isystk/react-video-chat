@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect'
 import MainService, { Member } from '@/services/main'
 import ChanelService from '@/services/Chanel'
 import { Provider } from 'react-redux'
-import {store} from '@/stores'
+import { store } from '@/stores'
 
 describe('VideoTemplate', () => {
   it('Match Snapshot', () => {
