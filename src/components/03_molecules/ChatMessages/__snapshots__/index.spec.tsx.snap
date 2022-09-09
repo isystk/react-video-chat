@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatMessages Match Snapshot 1`] = `
+<div
+  className="makeStyles-chatMessage-1"
+  style={
+    Object {
+      "height": -133,
+      "overflowY": "scroll",
+    }
+  }
+>
+  <div
+    className="message_row you-message"
+  >
+    <div
+      className="message-content"
+    >
+      <div
+        className="message-text"
+      >
+        hello
+      </div>
+      <div
+        className="message-user"
+      />
+      <div
+        className="message-time"
+      >
+        09/07 12:00
+      </div>
+    </div>
+  </div>
+  <div
+    className="message_row you-message"
+  >
+    <div
+      className="message-content"
+    >
+      <img
+        alt=""
+        className="head"
+        src="images/emoji/smile.png"
+      />
+      <div
+        className="message-user"
+      />
+      <div
+        className="message-time"
+      >
+        09/07 13:00
+      </div>
+    </div>
+  </div>
+  <div
+    className="message_row other-message"
+  >
+    <div
+      className="message-content"
+    >
+      <img
+        alt=""
+        className="head"
+        src="images/friends/David.png"
+      />
+      <div
+        className="message-text"
+      >
+        see you
+      </div>
+      <div
+        className="message-user"
+      >
+        bbb
+      </div>
+      <div
+        className="message-time"
+      >
+        09/07 14:00
+      </div>
+    </div>
+  </div>
+</div>
+`;

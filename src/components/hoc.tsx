@@ -21,6 +21,7 @@ export function connect<ComponentProps, PresenterProps>(
     />
   )
   Component.displayName = displayName
+  console.log(displayName)
   return Component
 }
 
