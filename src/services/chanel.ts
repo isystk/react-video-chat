@@ -1,5 +1,5 @@
 import Main from '@/services/main'
-import ChatService from '@/services/Chat'
+import ChatService from '@/services/chat'
 
 export default class ChanelService {
   main: Main

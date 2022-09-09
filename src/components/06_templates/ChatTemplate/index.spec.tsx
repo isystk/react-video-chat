@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer'
 import ChatTemplate, { ChatTemplateProps } from './index'
 import '@testing-library/jest-dom/extend-expect'
 import MainService from '@/services/main'
-import ChanelService from '@/services/Chanel'
+import ChanelService from '@/services/chanel'
 import { Provider } from 'react-redux'
 import { store } from '@/stores'
 

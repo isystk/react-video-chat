@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Stamps } from '@/services/Chat'
+import { Stamps } from '@/services/chat'
 import { FC, useContext, useEffect, useState } from 'react'
 import * as _ from 'lodash'
 import moment from 'moment'

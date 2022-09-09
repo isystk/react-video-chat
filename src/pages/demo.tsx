@@ -1,8 +1,8 @@
 import React from 'react'
 import { Fragment, useState } from 'react'
-import { createSignalingChannel } from '@/services/Video/createSignalChannel'
-import { startMaster, stopMaster } from '@/services/Video/Master'
-import { startViewer, stopViewer } from '@/services/Video/Viewer'
+import { createSignalingChannel } from '@/services/video/createSignalChannel'
+import { startMaster, stopMaster } from '@/services/video/master'
+import { startViewer, stopViewer } from '@/services/video/viewer'
 import Container from '@material-ui/core/Container'
 
 import {

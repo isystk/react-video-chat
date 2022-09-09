@@ -7,7 +7,7 @@ import { connect } from '@/components/hoc'
 import TagFacesIcon from '@material-ui/icons/TagFaces'
 import AttachFileIcon from '@material-ui/icons/AttachFile'
 import SendIcon from '@material-ui/icons/Send'
-import { Stamps } from '@/services/Chat'
+import { Stamps } from '@/services/chat'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
 

@@ -4,7 +4,7 @@ import ChanelList from './index'
 import '@testing-library/jest-dom/extend-expect'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
-import ChanelService from '@/services/Chanel'
+import ChanelService from '@/services/chanel'
 
 describe('ChanelList', () => {
   it('Match Snapshot', () => {

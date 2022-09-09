@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import ChatMessages from './index'
 import MainService from '@/services/main'
-import ChanelService from '@/services/Chanel'
+import ChanelService from '@/services/chanel'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 export default {

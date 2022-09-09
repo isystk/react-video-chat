@@ -1,8 +1,8 @@
-import RecorderService from '@/services/Recorder'
-import MediaDeviceService from '@/services/MediaDevice'
+import RecorderService from '@/services/recorder'
+import MediaDeviceService from '@/services/mediaDevice'
 import { startWebsocket, WebSocket } from '@/utils/aws'
-import ChanelService from '@/services/Chanel'
-import VideoService from '@/services/Video/Video'
+import ChanelService from '@/services/chanel'
+import VideoService from '@/services/video/video'
 
 export type Self = {
   connectionId: string

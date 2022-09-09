@@ -3,7 +3,7 @@ import React from 'react'
 import ChanelList from './index'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
-import ChanelService from '@/services/Chanel'
+import ChanelService from '@/services/chanel'
 
 export default {
   title: '03_molecules/ChanelList',

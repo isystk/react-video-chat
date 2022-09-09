@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import AudioAnalyser from '../../01_atoms/AudioAnalyser'
 import VolumeButton from '../../01_atoms/VolumeButton'
-import useDimensions from '@/stores/useDimentions'
+import useDimensions from './useDimentions'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'

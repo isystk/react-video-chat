@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import VideoTemplate from './index'
 import MainService, { Member } from '@/services/main'
-import ChanelService from '@/services/Chanel'
+import ChanelService from '@/services/chanel'
 
 export default {
   title: '06_templates/VideoTemplate',

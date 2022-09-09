@@ -1,6 +1,6 @@
 import Main, { Member } from '@/services/main'
-import { startMaster } from '@/services/Video/Master'
-import { startViewer } from '@/services/Video/Viewer'
+import { startMaster } from '@/services/video/master'
+import { startViewer } from '@/services/video/viewer'
 
 export default class VideoService {
   main: Main

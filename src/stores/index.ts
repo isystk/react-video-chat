@@ -40,7 +40,7 @@ export const store = configureStore({
   reducer: {
     app: AppSlice.reducer,
   },
-  //「A non-serializable value was detected」Error 
+  //「A non-serializable value was detected」Error
   // See https://zenn.dev/luvmini511/articles/91a76a34909555
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

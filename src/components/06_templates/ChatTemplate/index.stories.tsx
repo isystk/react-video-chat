@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import ChatTemplate, { ChatTemplateProps } from './index'
 import MainService from '@/services/main'
-import ChanelService from '@/services/Chanel'
+import ChanelService from '@/services/chanel'
 
 export default {
   title: '06_templates/ChatTemplate',
