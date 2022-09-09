@@ -1,29 +1,11 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-.video-wrapper {
-    width: 100%;
-    height: 70vh;
-    position: relative;
-    overflow: hidden;
-    video, img {
-        object-fit: cover;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-    }
-}
 
 .sp-hide {
     display: none;
+    height: 100%;
 }
 .pc-hide {
     display: block;
+    height: 100%;
 }
 @media screen and (min-width:992px){
     .sp-hide {
@@ -163,16 +145,3 @@
 .me_photo img{
     width: 100%;
 }
-
-.area{
-    background: #eee;  
-    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
-    width: 100%;
-    height: 91.5vh;
-}
-@media screen and (min-width:992px){
-  .area {
-    height: 93vh;
-  }
-}
-

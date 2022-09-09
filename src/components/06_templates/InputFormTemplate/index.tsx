@@ -2,7 +2,7 @@ import Grid from '@material-ui/core/Grid'
 import Circles from '@/components/01_atoms/Circles'
 import InputFormName from '@/components/03_molecules/InputFormName'
 import InputFormRoom from '@/components/03_molecules/InputFormRoom'
-import React, { useEffect, FC, useContext } from 'react'
+import React, { useEffect, FC, useContext, useState } from 'react'
 import { useRouter } from 'next/router'
 import DeviceSettingModal from '@/components/04_organisms/DeviceSettingModal'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
@@ -20,11 +20,13 @@ export type PresenterProps = InputFormTemplateProps & { classes }
 const InputFormTemplatePresenter: FC<PresenterProps> = ({
   main,
   classes,
+  windowHeight,
+  appStyle,
   ...props
 }) => (
   <HtmlSkeleton>
     <Title>ログイン</Title>
-    <div className="area">
+    <div style={appStyle(windowHeight)}>
       <Circles>
         <Grid container spacing={0}>
           <Grid item xs={12}>
@@ -44,13 +46,31 @@ const InputFormTemplateContainer: React.FC<
 > = ({ presenter, children, main, ...props }) => {
   const classes = useStyles()
   const router = useRouter()
+  const [windowHeight, setWindowHeight] = useState(0)
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight)
+  }, [])
 
   useEffect(() => {
     if (main.self.name && main.room.roomId) {
       router.push(main.room.roomId)
     }
   }, [main.self.name, main.room.roomId])
-  return presenter({ children, main, classes, ...props })
+
+  const appStyle = (vh) => {
+    return {
+      height: vh - 64,
+    }
+  }
+  return presenter({
+    children,
+    main,
+    classes,
+    windowHeight,
+    appStyle,
+    ...props,
+  })
 }
 
 export default connect<InputFormTemplateProps, PresenterProps>(

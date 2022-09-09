@@ -8,6 +8,8 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     height: '100%',
     overflow: 'hidden',
+    padding: '0',
+    margin: '0',
   },
   circlesLi: {
     position: 'absolute',
@@ -15,7 +17,7 @@ const useStyles = makeStyles(() => ({
     listStyle: 'none',
     width: '20px',
     height: '20px',
-    background: '#f1f1f1',
+    background: '#eee',
     animation: '$fadeOutRotation 25s linear infinite',
     bottom: '-150px',
   },

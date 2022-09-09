@@ -45,7 +45,7 @@ const VideoPresenter: FC<PresenterProps> = ({
 }) => (
   <>
     <Card ref={refCard}>
-      <CardActionArea className="video-wrapper">
+      <CardActionArea className={classes.videoWrapper}>
         <img
           src="/images/user.png"
           width={dimensionsCard.width}
@@ -97,9 +97,6 @@ const VideoContainer: React.FC<ContainerProps<VideoProps, PresenterProps>> = ({
   const dimensionsCard = useDimensions(refCard)
   const refVolumeButton = useRef(null)
   const dimensionsVolumeButton = useDimensions(refVolumeButton)
-
-  // if (videoRef.current)
-  //   console.log({ isLocal, muted, srcObject: videoRef.current.srcObject });
 
   useEffect(() => {
     window.setTimeout(() => {

@@ -20,18 +20,16 @@ const FormBoxPresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <>
+    <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
+      <Link color="inherit" href={Url.TOP}>
+        TOP
+      </Link>
+      <Typography component="span">{title}</Typography>
+    </Breadcrumbs>
     <Box component="div" className={classes.box}>
-      <Typography component="div" className={classes.title}>
+      <Typography component="div" color="primary" className={classes.title}>
         {title}
       </Typography>
-      <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
-        <Link color="inherit" href={Url.TOP}>
-          TOP
-        </Link>
-        <Typography component="span" color="primary">
-          {title}
-        </Typography>
-      </Breadcrumbs>
       <form className={classes.form} noValidate>
         {children}
       </form>

@@ -1,28 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
-  box: {
-    marginTop: '32px',
-    backgroundColor: '#fff',
-    height: '80vh',
-    '@media screen and (min-width:992px)': {
-      marginTop: '64px',
-    },
-  },
-  title: {
-    backgroundColor: '#3f51b5',
-    padding: '10px 10px',
-    color: '#fff',
-    '@media screen and (min-width:992px)': {
-      padding: '10px 40px',
-    },
-  },
   breadcrumbs: {
-    margin: '0',
-    padding: '20px 10px',
-    '@media screen and (min-width:992px)': {
-      padding: '10px 40px',
-    },
+    padding: '20px 0px',
     // listStyle: "none",
     // "& li": {
     //   display: "inline",
@@ -44,6 +24,16 @@ const useStyles = makeStyles((theme) => ({
     //     }
     //   }
     // }
+  },
+  box: {
+    backgroundColor: '#fff',
+    height: '80vh',
+    position: 'relative',
+  },
+  title: {
+    backgroundColor: '#3f51b5',
+    padding: '10px 20px',
+    color: '#fff',
   },
   form: {
     textAlign: 'center',

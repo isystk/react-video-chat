@@ -17,7 +17,6 @@ const CirclesPresenter: FC<PresenterProps> = ({
 }) => (
   <>
     <ul className={classes.circles}>
-      {children}
       <li className={classes.circlesLi} style={getLiPos(0)}></li>
       <li className={classes.circlesLi} style={getLiPos(1)}></li>
       <li className={classes.circlesLi} style={getLiPos(2)}></li>
@@ -28,6 +27,7 @@ const CirclesPresenter: FC<PresenterProps> = ({
       <li className={classes.circlesLi} style={getLiPos(7)}></li>
       <li className={classes.circlesLi} style={getLiPos(8)}></li>
       <li className={classes.circlesLi} style={getLiPos(9)}></li>
+      {children}
     </ul>
   </>
 )

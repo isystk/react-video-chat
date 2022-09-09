@@ -30,10 +30,10 @@ const ChatTemplatePresenter: FC<PresenterProps> = ({
 }) => (
   <HtmlSkeleton>
     <Title>{main.room.name}</Title>
-    <div className="area">
+    <div style={appStyle(windowHeight)}>
       <Grid container spacing={0}>
         <Grid item {...{ xs: 12, md: 3 }}>
-          <div className="sp-hide" style={appStyle(windowHeight)}>
+          <div className="sp-hide">
             <ChanelList />
           </div>
         </Grid>
