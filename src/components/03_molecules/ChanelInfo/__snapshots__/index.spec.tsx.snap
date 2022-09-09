@@ -2,10 +2,10 @@
 
 exports[`ChanelInfo Match Snapshot 1`] = `
 <div
-  className="me_block"
+  className="makeStyles-meBlock-1"
 >
   <div
-    className="myHeadPhoto"
+    className="head-photo"
   >
     <img
       alt=""
@@ -13,17 +13,17 @@ exports[`ChanelInfo Match Snapshot 1`] = `
     />
   </div>
   <div
-    className="myName"
+    className="name"
   >
     すべて
   </div>
   <div
-    className="myTitle"
+    className="title"
   >
     ルーム内のすべてのメンバー
   </div>
   <div
-    className="myVideo"
+    className="video"
   >
     <svg
       aria-hidden={true}

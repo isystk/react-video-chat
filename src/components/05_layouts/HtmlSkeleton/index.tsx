@@ -74,7 +74,7 @@ const HtmlSkeletonContainer: React.FC<
   children = Children.map(children, (child) =>
     isReactElement(child) && child.type === Title
       ? (title = `${child.props.children} | ${APP_NAME}`) && undefined
-      : React.cloneElement(child)
+      : child
   )
   if (!title) title = process.env.APP_NAME
 

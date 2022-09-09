@@ -14,11 +14,9 @@ type App = {
 const useAppRoot = () => {
   const dispatch = useDispatch()
   const { root } = useSelector<IRootState, App>((state) => state.app)
-  // const [, forceRender] = useReducer((boolean) => !boolean, false)
 
   const _setAppRoot = async (appRoot: MainService) => {
     await dispatch(setAppRoot(appRoot))
-    // forceRender()
     await dispatch(forceRender())
   }
 

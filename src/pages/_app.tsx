@@ -1,35 +1,25 @@
 import '@/assets/sass/app.scss'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from '@material-ui/core/styles'
 import React from 'react'
-import reducers from '@/stores'
-import thunk from 'redux-thunk'
+import {store} from '@/stores'
 import type { AppProps } from 'next/app'
 import { createTheme } from '@material-ui/core/styles'
 
-// 開発環境の場合は、redux-devtools-extension を利用できるようにする
-const enhancer =
-  process.env.NODE_ENV === 'development'
-    ? composeWithDevTools(applyMiddleware(thunk))
-    : applyMiddleware(thunk)
-const store = createStore(reducers, enhancer)
-
 // テーマを設定
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     primary: {
-      main: '#3f51b5',
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
     },
     secondary: {
-      main: '#19857b',
-    },
-    success: {
-      main: '#69A06F',
-    },
-    error: {
-      main: '#ff1744',
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#fff',
     },
   },
 })

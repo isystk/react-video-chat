@@ -4,15 +4,11 @@ import ChatTemplate, { ChatTemplateProps } from './index'
 import '@testing-library/jest-dom/extend-expect'
 import MainService from '@/services/main'
 import ChanelService from '@/services/Chanel'
-import { applyMiddleware, createStore } from 'redux'
-import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
-import reducers from '@/stores'
+import {store} from '@/stores'
 
 describe('ChatTemplate', () => {
   it('Match Snapshot', () => {
-    const enhancer = applyMiddleware(thunk)
-    const store = createStore(reducers, enhancer)
     const main = new MainService(() => ({}))
     main.setName('isystk')
     main.setRoomId('test')

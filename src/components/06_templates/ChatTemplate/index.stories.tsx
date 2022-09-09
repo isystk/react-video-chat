@@ -23,14 +23,22 @@ const Template: Story = () => {
       'ルーム内のすべてのメンバー'
     )
   )
+  main.addChanel(
+    new ChanelService(
+      main,
+      'own',
+      '自分',
+      'all',
+      'images/friends/BigBoss.png',
+      'BigBoss'
+    )
+  )
   main.setChanelId('all')
   main.addMember({
     connectionId: 'bbb',
     name: 'bbb',
     photo: 'images/friends/David.png',
   })
-  main.setChanelId('all')
-  main.setAppRoot()
   const props: ChatTemplateProps = { main }
   return <ChatTemplate {...props} />
 }

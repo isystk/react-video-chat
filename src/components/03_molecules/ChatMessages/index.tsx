@@ -28,7 +28,7 @@ const ChatMessagesPresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <>
-    <div id="chatRoom" className="chat_message" style={appStyle(windowHeight)}>
+    <div className={classes.chatMessage} style={appStyle(windowHeight)}>
       {main.chanels[main.selectChanelId].chat.messages.map((message, index) => {
         const isMe = message.sendId === main.self.connectionId
         const member = main.members[message.sendId]

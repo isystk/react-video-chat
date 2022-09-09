@@ -2,8 +2,7 @@
 
 exports[`ChatMessages Match Snapshot 1`] = `
 <div
-  className="chat_message"
-  id="chatRoom"
+  className="makeStyles-chatMessage-1"
   style={
     Object {
       "height": -133,

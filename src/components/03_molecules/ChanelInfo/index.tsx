@@ -34,13 +34,13 @@ const ChanelInfoPresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <>
-    <div className="me_block">
-      <div className="myHeadPhoto">
+    <div className={classes.meBlock}>
+      <div className="head-photo">
         <img src={photo} alt="" />
       </div>
-      <div className="myName">{name}</div>
-      <div className="myTitle">{detail}</div>
-      <div className="myVideo">
+      <div className="name">{name}</div>
+      <div className="title">{detail}</div>
+      <div className="video">
         {'other' === type ? (
           <a href="#" onClick={() => main.video.sendRequestCall(id)}>
             <VideocamIcon />

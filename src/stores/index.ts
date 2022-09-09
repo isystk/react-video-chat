@@ -1,5 +1,4 @@
-import { combineReducers } from 'redux'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import {configureStore, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import { Dispatch } from 'react'
 import MainService from '@/services/main'
 
@@ -37,6 +36,8 @@ export const setAppRoot =
     dispatch(setState(appRoot))
   }
 
-export default combineReducers({
-  app: AppSlice.reducer,
-})
+export const store = configureStore({
+  reducer: {
+    app: AppSlice.reducer
+  },
+});
