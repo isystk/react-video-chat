@@ -1,11 +1,12 @@
 import Main from '@/services/main'
+import { dateFormat } from '@/utils/general'
 
 export type ChatMessage = {
   type: 'text' | 'stamp'
   data: string
   chanelId: string
   sendId: string
-  datetime: Date
+  datetime: string
 }
 
 export const Stamps = {
@@ -40,7 +41,7 @@ export default class ChatService {
       data,
       chanelId: this.chanelId,
       sendId: this.main.self.connectionId,
-      datetime: new Date(),
+      datetime: dateFormat(new Date()),
     } as ChatMessage
     this.messages = [...this.messages, message]
     // メッセージを送信する
@@ -69,7 +70,7 @@ export default class ChatService {
       data: key,
       chanelId: this.chanelId,
       sendId: this.main.self.connectionId,
-      datetime: new Date(),
+      datetime: dateFormat(new Date()),
     } as ChatMessage
     this.messages = [...this.messages, message]
     // メッセージを送信する

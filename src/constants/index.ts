@@ -1,5 +1,3 @@
-import { isDevelopment, isNode } from '@/utils/general/context'
-
 //  ----------------------------------------------------------------------------
 //  System const values
 //  ----------------------------------------------------------------------------
@@ -23,11 +21,7 @@ const APP_URL = process.env.NEXT_PUBLIC_APP_URL
 const DATE_FORMAT = 'yyyy-MM-dd HH:mm:ss'
 
 /** システム API URL */
-const API_URL = (
-  isNode() && isDevelopment()
-    ? process.env.NEXT_PUBLIC_API_URL?.replace('xxxxxxxxxx', 'localhost')
-    : process.env.NEXT_PUBLIC_API_URL
-) as string
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 /** AWS Config */
 const awsConfig = {
@@ -37,16 +31,16 @@ const awsConfig = {
   websocketUrl: process.env.NEXT_PUBLIC_AWS_WEBSOCKET_URL,
 } as const
 
-console.log('ENV', {
-  APP_NAME,
-  APP_DESCRIPTION,
-  LOCALE,
-  APP_MODE,
-  APP_URL,
-  DATE_FORMAT,
-  API_URL,
-  awsConfig,
-})
+// console.log('ENV', {
+//   APP_NAME,
+//   APP_DESCRIPTION,
+//   LOCALE,
+//   APP_MODE,
+//   APP_URL,
+//   DATE_FORMAT,
+//   API_URL,
+//   awsConfig,
+// })
 export {
   APP_NAME,
   APP_DESCRIPTION,

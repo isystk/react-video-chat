@@ -7,7 +7,7 @@ import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
-import { dateFormat } from '@/utils/general/date'
+import { dateFormat, parseDate } from '@/utils/general/date'
 
 /** ChatMessagesProps Props */
 export type ChatMessagesProps = WithChildren
@@ -47,7 +47,7 @@ const ChatMessagesPresenter: FC<PresenterProps> = ({
               )}
               <div className="message-user">{!isMe && member.name}</div>
               <div className="message-time">
-                {dateFormat(message.datetime, 'M/d HH:mm')}
+                {dateFormat(parseDate(message.datetime), 'M/d HH:mm')}
               </div>
             </div>
           </div>
