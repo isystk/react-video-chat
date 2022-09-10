@@ -34,5 +34,5 @@ const awsConfig = {
   websocketUrl: process.env.NEXT_AWS_WEBSOCKET_URL,
 } as const
 
-// console.log('ENV', {APP_NAME, LOCALE, APP_MODE, APP_URL, DATE_FORMAT, API_URL, awsConfig,})
+console.log('ENV', {APP_NAME, LOCALE, APP_MODE, APP_URL, DATE_FORMAT, API_URL, awsConfig,})
 export { APP_NAME, LOCALE, APP_MODE, APP_URL, DATE_FORMAT, API_URL, awsConfig }
