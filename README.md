@@ -15,7 +15,7 @@ React.js(Next.js)で作成したビデオ&チャットアプリケーション�
 
 ## 🌐 Demo
 
-https://react-video-chat-mebzzqz96-isystk.vercel.app
+https://react-video-chat-isystk.vercel.app
 
 ![投稿画面](./app.png "投稿画面")
 

@@ -28,10 +28,10 @@ const API_URL = (
 
 /** AWS Config */
 const awsConfig = {
-  region: process.env.NEXT_AWS_REGION,
-  accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.NEXT_AWS_SECRET_ACCESS_KEY,
-  websocketUrl: process.env.NEXT_AWS_WEBSOCKET_URL,
+  region: process.env.NEXT_PUBLIC_AWS_REGION,
+  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
+  websocketUrl: process.env.NEXT_AWS_PUBLIC_WEBSOCKET_URL,
 } as const
 
 console.log('ENV', {
