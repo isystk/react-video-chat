@@ -47,4 +47,13 @@ console.log('ENV', {
   API_URL,
   awsConfig,
 })
-export { APP_NAME, APP_DESCRIPTION, LOCALE, APP_MODE, APP_URL, DATE_FORMAT, API_URL, awsConfig }
+export {
+  APP_NAME,
+  APP_DESCRIPTION,
+  LOCALE,
+  APP_MODE,
+  APP_URL,
+  DATE_FORMAT,
+  API_URL,
+  awsConfig,
+}
