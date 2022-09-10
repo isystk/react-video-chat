@@ -14,6 +14,7 @@ import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import { promiseSetTimeout } from '@/utils/general'
 
 /** VideoProps Props */
 export type VideoProps = WithChildren & { isLocal; videoRef; member }
@@ -99,9 +100,11 @@ const VideoContainer: React.FC<ContainerProps<VideoProps, PresenterProps>> = ({
   const dimensionsVolumeButton = useDimensions(refVolumeButton)
 
   useEffect(() => {
-    window.setTimeout(() => {
-      main.setAppRoot()
-    }, 500)
+    ;(async () => {
+      await promiseSetTimeout(() => {
+        main.setAppRoot()
+      }, 500)
+    })()
   }, [])
   return presenter({
     children,

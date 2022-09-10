@@ -3,18 +3,13 @@ import {
   CreateSignalingChannelCommand,
   CreateSignalingChannelCommandInput,
 } from '@aws-sdk/client-kinesis-video'
-
-const awsConfig = {
-  region: process.env.REACT_APP_AWS_REGION,
-  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-}
+import { awsConfig } from '@/constants'
 
 const client = new KinesisVideoClient({
   region: awsConfig.region,
   credentials: {
-    accessKeyId: awsConfig.accessKeyId,
-    secretAccessKey: awsConfig.secretAccessKey,
+    accessKeyId: awsConfig.accessKeyId || '',
+    secretAccessKey: awsConfig.secretAccessKey || '',
   },
 })
 

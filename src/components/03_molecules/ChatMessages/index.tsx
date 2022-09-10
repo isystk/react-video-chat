@@ -2,12 +2,12 @@ import * as React from 'react'
 import { Stamps } from '@/services/chat'
 import { FC, useContext, useEffect, useState } from 'react'
 import * as _ from 'lodash'
-import moment from 'moment'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import { dateFormat } from '@/utils/general/date'
 
 /** ChatMessagesProps Props */
 export type ChatMessagesProps = WithChildren
@@ -47,7 +47,7 @@ const ChatMessagesPresenter: FC<PresenterProps> = ({
               )}
               <div className="message-user">{!isMe && member.name}</div>
               <div className="message-time">
-                {moment(message.datetime).format('MM/DD HH:mm')}
+                {dateFormat(message.datetime, 'M/d HH:mm')}
               </div>
             </div>
           </div>

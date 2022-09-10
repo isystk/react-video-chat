@@ -1,11 +1,10 @@
 import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
-import { Box, Breadcrumbs, Grid, Typography } from '@material-ui/core'
+import { Box, Breadcrumbs, FormControl, Typography } from '@material-ui/core'
 import { connect } from '@/components/hoc'
 import { useStyles } from './styles'
 import Link from 'next/link'
 import { Url } from '@/constants/url'
-import Container from '@/components/05_layouts/HtmlSkeleton/Title'
 
 /** FormBoxProps Props */
 export type FormBoxProps = WithChildren & { title }
@@ -30,9 +29,7 @@ const FormBoxPresenter: FC<PresenterProps> = ({
       <Typography component="div" color="primary" className={classes.title}>
         {title}
       </Typography>
-      <form className={classes.form} noValidate>
-        {children}
-      </form>
+      <FormControl className={classes.form}>{children}</FormControl>
     </Box>
   </>
 )

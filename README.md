@@ -96,6 +96,7 @@ $ sam delete --stack-name web-rtc
 ## 💬 使い方
 
 ```
+$ cp .env.example .env
 $ yarn
 $ yarn dev
 ```

@@ -1,4 +1,4 @@
-import { DATE_FORMAT, LOCALE } from 'const'
+import { DATE_FORMAT, LOCALE } from '@/constants'
 import { format, fromUnixTime, parse } from 'date-fns'
 import { enUS, ja } from 'date-fns/locale'
 

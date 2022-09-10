@@ -15,7 +15,7 @@ exports[`InputFormRoom Match Snapshot 1`] = `
         className="MuiBreadcrumbs-li"
       >
         <a
-          href="/"
+          href="http://xxxxxxxxxx:3000/"
           onClick={[Function]}
           onMouseEnter={[Function]}
           onTouchStart={[Function]}
@@ -48,9 +48,8 @@ exports[`InputFormRoom Match Snapshot 1`] = `
     >
       ログイン
     </div>
-    <form
-      className="makeStyles-form-7"
-      noValidate={true}
+    <div
+      className="MuiFormControl-root makeStyles-form-7"
     >
       <h1
         className="MuiTypography-root MuiTypography-h5"
@@ -134,7 +133,7 @@ exports[`InputFormRoom Match Snapshot 1`] = `
           決定
         </span>
       </button>
-    </form>
+    </div>
   </div>
 </main>
 `;

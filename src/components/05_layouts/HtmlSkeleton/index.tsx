@@ -8,6 +8,7 @@ import Title, { TitleProps } from './Title'
 import Head from 'next/head'
 import { isReactElement } from '@/utils/general/object'
 import { CssBaseline } from '@material-ui/core'
+import { APP_NAME } from '@/constants'
 
 /** HtmlSkeleton Props */
 export type HtmlSkeletonProps = WithChildren
@@ -69,14 +70,12 @@ const HtmlSkeletonContainer: React.FC<
 
   if (!main) return <></>
 
-  const APP_NAME = process.env.APP_NAME
-
   children = Children.map(children, (child) =>
     isReactElement(child) && child.type === Title
       ? (title = `${child.props.children} | ${APP_NAME}`) && undefined
       : child
   )
-  if (!title) title = process.env.APP_NAME
+  if (!title) title = APP_NAME
 
   const description = `${APP_NAME} is an application that allows you to casually chat with your friends!`
   return presenter({

@@ -34,21 +34,21 @@ describe('ChatMessages', () => {
         data: 'hello',
         chanelId: 'all',
         sendId: 'aaa',
-        datetime: '2022-09-07 12:00:00',
+        datetime: new Date('2022-09-07 12:00:00'),
       },
       {
         type: 'stamp',
         data: 'smile',
         chanelId: 'all',
         sendId: 'aaa',
-        datetime: '2022-09-07 13:00:00',
+        datetime: new Date('2022-09-07 13:00:00'),
       },
       {
         type: 'text',
         data: 'see you',
         chanelId: 'all',
         sendId: 'bbb',
-        datetime: '2022-09-07 14:00:00',
+        datetime: new Date('2022-09-07 14:00:00'),
       },
     ]
 

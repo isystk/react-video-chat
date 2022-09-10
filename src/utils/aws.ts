@@ -1,5 +1,7 @@
+import { awsConfig } from '@/constants'
+
 const config = {
-  websocketUrl: process.env.REACT_APP_AWS_WEBSOCKET_URL,
+  websocketUrl: awsConfig.websocketUrl,
 }
 
 type Event = {

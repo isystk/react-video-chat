@@ -1,6 +1,8 @@
 import Main, { Member } from '@/services/main'
 import { startMaster } from '@/services/video/master'
 import { startViewer } from '@/services/video/viewer'
+import { promiseSetTimeout } from '@/utils/general'
+export type NatTraversal = 'STUN/TURN' | 'TURN' | 'DISABLED'
 
 export default class VideoService {
   main: Main
@@ -52,24 +54,23 @@ export default class VideoService {
     // ビデオ通話の開始
     this.isPeerConnected = true
     // this.main.mediaDevice.setMediaStream()
-
-    window.setTimeout(async () => {
-      // メディアストリームを取得
-      await this.main.mediaDevice.setMediaStream()
-
-      startMaster({
-        channelName: 'test',
-        natTraversal: 'STUN/TURN',
-        widescreen: true,
-        sendVideo: true,
-        sendAudio: false,
-        useTrickleICE: true,
-        localConnectionId: this.main.self.connectionId,
-        remoteConnectionId: this.members[0].connectionId,
-        mediaStream: this.main.mediaDevice.mediaStream,
-      })
-      this.main.setAppRoot()
-    }, 500)
+    ;(async () => {
+      await promiseSetTimeout(() => {
+        // メディアストリームを取得
+        startMaster({
+          channelName: 'test',
+          natTraversal: 'STUN/TURN',
+          widescreen: true,
+          sendVideo: true,
+          sendAudio: false,
+          useTrickleICE: true,
+          localConnectionId: this.main.self.connectionId,
+          remoteConnectionId: this.members[0].connectionId,
+          mediaStream: this.main.mediaDevice.mediaStream,
+        })
+        this.main.setAppRoot()
+      }, 500)
+    })()
 
     this.main.setAppRoot()
   }

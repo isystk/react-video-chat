@@ -4,6 +4,7 @@ import { createSignalingChannel } from '@/services/video/createSignalChannel'
 import { startMaster, stopMaster } from '@/services/video/master'
 import { startViewer, stopViewer } from '@/services/video/viewer'
 import Container from '@material-ui/core/Container'
+import { NatTraversal } from '@/services/video/video'
 
 import {
   Button,
@@ -21,8 +22,6 @@ const VideoResolution = {
   WIDESCREEN: 'WIDESCREEN',
   FULLSCREEN: 'FULLSCREEN',
 }
-
-export type NatTraversal = 'STUN/TURN' | 'TURN' | 'DISABLED'
 
 const App = () => {
   const [channelName, setChannelName] = useState('')

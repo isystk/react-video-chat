@@ -29,16 +29,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fff',
     height: '80vh',
     position: 'relative',
+    textAlign: 'center',
   },
   title: {
     backgroundColor: '#3f51b5',
     padding: '10px 20px',
     color: '#fff',
+    textAlign: 'left',
   },
   form: {
-    textAlign: 'center',
     margin: '40px auto',
-    width: '90%',
     maxWidth: '500px',
   },
 }))

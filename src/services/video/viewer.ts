@@ -14,23 +14,18 @@ import {
   GetIceServerConfigCommand,
   GetIceServerConfigCommandOutput,
 } from '@aws-sdk/client-kinesis-video-signaling'
-import { NatTraversal } from '../../components/sample/myForm'
 import { SignalingClient, Role } from 'amazon-kinesis-video-streams-webrtc'
 import { v4 as Uuid } from 'uuid'
+import { awsConfig } from '@/constants'
+import { NatTraversal } from '@/services/video/video'
 
 const viewer = {} as any
-
-const awsConfig = {
-  region: process.env.REACT_APP_AWS_REGION,
-  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-}
 
 const kinesisVideoClientConfig: KinesisVideoClientConfig = {
   region: awsConfig.region,
   credentials: {
-    accessKeyId: awsConfig.accessKeyId,
-    secretAccessKey: awsConfig.secretAccessKey,
+    accessKeyId: awsConfig.accessKeyId || '',
+    secretAccessKey: awsConfig.secretAccessKey || '',
   },
 }
 const kinesisVideoClient = new KinesisVideoClient(kinesisVideoClientConfig)

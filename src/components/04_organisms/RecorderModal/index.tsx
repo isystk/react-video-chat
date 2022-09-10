@@ -5,6 +5,7 @@ import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
+import { promiseSetTimeout } from '@/utils/general'
 
 /** RecorderModalProps Props */
 export type RecorderModalProps = WithChildren
@@ -40,28 +41,29 @@ const RecorderModalContainer: React.FC<
 
   useEffect(() => {
     if (!main.recorder.isOpen) return
+    ;(async () => {
+      await promiseSetTimeout(() => {
+        const videoBlob = new Blob(main.recorder.chunks, {
+          type: 'video/webm',
+        })
+        const blobUrl = window.URL.createObjectURL(videoBlob)
 
-    window.setTimeout(() => {
-      const videoBlob = new Blob(main.recorder.chunks, {
-        type: 'video/webm',
-      })
-      const blobUrl = window.URL.createObjectURL(videoBlob)
-
-      const playbackVideo = document.getElementById('recorder-play')
-      if (playbackVideo) {
-        if (playbackVideo.src) {
-          window.URL.revokeObjectURL(playbackVideo.src) // 解放
-          playbackVideo.src = null
+        const playbackVideo = document.getElementById('recorder-play')
+        if (playbackVideo) {
+          if (playbackVideo.src) {
+            window.URL.revokeObjectURL(playbackVideo.src) // 解放
+            playbackVideo.src = null
+          }
+          playbackVideo.src = blobUrl
+          playbackVideo.play()
         }
-        playbackVideo.src = blobUrl
-        playbackVideo.play()
-      }
-      const downloadVideo = document.getElementById('recorder-download')
-      if (downloadVideo) {
-        downloadVideo.download = 'recorded.webm'
-        downloadVideo.href = blobUrl
-      }
-    }, 1000)
+        const downloadVideo = document.getElementById('recorder-download')
+        if (downloadVideo) {
+          downloadVideo.download = 'recorded.webm'
+          downloadVideo.href = blobUrl
+        }
+      }, 1000)
+    })()
   }, [main.recorder.isOpen])
   return presenter({ children, main, classes, ...props })
 }
