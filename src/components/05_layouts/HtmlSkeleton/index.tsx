@@ -8,7 +8,7 @@ import Title, { TitleProps } from './Title'
 import Head from 'next/head'
 import { isReactElement } from '@/utils/general/object'
 import { CssBaseline } from '@material-ui/core'
-import { APP_NAME } from '@/constants'
+import { APP_NAME, APP_DESCRIPTION } from '@/constants'
 
 /** HtmlSkeleton Props */
 export type HtmlSkeletonProps = WithChildren
@@ -77,7 +77,7 @@ const HtmlSkeletonContainer: React.FC<
   )
   if (!title) title = APP_NAME
 
-  const description = `${APP_NAME} is an application that allows you to casually chat with your friends!`
+  const description = APP_DESCRIPTION
   return presenter({
     main,
     title,

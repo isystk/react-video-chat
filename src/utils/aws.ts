@@ -22,7 +22,7 @@ export type WebSocket = {
 let ws
 export const startWebsocket = (roomId): WebSocket | null => {
   if (!config.websocketUrl) {
-    console.error("'NEXT_AWS_WEBSOCKET_URL' is not defined.")
+    console.error("'NEXT_PUBLIC_AWS_WEBSOCKET_URL' is not defined.")
     return null
   }
   const url = `${config.websocketUrl}?roomId=${roomId}`
