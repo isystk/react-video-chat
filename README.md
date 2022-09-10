@@ -1,6 +1,7 @@
 🌙 react-video-chat
 ====
 
+[![CircleCI](https://circleci.com/gh/isystk/react-video-chat/tree/master.svg?style=svg)](https://circleci.com/gh/isystk/react-video-chat/tree/master)
 ![GitHub issues](https://img.shields.io/github/issues/isystk/react-video-chat)
 ![GitHub forks](https://img.shields.io/github/forks/isystk/react-video-chat)
 ![GitHub stars](https://img.shields.io/github/stars/isystk/react-video-chat)
