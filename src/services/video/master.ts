@@ -42,8 +42,6 @@ interface StartMasterInput {
   channelName: string
   natTraversal: NatTraversal
   widescreen: boolean
-  sendVideo: boolean
-  sendAudio: boolean
   useTrickleICE: boolean
   localConnectionId: string
   remoteConnectionId: string
@@ -165,27 +163,19 @@ export const startMaster = async (params: StartMasterInput) => {
   const resolution = params.widescreen
     ? { width: { ideal: 1280 }, height: { ideal: 720 } }
     : { width: { ideal: 640 }, height: { ideal: 480 } }
-  const constraints = {
-    video: params.sendVideo ? resolution : false,
-    audio: params.sendAudio,
-  }
 
   // Get a stream from the webcam and display it in the local view.
   // If no video/audio needed, no need to request for the sources.
   // Otherwise, the browser will throw an error saying that either video or audio has to be enabled.
-  if (params.sendVideo || params.sendAudio) {
-    try {
-      master.localStream =
-        params.mediaStream ||
-        (await navigator.mediaDevices.getUserMedia(constraints))
-      master.localView.srcObject = master.localStream
+  try {
+    master.localStream = params.mediaStream
+    master.localView.srcObject = master.localStream
 
-      // 以下を参考にした
-      // https://github.com/mganeko/kvs_webrtc_example/blob/8010721b5ed2a2535d464f0564dc3a0f8b5d7cf5/master.html#L232
-      master.localView.play().catch((error: any) => console.log(error))
-    } catch (e) {
-      console.error('[MASTER] Could not find webcam')
-    }
+    // 以下を参考にした
+    // https://github.com/mganeko/kvs_webrtc_example/blob/8010721b5ed2a2535d464f0564dc3a0f8b5d7cf5/master.html#L232
+    master.localView.play().catch((error: any) => console.log(error))
+  } catch (e) {
+    console.error('[MASTER] Could not find webcam')
   }
 
   master.signalingClient.on('open', async () => {
@@ -361,14 +351,3 @@ export const stopMaster = () => {
     master.dataChannelByClientId = {}
   }
 }
-
-// メッセージ送信機能が必要になったら利用する
-// const sendMasterMessage = (message: string) => {
-//     Object.keys(master.dataChannelByClientId).forEach(clientId => {
-//         try {
-//             master.dataChannelByClientId[clientId].send(message);
-//         } catch (e: any) {
-//             console.error('[MASTER] Send DataChannel: ', e.toString());
-//         }
-//     });
-// }

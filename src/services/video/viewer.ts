@@ -34,8 +34,6 @@ interface StartViewerInput {
   channelName: string
   natTraversal: NatTraversal
   widescreen: boolean
-  sendVideo: boolean
-  sendAudio: boolean
   useTrickleICE: boolean
   localConnectionId: string
   remoteConnectionId: string
@@ -153,24 +151,12 @@ export const startViewer = async (params: StartViewerInput) => {
   const resolution = params.widescreen
     ? { width: { ideal: 1280 }, height: { ideal: 720 } }
     : { width: { ideal: 640 }, height: { ideal: 480 } }
-  const constraints = {
-    video: params.sendVideo ? resolution : false,
-    audio: params.sendAudio,
-  }
 
   const configuration: RTCConfiguration = {
     iceServers,
     iceTransportPolicy: params.natTraversal === 'TURN' ? 'relay' : 'all',
   }
   viewer.peerConnection = new RTCPeerConnection(configuration) as EventTarget
-
-  // コメント機能実装時に追加!!
-  // if (params.openDataChannel) {
-  //     viewer.dataChannel = viewer.peerConnection.createDataChannel('kvsDataChannel');
-  //     viewer.peerConnection.ondatachannel = event => {
-  //         event.channel.onmessage = onRemoteDataMessage;
-  //     };
-  // }
 
   // Poll for connection stats
   viewer.peerConnectionStatsInterval = setInterval(
@@ -184,22 +170,18 @@ export const startViewer = async (params: StartViewerInput) => {
     // Get a stream from the webcam, add it to the peer connection, and display it in the local view.
     // If no video/audio needed, no need to request for the sources.
     // Otherwise, the browser will throw an error saying that either video or audio has to be enabled.
-    if (params.sendVideo || params.sendAudio) {
-      try {
-        viewer.localStream =
-          params.mediaStream ||
-          (await navigator.mediaDevices.getUserMedia(constraints))
-        viewer.localStream
-          .getTracks()
-          .forEach((track: MediaStreamTrack) =>
-            viewer.peerConnection.addTrack(track, viewer.localStream)
-          )
-        viewer.localView.srcObject = viewer.localStream
-        viewer.localView.play().catch((error: unknown) => console.log(error))
-      } catch (e) {
-        console.error('[VIEWER] Could not find webcam')
-        return
-      }
+    try {
+      viewer.localStream = params.mediaStream
+      viewer.localStream
+        .getTracks()
+        .forEach((track: MediaStreamTrack) =>
+          viewer.peerConnection.addTrack(track, viewer.localStream)
+        )
+      viewer.localView.srcObject = viewer.localStream
+      viewer.localView.play().catch((error: unknown) => console.log(error))
+    } catch (e) {
+      console.error('[VIEWER] Could not find webcam')
+      return
     }
 
     // Create an SDP offer to send to the master
@@ -326,14 +308,3 @@ export const stopViewer = () => {
     viewer.dataChannel = null
   }
 }
-
-// メッセージ送信機能が必要になったら利用する
-// const sendViewerMessage = (message: string) => {
-//     if (viewer.dataChannel) {
-//         try {
-//             viewer.dataChannel.send(message);
-//         } catch (e: unknown) {
-//             console.error('[VIEWER] Send DataChannel: ', JSON.stringify(e));
-//         }
-//     }
-// }

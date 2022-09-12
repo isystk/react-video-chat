@@ -28,6 +28,5 @@ export const createSignalingChannel = async (channelName: string) => {
   } catch (error) {
     console.log('Failed in createSignalingChannel.')
     console.log(`error: ${JSON.stringify(error)}`)
-    alert(`${channelName}チャンネルの作成に失敗しました!!`)
   }
 }

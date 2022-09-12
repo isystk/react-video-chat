@@ -2,6 +2,7 @@ import Main, { Member } from '@/services/main'
 import { startMaster } from '@/services/video/master'
 import { startViewer } from '@/services/video/viewer'
 import { promiseSetTimeout } from '@/utils/general'
+import { createSignalingChannel } from '@/services/video/createSignalChannel'
 export type NatTraversal = 'STUN/TURN' | 'TURN' | 'DISABLED'
 
 export default class VideoService {
@@ -27,6 +28,11 @@ export default class VideoService {
   }
 
   sendRequestCall(connectionId) {
+    ;(async () => {
+      // シグナリングチャネルを作成する
+      // TODO チャネルが増えるとコストがかかるので 固定で"test" としておく
+      await createSignalingChannel('test')
+    })()
     this.nowCallSending = true
     this.playSound()
     this.members = [...this.members, this.main.members[connectionId]]
@@ -53,26 +59,24 @@ export default class VideoService {
     })
     // ビデオ通話の開始
     this.isPeerConnected = true
-    // this.main.mediaDevice.setMediaStream()
+    this.main.setAppRoot()
     ;(async () => {
-      await promiseSetTimeout(() => {
+      await this.main.mediaDevice.setMediaStream()
+      const result = await promiseSetTimeout(true, 500)
+      if (result) {
         // メディアストリームを取得
-        startMaster({
+        await startViewer({
           channelName: 'test',
           natTraversal: 'STUN/TURN',
-          widescreen: true,
-          sendVideo: true,
-          sendAudio: false,
+          widescreen: false,
           useTrickleICE: true,
           localConnectionId: this.main.self.connectionId,
           remoteConnectionId: this.members[0].connectionId,
           mediaStream: this.main.mediaDevice.mediaStream,
         })
-        this.main.setAppRoot()
-      }, 500)
+        await this.main.setAppRoot()
+      }
     })()
-
-    this.main.setAppRoot()
   }
 
   sendRejectCall(connectionId) {
@@ -100,27 +104,23 @@ export default class VideoService {
     this.pauseSound()
     // ビデオ通話の開始
     this.isPeerConnected = true
-    // this.main.mediaDevice.setMediaStream()
-
-    window.setTimeout(async () => {
-      // メディアストリームを取得
-      await this.main.mediaDevice.setMediaStream()
-
-      startViewer({
-        channelName: 'test',
-        natTraversal: 'STUN/TURN',
-        widescreen: true,
-        sendVideo: true,
-        sendAudio: false,
-        useTrickleICE: true,
-        localConnectionId: this.main.self.connectionId,
-        remoteConnectionId: this.members[0].connectionId,
-        mediaStream: this.main.mediaDevice.mediaStream,
-      })
-      this.main.setAppRoot()
-    }, 800)
-
     this.main.setAppRoot()
+    ;(async () => {
+      await this.main.mediaDevice.setMediaStream()
+      const result = await promiseSetTimeout(true, 800)
+      if (result) {
+        await startMaster({
+          channelName: 'test',
+          natTraversal: 'STUN/TURN',
+          widescreen: false,
+          useTrickleICE: true,
+          localConnectionId: this.main.self.connectionId,
+          remoteConnectionId: this.members[0].connectionId,
+          mediaStream: this.main.mediaDevice.mediaStream,
+        })
+        await this.main.setAppRoot()
+      }
+    })()
   }
 
   receiveRejectCall() {
