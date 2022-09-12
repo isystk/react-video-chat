@@ -62,7 +62,7 @@ export default class VideoService {
     this.main.setAppRoot()
     ;(async () => {
       await this.main.mediaDevice.setMediaStream()
-      const result = await promiseSetTimeout(true, 500)
+      const result = await promiseSetTimeout(true, 800)
       if (result) {
         // メディアストリームを取得
         await startViewer({
@@ -71,7 +71,7 @@ export default class VideoService {
           widescreen: false,
           useTrickleICE: true,
           localConnectionId: this.main.self.connectionId,
-          remoteConnectionId: this.members[0].connectionId,
+          remoteConnectionId: connectionId,
           mediaStream: this.main.mediaDevice.mediaStream,
         })
         await this.main.setAppRoot()
@@ -99,7 +99,7 @@ export default class VideoService {
     this.main.setAppRoot()
   }
 
-  receiveAcceptCall() {
+  receiveAcceptCall(connectionId) {
     this.nowCallSending = false
     this.pauseSound()
     // ビデオ通話の開始
@@ -107,7 +107,7 @@ export default class VideoService {
     this.main.setAppRoot()
     ;(async () => {
       await this.main.mediaDevice.setMediaStream()
-      const result = await promiseSetTimeout(true, 800)
+      const result = await promiseSetTimeout(true, 500)
       if (result) {
         await startMaster({
           channelName: 'test',
@@ -115,7 +115,7 @@ export default class VideoService {
           widescreen: false,
           useTrickleICE: true,
           localConnectionId: this.main.self.connectionId,
-          remoteConnectionId: this.members[0].connectionId,
+          remoteConnectionId: connectionId,
           mediaStream: this.main.mediaDevice.mediaStream,
         })
         await this.main.setAppRoot()

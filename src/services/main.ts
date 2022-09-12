@@ -260,7 +260,7 @@ export default class MainService {
         // ignore self message (自分自身からのメッセージは無視する）
         return
       }
-      await this.video.receiveAcceptCall()
+      await this.video.receiveAcceptCall(sendId)
     })
     this.ws?.on('reject_call', async ({ sendId }) => {
       if (sendId === this.self.connectionId) {
