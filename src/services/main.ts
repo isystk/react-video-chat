@@ -3,7 +3,7 @@ import MediaDeviceService from '@/services/mediaDevice'
 import { startWebsocket, WebSocket } from '@/utils/aws'
 import ChanelService from '@/services/chanel'
 import VideoService from '@/services/video/video'
-import {getStorage, removeStorage, storeStorage} from "@/utils/localStorage";
+import { getStorage, removeStorage, storeStorage } from '@/utils/localStorage'
 
 export type Self = {
   connectionId: string
@@ -47,7 +47,7 @@ export default class MainService {
     this.room = { roomId: '', name: '' }
 
     // ローカルストレージからログイン情報を取得
-    const user = getStorage("User")
+    const user = getStorage('User')
     if (user) {
       this.self = user
     } else {
@@ -71,7 +71,7 @@ export default class MainService {
       photo: 'images/friends/David.png',
     }
     // ローカルストレージにログイン情報を保存
-    storeStorage("User", this.self)
+    storeStorage('User', this.self)
     await this.setAppRoot()
   }
 

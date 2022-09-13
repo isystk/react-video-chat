@@ -1,31 +1,26 @@
 import { LOCALSTORAGE_KEYS } from '@/constants'
-import {isBrowser} from "@/utils/general";
+import { isBrowser } from '@/utils/general'
 
 /**
  * Local Storage へ値を保存します。
  *
  */
-export const storeStorage = (
-  key: LOCALSTORAGE_KEYS,
-  value = {}
-) => {
+export const storeStorage = (key: LOCALSTORAGE_KEYS, value = {}) => {
   if (!isBrowser()) {
     return
   }
-  localStorage.setItem(key, JSON.stringify(value));
+  localStorage.setItem(key, JSON.stringify(value))
 }
 
 /**
  * Local Storage から値を取得します。
  *
  */
-export const getStorage = (
-  key: LOCALSTORAGE_KEYS,
-) => {
+export const getStorage = (key: LOCALSTORAGE_KEYS) => {
   if (!isBrowser()) {
     return null
   }
-  const value = localStorage.getItem(key);
+  const value = localStorage.getItem(key)
   if (!value) {
     return null
   }
@@ -33,15 +28,12 @@ export const getStorage = (
 }
 
 /**
- * Local Storage から値を削除します。 
+ * Local Storage から値を削除します。
  *
  */
-export const removeStorage = (
-  key: LOCALSTORAGE_KEYS,
-) => {
+export const removeStorage = (key: LOCALSTORAGE_KEYS) => {
   if (!isBrowser()) {
-    return 
+    return
   }
-  localStorage.removeItem(key);
+  localStorage.removeItem(key)
 }
-

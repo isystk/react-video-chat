@@ -91,7 +91,7 @@ Connected (press CTRL+C to quit)
 AWSから、DynamoDB、Lambda&APIGatewayを削除する
 ```
 $ cd aws-sam
-$ sam delete --stack-name web-rtc
+$ sam delete --stack-name reactVideoChat
 ```
 
 ## 💬 使い方
