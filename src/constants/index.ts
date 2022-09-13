@@ -2,6 +2,8 @@
 //  System const values
 //  ----------------------------------------------------------------------------
 
+import {Self} from "@/services/main";
+
 /** システム アプリ名 */
 const APP_NAME = process.env.APP_NAME
 
@@ -30,6 +32,12 @@ const awsConfig = {
   secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
   websocketUrl: process.env.NEXT_PUBLIC_AWS_WEBSOCKET_URL,
 } as const
+
+
+type LOCALSTORAGE = {
+  User
+}
+export type LOCALSTORAGE_KEYS = keyof LOCALSTORAGE 
 
 // console.log('ENV', {
 //   APP_NAME,

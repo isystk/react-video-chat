@@ -3,6 +3,7 @@ import MediaDeviceService from '@/services/mediaDevice'
 import { startWebsocket, WebSocket } from '@/utils/aws'
 import ChanelService from '@/services/chanel'
 import VideoService from '@/services/video/video'
+import {getStorage, removeStorage, storeStorage} from "@/utils/localStorage";
 
 export type Self = {
   connectionId: string
@@ -44,7 +45,14 @@ export default class MainService {
     this.ws = null
     this.members = {}
     this.room = { roomId: '', name: '' }
-    this.self = { connectionId: '', name: '', photo: '' }
+
+    // ローカルストレージからログイン情報を取得
+    const user = getStorage("User")
+    if (user) {
+      this.self = user
+    } else {
+      this.self = { connectionId: '', name: '', photo: '' }
+    }
     this.chanels = {}
     this.selectChanelId = 'all'
     this.recorder = new RecorderService(this)
@@ -62,6 +70,8 @@ export default class MainService {
       name,
       photo: 'images/friends/David.png',
     }
+    // ローカルストレージにログイン情報を保存
+    storeStorage("User", this.self)
     await this.setAppRoot()
   }
 
@@ -90,6 +100,7 @@ export default class MainService {
   async signOut() {
     await this.leave()
     this.self = { connectionId: '', name: '', photo: '' }
+    removeStorage('User')
     await this.setAppRoot()
   }
 
