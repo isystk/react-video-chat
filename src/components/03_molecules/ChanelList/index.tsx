@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as _ from 'lodash'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
-import { FC, useContext } from 'react'
+import { FC, useContext, useMemo } from 'react'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
@@ -36,7 +36,9 @@ const ChanelListPresenter: FC<PresenterProps> = ({
             <div className="name">{chanel.name}</div>
             <div className="dec">{chanel.detail}</div>
           </div>
-          <div className="num">7</div>
+          {0 < chanel.chat.getUnreadCount() && (
+            <div className="num">{chanel.chat.getUnreadCount()}</div>
+          )}
         </div>
       ))}
     </div>

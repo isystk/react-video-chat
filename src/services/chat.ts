@@ -1,5 +1,6 @@
 import Main from '@/services/main'
 import { dateFormat } from '@/utils/general'
+import { showNotification } from '@/utils/notification'
 
 export type ChatMessage = {
   type: 'text' | 'stamp'
@@ -7,6 +8,7 @@ export type ChatMessage = {
   chanelId: string
   sendId: string
   datetime: string
+  readed: boolean
 }
 
 export const Stamps = {
@@ -43,7 +45,13 @@ export default class ChatService {
       sendId: this.main.self.connectionId,
       datetime: dateFormat(new Date()),
     } as ChatMessage
-    this.messages = [...this.messages, message]
+    this.messages = [
+      ...this.messages,
+      {
+        ...message,
+        readed: true,
+      },
+    ]
     // メッセージを送信する
     if ('all' === this.chanelId) {
       this.main.ws?.multicast({
@@ -72,7 +80,13 @@ export default class ChatService {
       sendId: this.main.self.connectionId,
       datetime: dateFormat(new Date()),
     } as ChatMessage
-    this.messages = [...this.messages, message]
+    this.messages = [
+      ...this.messages,
+      {
+        ...message,
+        readed: true,
+      },
+    ]
     // メッセージを送信する
     if ('all' === this.chanelId) {
       this.main.ws?.multicast({
@@ -89,7 +103,41 @@ export default class ChatService {
   }
 
   async receiveChat(message: ChatMessage) {
-    this.messages = [...this.messages, message]
+    this.messages = [
+      ...this.messages,
+      {
+        ...message,
+        readed: false,
+      },
+    ]
+
+    const member = this.main.members[message.sendId]
+    showNotification(
+      '新チェクメッセージ',
+      message.data,
+      member.photo,
+      this.chanelId
+    )
+
     await this.main.setAppRoot()
+  }
+
+  /**
+   * チャットの未読件数を取得します。
+   */
+  getUnreadCount() {
+    return this.messages.filter((message) => !message.readed).length
+  }
+
+  /**
+   * 未読のチェックを既読に変更します。
+   */
+  readMessage() {
+    this.messages = this.messages.map((message) => {
+      return {
+        ...message,
+        readed: true,
+      }
+    })
   }
 }

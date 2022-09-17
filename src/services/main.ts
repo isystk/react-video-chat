@@ -4,6 +4,7 @@ import { startWebsocket, WebSocket } from '@/utils/aws'
 import ChanelService from '@/services/chanel'
 import VideoService from '@/services/video/video'
 import { getStorage, removeStorage, storeStorage } from '@/utils/localStorage'
+import { requestPermission } from '@/utils/notification'
 
 export type Self = {
   connectionId: string
@@ -93,6 +94,10 @@ export default class MainService {
 
   async setChanelId(chanelId: string) {
     this.selectChanelId = chanelId
+
+    // チャネル内のメッセージを既読にする
+    this.chanels[chanelId].chat.readMessage()
+
     await this.setAppRoot()
   }
 
@@ -109,6 +114,9 @@ export default class MainService {
     try {
       // WebSocketサーバーをリスンする
       await this.startListening()
+
+      // Notification API を利用するための許可をブラウザに求める。
+      requestPermission()
 
       this.ws?.connect(() => {
         // ルームの接続が完了したら、自分のconnectionIdを問い合わせる
