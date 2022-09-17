@@ -113,7 +113,7 @@ export default class ChatService {
 
     const member = this.main.members[message.sendId]
     showNotification(
-      '新チェクメッセージ',
+      '新着メッセージ',
       message.data,
       member.photo,
       this.chanelId
