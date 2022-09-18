@@ -18,6 +18,7 @@ import Logo from '@/components/01_atoms/Logo'
 import { useStyles } from './styles'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
+import ProfileEditModal from "@/components/04_organisms/ProfileEditModal";
 
 /** HeaderProps Props */
 export type HeaderProps = WithChildren & { isMenuOpen; setMenuOpen }
@@ -72,6 +73,13 @@ const HeaderPresenter: FC<PresenterProps> = ({
             >
               <MenuItem
                 onClick={async () => {
+                  await main.openProfileEdit()
+                }}
+              >
+                プロフィール編集
+              </MenuItem>
+              <MenuItem
+                onClick={async () => {
                   await main.signOut()
                 }}
               >
@@ -82,6 +90,7 @@ const HeaderPresenter: FC<PresenterProps> = ({
         )}
       </Toolbar>
     </AppBar>
+    <ProfileEditModal />
   </>
 )
 

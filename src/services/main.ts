@@ -10,6 +10,7 @@ export type Self = {
   connectionId: string
   name: string
   photo: string
+  isOpen?: boolean
 }
 export type Room = {
   roomId: string
@@ -52,7 +53,7 @@ export default class MainService {
     if (user) {
       this.self = user
     } else {
-      this.self = { connectionId: '', name: '', photo: '' }
+      this.self = { connectionId: '', name: '', photo: '', isOpen: false }
     }
     this.chanels = {}
     this.selectChanelId = 'all'
@@ -158,6 +159,20 @@ export default class MainService {
     this.ws?.close()
     this.room = { roomId: '', name: '' }
     await this.setAppRoot()
+  }
+  
+  // プロフィール編集
+  async openProfileEdit() {
+    this.self.isOpen = true
+    await this.setAppRoot()
+  }
+  async closeProfileEdit() {
+    this.self.isOpen = false
+    await this.setAppRoot()
+  }
+  async storeProfile(self: Self) {
+    this.self = {...self}
+    this.closeProfileEdit();
   }
 
   // メンバーを追加する

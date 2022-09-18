@@ -1,21 +1,22 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import InputFormName from './index'
+import ProfileEditModal from './index'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 export default {
-  title: '03_molecules/InputFormName',
-  component: InputFormName,
+  title: '04_organisms/ProfileEditModal',
+  component: ProfileEditModal,
 } as Meta
 
 const Template: Story = (props) => {
   const main = new MainService(() => ({}))
-  main.setName('')
-
+  main.setName('isystk')
+  main.setRoomId('test')
+  main.self.isOpen = true
   return (
     <Context.Provider value={main}>
-      <InputFormName />
+      <ProfileEditModal />
     </Context.Provider>
   )
 }

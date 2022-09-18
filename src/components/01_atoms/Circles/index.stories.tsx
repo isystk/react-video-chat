@@ -12,9 +12,7 @@ const Template: Story = (props) => {
     <Circles>
       <div
         style={{
-          width: '100%',
           height: '600px',
-          background: '#eee',
         }}
       ></div>
     </Circles>

@@ -32,9 +32,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   title: {
-    backgroundColor: '#3f51b5',
+    backgroundColor: '#eee',
     padding: '10px 20px',
-    color: '#fff',
     textAlign: 'left',
   },
   form: {
