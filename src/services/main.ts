@@ -138,14 +138,7 @@ export default class MainService {
 
       // 自分専用のチャネルを追加
       this.addChanel(
-        new ChanelService(
-          this,
-          'own',
-          '自分',
-          'own',
-          this.self.photo,
-          '自分'
-        )
+        new ChanelService(this, 'own', '自分', 'own', this.self.photo, '自分')
       )
 
       await this.setAppRoot()
