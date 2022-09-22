@@ -17,7 +17,11 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '15px',
         background: '#fff',
         opacity: '0.7',
-        textDecoration: 'none'
+        textDecoration: 'none',
+        cursor: 'pointer',
+        '& input[type="file"]': {
+            display: "none"
+        }
       }
     },
     '& .myHeadPhoto img': {

@@ -171,7 +171,7 @@ export default class MainService {
     await this.setAppRoot()
   }
   async storeProfile(self: Self) {
-    this.self = {...self}
+    this.self = {...this.self, ...self}
     this.closeProfileEdit();
   }
 
