@@ -20,9 +20,9 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         cursor: 'pointer',
         '& input[type="file"]': {
-            display: "none"
-        }
-      }
+          display: 'none',
+        },
+      },
     },
     '& .myHeadPhoto img': {
       width: '100%',

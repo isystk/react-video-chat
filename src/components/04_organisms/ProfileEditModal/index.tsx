@@ -1,4 +1,4 @@
-import React, {FC, useContext, useState} from 'react'
+import React, { FC, useContext, useState } from 'react'
 import Modal from '@/components/01_atoms/Modal'
 import { Button } from '@material-ui/core'
 import Container from '@material-ui/core/Container'
@@ -7,7 +7,7 @@ import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
-import {imageCompression, fileToDataURL} from "@/utils/general";
+import { imageCompression, fileToDataURL } from '@/utils/general'
 
 /** ProfileEditModalProps Props */
 export type ProfileEditModalProps = WithChildren
@@ -40,7 +40,8 @@ const ProfileEditModalPresenter: FC<PresenterProps> = ({
           <div className="myHeadPhoto">
             <img src={photo} alt="" />
             <label className="photoEditBtn" onChange={editProfilePhoto}>
-              <input type="file" />編集
+              <input type="file" />
+              編集
             </label>
           </div>
           <div className="myName">{name}</div>
@@ -55,7 +56,7 @@ const ProfileEditModalPresenter: FC<PresenterProps> = ({
             </Button>
             <Button
               color="primary"
-              onClick={(e) => main.storeProfile({photo})}
+              onClick={(e) => main.storeProfile({ photo })}
               type="submit"
               variant="contained"
             >
@@ -75,18 +76,18 @@ const ProfileEditModalContainer: React.FC<
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
   const classes = useStyles()
-  
+
   const [photo, setPhoto] = useState<string>(main.self.photo)
-  
+
   const editProfilePhoto = async (e) => {
     const file = e.target.files[0]
     // 画像を圧縮する
-    const cfile = await imageCompression(file);
+    const cfile = await imageCompression(file)
     // 画像をBase64に変換する
-    const base64 = await fileToDataURL(cfile);
+    const base64 = await fileToDataURL(cfile)
     setPhoto(base64)
   }
-  
+
   const handleClose = () => {
     setPhoto(main.self.photo)
     main.closeProfileEdit()

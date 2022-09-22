@@ -143,7 +143,7 @@ export default class MainService {
           'own',
           '自分',
           'own',
-          'images/friends/BigBoss.png',
+          this.self.photo,
           '自分'
         )
       )
@@ -160,7 +160,7 @@ export default class MainService {
     this.room = { roomId: '', name: '' }
     await this.setAppRoot()
   }
-  
+
   // プロフィール編集
   async openProfileEdit() {
     this.self.isOpen = true
@@ -171,8 +171,8 @@ export default class MainService {
     await this.setAppRoot()
   }
   async storeProfile(self: Self) {
-    this.self = {...this.self, ...self}
-    this.closeProfileEdit();
+    this.self = { ...this.self, ...self }
+    this.closeProfileEdit()
   }
 
   // メンバーを追加する
