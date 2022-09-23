@@ -7,7 +7,13 @@ import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
-import { imageCompression, fileToDataURL } from '@/utils/general'
+import {
+  imageCompression,
+  fileToDataURL,
+  imageCrop,
+  promiseSetTimeout,
+  base64ToImg,
+} from '@/utils/general'
 
 /** ProfileEditModalProps Props */
 export type ProfileEditModalProps = WithChildren
@@ -38,7 +44,7 @@ const ProfileEditModalPresenter: FC<PresenterProps> = ({
       <Container component="main">
         <div className={classes.notion}>
           <div className="myHeadPhoto">
-            <img src={photo} alt="" />
+            <img src={photo} alt="" id="profilePhoto" />
             <label className="photoEditBtn" onChange={editProfilePhoto}>
               <input type="file" />
               編集
@@ -86,6 +92,12 @@ const ProfileEditModalContainer: React.FC<
     // 画像をBase64に変換する
     const base64 = await fileToDataURL(cfile)
     setPhoto(base64)
+    // const image = await base64ToImg(base64);
+    await promiseSetTimeout(true, 500)
+    const image = document.getElementById('profilePhoto') as HTMLImageElement
+    // 画像を中央でトリミングする
+    const cropImage = await imageCrop(image)
+    setPhoto(cropImage)
   }
 
   const handleClose = () => {

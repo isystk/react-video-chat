@@ -1,4 +1,5 @@
 import { default as browserImageCompression } from 'browser-image-compression'
+import Cropper from 'cropperjs'
 import { includes, isArray, isNullish } from './object'
 
 /**
@@ -104,6 +105,22 @@ export const fileToDataURL = (file: File): Promise<string> => {
 }
 
 /**
+ * Base64形式の文字列をImg要素に変換する
+ *
+ * @param base64img - Base64形式の文字列
+ * @returns 処理成功時Img要素で解決されるPromiseオブジェクト
+ */
+export const base64ToImg = (base64img: string): Promise<Image> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => {
+      resolve(img)
+    }
+    img.src = base64img
+  })
+}
+
+/**
  * 画像ファイル(jpeg, png)を圧縮する
  *
  * @param image - 圧縮する画像ファイル
@@ -112,6 +129,37 @@ export const fileToDataURL = (file: File): Promise<string> => {
  */
 export const imageCompression = (image: File, maxSizeMB = 2): Promise<File> =>
   browserImageCompression(image, { maxSizeMB })
+
+/**
+ * 画像ファイルをトリミングします。
+ *
+ * @param imageElement - トリミングする画像ファイル
+ * @returns トリミング済みのファイルで解決されるPromiseオブジェクト
+ */
+export const imageCrop = (
+  imageElement: HTMLImageElement,
+  width = 500,
+  height = 500
+): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    new Cropper(imageElement, {
+      aspectRatio: width / height,
+      autoCropArea: 1,
+      ready: function () {
+        // console.log('ready');
+      },
+      crop: function (event) {
+        const cropper = this.cropper
+        //トリミング
+        const result = cropper.getCroppedCanvas({ width, height })
+        // 一旦トリミングしたらトリミングのデータはリセット
+        cropper.destroy()
+        const resultImgUrl = result.toDataURL()
+        resolve(resultImgUrl)
+      },
+    })
+  })
+}
 
 /**
  * 指定ファイル名の拡張子が第2引数以降の値に含まれているか否かを示す真偽値を返す
