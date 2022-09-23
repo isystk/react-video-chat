@@ -28,3 +28,6 @@ docker/**
 
 # sam
 aws-sam
+
+# amplify
+amplify

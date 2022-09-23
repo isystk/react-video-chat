@@ -9,7 +9,7 @@ describe('SideMenu', () => {
   it('Match Snapshot', () => {
     const main = new MainService(() => ({}))
     main.setName('isystk')
-    main.setRoomId('test')
+    main.room.setRoomId('test')
     const component = renderer.create(
       <Context.Provider value={main}>
         <SideMenu

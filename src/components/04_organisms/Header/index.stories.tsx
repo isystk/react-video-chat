@@ -12,7 +12,7 @@ export default {
 const Template: Story = ({ name = '', roomId = '' }) => {
   const main = new MainService(() => ({}))
   main.setName(name)
-  main.setRoomId(roomId)
+  main.room.setRoomId(roomId)
   return (
     <Context.Provider value={main}>
       <Header

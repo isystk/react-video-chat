@@ -9,7 +9,7 @@ describe('SendCallModal', () => {
   it('Match Snapshot', () => {
     const main = new MainService(() => ({}))
     main.setName('isystk')
-    main.setRoomId('test')
+    main.room.setRoomId('test')
     main.addMember({
       connectionId: 'bbb',
       name: 'bbb',

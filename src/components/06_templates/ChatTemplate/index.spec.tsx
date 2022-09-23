@@ -11,7 +11,7 @@ describe('ChatTemplate', () => {
   it('Match Snapshot', () => {
     const main = new MainService(() => ({}))
     main.setName('isystk')
-    main.setRoomId('test')
+    main.room.setRoomId('test')
     main.addChanel(
       new ChanelService(
         main,

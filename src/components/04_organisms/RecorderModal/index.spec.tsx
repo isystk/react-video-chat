@@ -11,7 +11,7 @@ describe('RecorderModal', () => {
   it('Match Snapshot', () => {
     const main = new MainService(() => ({}))
     main.setName('isystk')
-    main.setRoomId('test')
+    main.room.setRoomId('test')
     main.recorder.isOpen = true
     const component = renderer.create(
       <Context.Provider value={main}>

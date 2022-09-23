@@ -5,6 +5,9 @@ import ChanelService from '@/services/chanel'
 import VideoService from '@/services/video/video'
 import { getStorage, removeStorage, storeStorage } from '@/utils/localStorage'
 import { requestPermission } from '@/utils/notification'
+import RoomService from '@/services/room'
+import awsmobile from '@/aws-exports'
+import { Amplify } from 'aws-amplify'
 
 export type Self = {
   connectionId: string
@@ -12,10 +15,7 @@ export type Self = {
   photo: string
   isOpen?: boolean
 }
-export type Room = {
-  roomId: string
-  name: string
-}
+
 export type Member = {
   connectionId: string
   name: string
@@ -34,7 +34,7 @@ export default class MainService {
   _setAppRoot: (main: MainService) => void
   ws: WebSocket | null
   members: Members
-  room: Room
+  room: RoomService
   self: Self
   chanels: Chanels
   selectChanelId: string
@@ -43,10 +43,11 @@ export default class MainService {
   video: VideoService
 
   constructor(setAppRoot: (appRoot: MainService) => void) {
+    Amplify.configure(awsmobile)
     this._setAppRoot = setAppRoot
     this.ws = null
     this.members = {}
-    this.room = { roomId: '', name: '' }
+    this.room = new RoomService(this)
 
     // ローカルストレージからログイン情報を取得
     const user = getStorage('User')
@@ -74,22 +75,6 @@ export default class MainService {
     }
     // ローカルストレージにログイン情報を保存
     storeStorage('User', this.self)
-    await this.setAppRoot()
-  }
-
-  async setRoomName(roomName: string) {
-    this.room = {
-      roomId: roomName, // 本番ではSSGを利用するためパスにIDが利用できない
-      name: roomName,
-    }
-    await this.setAppRoot()
-  }
-
-  async setRoomId(roomId: string) {
-    this.room = {
-      roomId,
-      name: roomId,
-    }
     await this.setAppRoot()
   }
 
@@ -150,8 +135,7 @@ export default class MainService {
   // ルームを退出する
   async leave() {
     this.ws?.close()
-    this.room = { roomId: '', name: '' }
-    await this.setAppRoot()
+    await this.room.leaveRoom()
   }
 
   // プロフィール編集
@@ -194,7 +178,6 @@ export default class MainService {
 
   // メンバーを削除する
   async removeMember(connectionId: string) {
-    console.log('removeMember', this.members[connectionId])
     if (this.members[connectionId]) {
       delete this.members[connectionId]
     }

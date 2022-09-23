@@ -69,7 +69,7 @@ const ChatTemplateContainer: React.FC<
   useEffect(() => {
     // idがqueryで利用可能になったら処理される
     if (router.asPath !== router.route) {
-      main.setRoomId(router.query.id + '')
+      main.room.setRoomId(router.query.id + '')
     }
   }, [router])
 

@@ -105,7 +105,7 @@ const InputFormRoomContainer: React.FC<
     e.persist()
 
     if (name !== '') {
-      await main.setRoomName(name)
+      await main.room.setRoomName(name)
     }
 
     e.preventDefault()

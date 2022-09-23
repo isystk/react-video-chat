@@ -12,7 +12,7 @@ export default {
 const Template: Story = () => {
   const main = new MainService(() => ({}))
   main.setName('isystk')
-  main.setRoomId('test')
+  main.room.setRoomId('test')
   main.recorder.isOpen = true
   return (
     <Context.Provider value={main}>

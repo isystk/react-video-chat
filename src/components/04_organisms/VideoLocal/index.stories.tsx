@@ -12,7 +12,7 @@ export default {
 const Template: Story = (props) => {
   const main = new MainService(() => ({}))
   main.setName('isystk')
-  main.setRoomId('test')
+  main.room.setRoomId('test')
   return (
     <Context.Provider value={main}>
       <VideoLocal />

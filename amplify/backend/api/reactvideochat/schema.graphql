@@ -1,0 +1,9 @@
+type Room 
+  @model
+  @auth(rules: [
+    { allow: public, operations:[read, create, update, delete]}
+  ]) {
+  id: ID!
+  name: String!
+  description: String
+}
