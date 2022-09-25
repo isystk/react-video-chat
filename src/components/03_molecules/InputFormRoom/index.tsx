@@ -1,14 +1,14 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
-import FormBox from '@/components/01_atoms/FormBox'
+import Box from '@/components/01_atoms/Box'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import { FormControl, Typography } from '@material-ui/core'
 
 /** InputFormRoomProps Props */
 export type InputFormRoomProps = WithChildren
@@ -40,8 +40,8 @@ const InputFormRoomPresenter: FC<PresenterProps> = ({
 }) => (
   <>
     <Container component="main">
-      <FormBox title="ログイン">
-        <>
+      <Box title="ログイン">
+        <FormControl className={classes.form}>
           <Typography component="h1" variant="h5">
             {label}を入力してください
           </Typography>
@@ -74,8 +74,8 @@ const InputFormRoomPresenter: FC<PresenterProps> = ({
           >
             決定
           </Button>
-        </>
-      </FormBox>
+        </FormControl>
+      </Box>
     </Container>
   </>
 )

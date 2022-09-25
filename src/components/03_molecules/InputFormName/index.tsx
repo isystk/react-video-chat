@@ -6,9 +6,9 @@ import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
-import FormBox from '@/components/01_atoms/FormBox'
+import Box from '@/components/01_atoms/Box'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
-import { Typography } from '@material-ui/core'
+import { FormControl, Typography } from '@material-ui/core'
 
 /** InputFormNameProps Props */
 export type InputFormNameProps = WithChildren
@@ -40,8 +40,8 @@ const InputFormNamePresenter: FC<PresenterProps> = ({
 }) => (
   <>
     <Container component="main">
-      <FormBox title="ログイン">
-        <>
+      <Box title="ログイン">
+        <FormControl className={classes.form}>
           <Typography component="h1" variant="h5">
             {label}を入力してください
           </Typography>
@@ -74,8 +74,8 @@ const InputFormNamePresenter: FC<PresenterProps> = ({
           >
             決定
           </Button>
-        </>
-      </FormBox>
+        </FormControl>
+      </Box>
     </Container>
   </>
 )

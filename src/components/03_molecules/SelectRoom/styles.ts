@@ -12,10 +12,6 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  form: {
-    margin: '40px auto',
-    maxWidth: '500px',
-  },
 }))
 
 export { useStyles }

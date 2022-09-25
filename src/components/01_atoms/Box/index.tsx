@@ -1,18 +1,18 @@
 import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
-import { Box, Breadcrumbs, FormControl, Typography } from '@material-ui/core'
+import { Box, Breadcrumbs, Typography } from '@material-ui/core'
 import { connect } from '@/components/hoc'
 import { useStyles } from './styles'
 import Link from 'next/link'
 import { Url } from '@/constants/url'
 
-/** FormBoxProps Props */
-export type FormBoxProps = WithChildren & { title }
+/** BoxProps Props */
+export type BoxProps = WithChildren & { title }
 /** Presenter Props */
-export type PresenterProps = FormBoxProps & { classes }
+export type PresenterProps = BoxProps & { classes }
 
 /** Presenter Component */
-const FormBoxPresenter: FC<PresenterProps> = ({
+const BoxPresenter: FC<PresenterProps> = ({
   children,
   title,
   classes,
@@ -29,15 +29,17 @@ const FormBoxPresenter: FC<PresenterProps> = ({
       <Typography component="div" color="primary" className={classes.title}>
         {title}
       </Typography>
-      <FormControl className={classes.form}>{children}</FormControl>
+      {children}
     </Box>
   </>
 )
 
 /** Container Component */
-const FormBoxContainer: React.FC<
-  ContainerProps<FormBoxProps, PresenterProps>
-> = ({ presenter, children, ...props }) => {
+const BoxContainer: React.FC<ContainerProps<BoxProps, PresenterProps>> = ({
+  presenter,
+  children,
+  ...props
+}) => {
   const classes = useStyles()
   return presenter({
     children,
@@ -46,8 +48,8 @@ const FormBoxContainer: React.FC<
   })
 }
 
-export default connect<FormBoxProps, PresenterProps>(
-  'FormBox',
-  FormBoxPresenter,
-  FormBoxContainer
+export default connect<BoxProps, PresenterProps>(
+  'Box',
+  BoxPresenter,
+  BoxContainer
 )

@@ -3,9 +3,11 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { createRoom } from '@/graphql/mutations'
 import { listRooms } from '@/graphql/queries'
 
-type Room = {
-  roomId: string
+export type Room = {
+  id: string
   name: string
+  description: string
+  createdAt: Date
 }
 
 export default class RoomService {
