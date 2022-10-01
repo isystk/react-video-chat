@@ -14,12 +14,16 @@ export default class RoomService {
   main: Main
   roomId: string
   name: string
+  rooms: Room[]
+  isOpen: boolean
 
   constructor(main: Main) {
     this.main = main
 
     this.roomId = ''
     this.name = ''
+    this.rooms = []
+    this.isOpen = false
   }
 
   async setRoomName(roomName: string) {
@@ -50,14 +54,15 @@ export default class RoomService {
     console.log(newRoom)
   }
 
-  async getRooms(): Promise<Room[]> {
+  async readRooms(): Promise<void> {
     const result = (await API.graphql(
       graphqlOperation(listRooms, { limit: 1000 })
     )) as GraphQLResult
     const query = result.data as ListTodosQuery
     if (!query.listRooms) {
-      return []
+      this.rooms = []
     }
-    return query.listRooms.items as Array<Room>
+    this.rooms = query.listRooms.items as Array<Room>
+    await this.main.setAppRoot()
   }
 }

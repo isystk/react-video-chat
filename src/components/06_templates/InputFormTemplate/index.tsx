@@ -30,6 +30,7 @@ const InputFormTemplatePresenter: FC<PresenterProps> = ({
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <InputFormName />
+            {/*<InputFormRoom />*/}
             <SelectRoom />
           </Grid>
         </Grid>

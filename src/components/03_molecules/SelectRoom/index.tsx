@@ -21,9 +21,9 @@ import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
-import { flushSync } from 'react-dom'
 import { Room } from '@/services/room'
 import * as _ from 'lodash'
+import RoomRegistModal from '@/components/04_organisms/RoomRegistModal'
 
 /** SelectRoomProps Props */
 export type SelectRoomProps = WithChildren
@@ -51,6 +51,9 @@ const SelectRoomPresenter: FC<PresenterProps> = ({
   displayNum,
   displayedItems,
   setDisplayedItems,
+  openRoomRegistModal,
+  selectRoom,
+  setSelectRoom,
   ...props
 }) => (
   <>
@@ -58,7 +61,7 @@ const SelectRoomPresenter: FC<PresenterProps> = ({
       <Box title="部屋の選択">
         <Grid container style={{ padding: '20px' }}>
           <Grid item xs={12} style={{ marginBottom: '20px' }}>
-            <Grid container justify="space-between">
+            <Grid container justifyContent="space-between">
               <Grid item></Grid>
               <Grid item>
                 <Button
@@ -66,7 +69,10 @@ const SelectRoomPresenter: FC<PresenterProps> = ({
                   type="button"
                   variant="contained"
                   startIcon={<AddCircleIcon />}
-                  onClick={() => console.log(true)}
+                  onClick={() => {
+                    setSelectRoom(null)
+                    openRoomRegistModal()
+                  }}
                 >
                   新規登録
                 </Button>
@@ -99,7 +105,10 @@ const SelectRoomPresenter: FC<PresenterProps> = ({
                               color="primary"
                               type="submit"
                               startIcon={<EditIcon />}
-                              onClick={() => console.log(true)}
+                              onClick={() => {
+                                setSelectRoom(e)
+                                openRoomRegistModal()
+                              }}
                             >
                               変更
                             </Button>
@@ -146,6 +155,7 @@ const SelectRoomPresenter: FC<PresenterProps> = ({
         </Grid>
       </Box>
     </Container>
+    <RoomRegistModal room={selectRoom} />
   </>
 )
 
@@ -163,19 +173,30 @@ const SelectRoomContainer: React.FC<
   const [displayedItems, setDisplayedItems] = useState<Room[]>([]) //表示データ
   const displayNum = 3 //1ページあたりの項目数
 
+  const [selectRoom, setSelectRoom] = useState<Room | null>(null)
+
   useEffect(() => {
-    flushSync(async () => {
-      const rooms = await main.room.getRooms()
-      setAllItems(rooms)
-      //ページカウントの計算（今回は3項目/ページなので4ページ）
-      setPageCount(Math.ceil(rooms.length / displayNum))
-      //表示データを抽出
-      setDisplayedItems(rooms.slice((page - 1) * displayNum, page * displayNum))
-    })
-  }, [main.room.roomId])
+    main.room.readRooms()
+  }, [])
+
+  useEffect(() => {
+    if (main.room.rooms.length === 0) return
+    setAllItems(main.room.rooms)
+    //ページカウントの計算（今回は3項目/ページなので4ページ）
+    setPageCount(Math.ceil(main.room.rooms.length / displayNum))
+    //表示データを抽出
+    setDisplayedItems(
+      main.room.rooms.slice((page - 1) * displayNum, page * displayNum)
+    )
+  }, [main.room.rooms])
 
   if (main.self.name === '') return <></>
   if (main.room.name !== '') return <></>
+
+  const openRoomRegistModal = () => {
+    main.room.isOpen = true
+    main.setAppRoot()
+  }
 
   return presenter({
     children,
@@ -188,6 +209,9 @@ const SelectRoomContainer: React.FC<
     displayNum,
     displayedItems,
     setDisplayedItems,
+    openRoomRegistModal,
+    selectRoom,
+    setSelectRoom,
     ...props,
   })
 }
