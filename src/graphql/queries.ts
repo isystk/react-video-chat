@@ -12,7 +12,7 @@ export const getRoom = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listRooms = /* GraphQL */ `
   query ListRooms(
     $filter: ModelRoomFilterInput
@@ -30,4 +30,4 @@ export const listRooms = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;

@@ -15,7 +15,7 @@ export const createRoom = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const updateRoom = /* GraphQL */ `
   mutation UpdateRoom(
     $input: UpdateRoomInput!
@@ -29,7 +29,7 @@ export const updateRoom = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const deleteRoom = /* GraphQL */ `
   mutation DeleteRoom(
     $input: DeleteRoomInput!
@@ -43,4 +43,4 @@ export const deleteRoom = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;

@@ -94,6 +94,11 @@ $ cd aws-sam
 $ sam delete --stack-name reactVideoChat
 ```
 
+Amplify の環境を構築する
+```
+$ amplify pull --appId d1gaaytviiyq79 --envName dev
+```
+
 ## 💬 使い方
 
 ```

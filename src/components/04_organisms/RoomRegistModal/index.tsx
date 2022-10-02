@@ -134,25 +134,23 @@ const RoomRegistModalContainer: React.FC<
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
   const classes = useStyles()
+  const isNew = (!room)
 
   // フォームの初期値
   let initialValues = {
-    title: '',
+    name: '',
     description: '',
-    photo: '',
   }
   if (room) {
     initialValues = {
       name: room.name ?? '',
       description: room.description ?? '',
-      photo: room.photo ?? '',
     }
   }
   // フォームのバリデーション
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('部屋名を入力してください。'),
     description: Yup.string().required('説明文を入力してください。'),
-    photo: Yup.string().required('写真を選択してください。'),
   })
 
   const onClose = () => {
@@ -162,8 +160,14 @@ const RoomRegistModalContainer: React.FC<
 
   // フォームの送信
   const onSubmit = async (values: Form) => {
-    const newRoom = { ...values } as Room
-    await main.room.registRoom(newRoom)
+    console.log(values)
+    if (isNew) {
+      const newRoom = { ...values } as Room
+      await main?.room.createRoom(newRoom)
+    } else {
+      const newRoom = { ...values, id: room.id } as Room
+      await main?.room.updateRoom(newRoom)
+    }
     onClose()
   }
 

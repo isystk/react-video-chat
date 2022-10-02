@@ -94,7 +94,7 @@ const SelectRoomPresenter: FC<PresenterProps> = ({
                 <TableBody>
                   {_.map(displayedItems, (e: Room) => (
                     <TableRow key={e.id}>
-                      <TableCell>{e.name}</TableCell>
+                      <TableCell>{e.name}（{e.id}）</TableCell>
                       <TableCell>{e.description}</TableCell>
                       <TableCell align="center">{e.createdAt}</TableCell>
                       <TableCell align="center">
@@ -121,7 +121,7 @@ const SelectRoomPresenter: FC<PresenterProps> = ({
                               startIcon={<DeleteIcon />}
                               onClick={async () => {
                                 if (confirm('削除します。よろしいですか？'))
-                                  console.log('delete')
+                                  main.room.deleteRoom(e.id)
                               }}
                             >
                               削除
