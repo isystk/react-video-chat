@@ -2,6 +2,7 @@ import Main from '@/services/main'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createRoom, updateRoom, deleteRoom } from '@/graphql/mutations'
 import { listRooms } from '@/graphql/queries'
+import * as _ from 'lodash'
 
 export type Room = {
   id: string
@@ -26,19 +27,13 @@ export default class RoomService {
     this.isOpen = false
   }
 
-  async setRoomName(roomName: string) {
-    this.roomId = roomName
-    this.name = roomName
-    await this.registRoom({
-      name: roomName,
-      description: roomName,
-    })
-    await this.main.setAppRoot()
-  }
-
   async setRoomId(roomId: string) {
     this.roomId = roomId
-    this.name = roomId
+    const roomsMap = _.mapKeys(this.rooms, 'id')
+    if (!roomsMap) {
+      throw new Error('no room data')
+    }
+    this.name = roomsMap[roomId].name
     await this.main.setAppRoot()
   }
 
@@ -50,13 +45,11 @@ export default class RoomService {
 
   async createRoom(room: Room) {
     try {
-     const input = {
+      const input = {
         ...room,
         // userID: this.main.auth.id,
       }
-      await API.graphql(
-        graphqlOperation(createRoom, { input })
-      )
+      await API.graphql(graphqlOperation(createRoom, { input }))
       await this.readRooms()
     } catch (error) {
       console.log('error create room', error)
@@ -71,9 +64,7 @@ export default class RoomService {
         // userID: this.main.auth.id,
         // _version: this.rooms[room.id]._version,
       } as Room
-      await API.graphql(
-        graphqlOperation(updateRoom, { input })
-      )
+      await API.graphql(graphqlOperation(updateRoom, { input }))
       await this.readRooms()
     } catch (error) {
       console.log('error update room', error)
@@ -87,9 +78,7 @@ export default class RoomService {
         id: roomId,
         // _version: this.rooms[roomId]._version,
       }
-      await API.graphql(
-        graphqlOperation(deleteRoom, { input })
-      )
+      await API.graphql(graphqlOperation(deleteRoom, { input }))
       await this.readRooms()
     } catch (error) {
       console.log('error update room', error)

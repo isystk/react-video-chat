@@ -1,7 +1,7 @@
 import Grid from '@material-ui/core/Grid'
 import Circles from '@/components/01_atoms/Circles'
 import InputFormName from '@/components/03_molecules/InputFormName'
-import SelectRoom from '@/components/03_molecules/SelectRoom'
+import SelectRoom from '@/components/04_organisms/SelectRoom'
 import React, { useEffect, FC, useState } from 'react'
 import { useRouter } from 'next/router'
 import DeviceSettingModal from '@/components/04_organisms/DeviceSettingModal'

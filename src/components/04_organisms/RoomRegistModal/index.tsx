@@ -134,7 +134,7 @@ const RoomRegistModalContainer: React.FC<
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
   const classes = useStyles()
-  const isNew = (!room)
+  const isNew = !room
 
   // フォームの初期値
   let initialValues = {

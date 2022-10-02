@@ -64,14 +64,18 @@ const ChatTemplateContainer: React.FC<
 
   useEffect(() => {
     setWindowHeight(window.innerHeight)
+    main.room.readRooms()
   }, [])
 
   useEffect(() => {
+    if (main.room.rooms.length === 0) {
+      return
+    }
     // idがqueryで利用可能になったら処理される
     if (router.asPath !== router.route) {
       main.room.setRoomId(router.query.id + '')
     }
-  }, [router])
+  }, [router, main.room.rooms])
 
   useEffect(() => {
     if (main.self.name === '') {

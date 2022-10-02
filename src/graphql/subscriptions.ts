@@ -12,7 +12,7 @@ export const onCreateRoom = /* GraphQL */ `
       updatedAt
     }
   }
-`;
+`
 export const onUpdateRoom = /* GraphQL */ `
   subscription OnUpdateRoom {
     onUpdateRoom {
@@ -23,7 +23,7 @@ export const onUpdateRoom = /* GraphQL */ `
       updatedAt
     }
   }
-`;
+`
 export const onDeleteRoom = /* GraphQL */ `
   subscription OnDeleteRoom {
     onDeleteRoom {
@@ -34,4 +34,4 @@ export const onDeleteRoom = /* GraphQL */ `
       updatedAt
     }
   }
-`;
+`

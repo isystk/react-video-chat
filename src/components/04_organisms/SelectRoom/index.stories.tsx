@@ -5,7 +5,7 @@ import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 
 export default {
-  title: '03_molecules/SelectRoom',
+  title: '04_organisms/SelectRoom',
   component: SelectRoom,
 } as Meta
 
