@@ -28,6 +28,7 @@
     ]
   },
   "dependencies": {
+    "@apollo/client": "^3.7.0",
     "@aws-sdk/client-kinesis-video": "^3.159.0",
     "@aws-sdk/client-kinesis-video-signaling": "^3.159.0",
     "@material-ui/core": "^4.12.4",
@@ -45,6 +46,8 @@
     "@typescript-eslint/parser": "^5.35.1",
     "amazon-kinesis-video-streams-webrtc": "^2.0.0",
     "aws-amplify": "^4.3.36",
+    "aws-appsync-auth-link": "^3.0.7",
+    "aws-appsync-subscription-link": "^3.1.0",
     "aws-sdk": "^2.1204.0",
     "axios": "^0.27.2",
     "browser-image-compression": "^2.0.0",

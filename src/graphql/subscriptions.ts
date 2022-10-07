@@ -1,8 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
+import { gql } from '@apollo/client'
 
-export const onCreateRoom = /* GraphQL */ `
+export const onCreateRoom = gql`
   subscription OnCreateRoom {
     onCreateRoom {
       id
@@ -13,7 +14,7 @@ export const onCreateRoom = /* GraphQL */ `
     }
   }
 `
-export const onUpdateRoom = /* GraphQL */ `
+export const onUpdateRoom = gql`
   subscription OnUpdateRoom {
     onUpdateRoom {
       id
@@ -24,7 +25,7 @@ export const onUpdateRoom = /* GraphQL */ `
     }
   }
 `
-export const onDeleteRoom = /* GraphQL */ `
+export const onDeleteRoom = gql`
   subscription OnDeleteRoom {
     onDeleteRoom {
       id

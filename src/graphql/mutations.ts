@@ -1,8 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
+import { gql } from '@apollo/client'
 
-export const createRoom = /* GraphQL */ `
+export const createRoom = gql`
   mutation CreateRoom(
     $input: CreateRoomInput!
     $condition: ModelRoomConditionInput
@@ -16,7 +17,7 @@ export const createRoom = /* GraphQL */ `
     }
   }
 `
-export const updateRoom = /* GraphQL */ `
+export const updateRoom = gql`
   mutation UpdateRoom(
     $input: UpdateRoomInput!
     $condition: ModelRoomConditionInput
@@ -30,7 +31,7 @@ export const updateRoom = /* GraphQL */ `
     }
   }
 `
-export const deleteRoom = /* GraphQL */ `
+export const deleteRoom = gql`
   mutation DeleteRoom(
     $input: DeleteRoomInput!
     $condition: ModelRoomConditionInput

@@ -1,8 +1,8 @@
 import Main from '@/services/main'
-import { API, graphqlOperation } from 'aws-amplify'
 import { createRoom, updateRoom, deleteRoom } from '@/graphql/mutations'
 import { listRooms } from '@/graphql/queries'
 import * as _ from 'lodash'
+import { ListRoomsQuery } from '@/API'
 
 export type Room = {
   id: string
@@ -49,7 +49,10 @@ export default class RoomService {
         ...room,
         // userID: this.main.auth.id,
       }
-      await API.graphql(graphqlOperation(createRoom, { input }))
+      await this.main.apolloClient.mutate({
+        mutation: createRoom,
+        variables: { input },
+      })
       await this.readRooms()
     } catch (error) {
       console.log('error create room', error)
@@ -64,7 +67,10 @@ export default class RoomService {
         // userID: this.main.auth.id,
         // _version: this.rooms[room.id]._version,
       } as Room
-      await API.graphql(graphqlOperation(updateRoom, { input }))
+      await this.main.apolloClient.mutate({
+        mutation: updateRoom,
+        variables: { input },
+      })
       await this.readRooms()
     } catch (error) {
       console.log('error update room', error)
@@ -78,7 +84,10 @@ export default class RoomService {
         id: roomId,
         // _version: this.rooms[roomId]._version,
       }
-      await API.graphql(graphqlOperation(deleteRoom, { input }))
+      await this.main.apolloClient.mutate({
+        mutation: deleteRoom,
+        variables: { input },
+      })
       await this.readRooms()
     } catch (error) {
       console.log('error update room', error)
@@ -88,10 +97,11 @@ export default class RoomService {
 
   async readRooms(): Promise<void> {
     try {
-      const result = (await API.graphql(
-        graphqlOperation(listRooms, { limit: 1000 })
-      )) as GraphQLResult
-      const query = result.data as ListTodosQuery
+      const result = await this.main.apolloClient.query({
+        query: listRooms,
+        fetchPolicy: 'network-only',
+      })
+      const query = result.data as ListRoomsQuery
       if (!query.listRooms) {
         this.rooms = []
       }

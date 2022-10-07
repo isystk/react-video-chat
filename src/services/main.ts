@@ -8,6 +8,7 @@ import { requestPermission } from '@/utils/notification'
 import RoomService from '@/services/room'
 import awsmobile from '@/aws-exports'
 import { Amplify } from 'aws-amplify'
+import { useApolloClient } from '@/utils/apolloClient'
 
 export type Self = {
   connectionId: string
@@ -32,6 +33,7 @@ type Chanels = {
 
 export default class MainService {
   _setAppRoot: (main: MainService) => void
+  apolloClient
   ws: WebSocket | null
   members: Members
   room: RoomService
@@ -45,6 +47,7 @@ export default class MainService {
   constructor(setAppRoot: (appRoot: MainService) => void) {
     Amplify.configure(awsmobile)
     this._setAppRoot = setAppRoot
+    this.apolloClient = useApolloClient()
     this.ws = null
     this.members = {}
     this.room = new RoomService(this)

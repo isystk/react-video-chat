@@ -1,8 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
+import { gql } from '@apollo/client'
 
-export const getRoom = /* GraphQL */ `
+export const getRoom = gql`
   query GetRoom($id: ID!) {
     getRoom(id: $id) {
       id
@@ -13,7 +14,7 @@ export const getRoom = /* GraphQL */ `
     }
   }
 `
-export const listRooms = /* GraphQL */ `
+export const listRooms = gql`
   query ListRooms(
     $filter: ModelRoomFilterInput
     $limit: Int
