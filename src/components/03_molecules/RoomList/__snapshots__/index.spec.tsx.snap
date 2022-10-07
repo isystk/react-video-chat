@@ -1,17 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RoomList Match Snapshot 1`] = `
-Array [
+<div
+  className="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded"
+  sx={
+    Object {
+      "overflow": "hidden",
+      "width": "100%",
+    }
+  }
+>
   <div
-    className="MuiPaper-root MuiTableContainer-root MuiPaper-elevation1 MuiPaper-rounded"
+    className="MuiTableContainer-root"
     style={
       Object {
-        "marginBottom": 30,
+        "maxHeight": 530,
       }
     }
   >
     <table
-      className="MuiTable-root"
+      aria-label="sticky table"
+      className="MuiTable-root MuiTable-stickyHeader"
       role={null}
     >
       <thead
@@ -29,28 +38,28 @@ Array [
         >
           <th
             aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+            className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
             scope="col"
           >
             名称
           </th>
           <th
             aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+            className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
             scope="col"
           >
             説明
           </th>
           <th
             aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+            className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
             scope="col"
           >
             作成日
           </th>
           <th
             aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+            className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
             scope="col"
           />
         </tr>
@@ -60,74 +69,67 @@ Array [
         role={null}
       />
     </table>
-  </div>,
-  <nav
-    aria-label="pagination navigation"
-    className="MuiPagination-root"
+  </div>
+  <div
+    className="MuiTablePagination-root"
   >
-    <ul
-      className="MuiPagination-ul"
+    <div
+      className="MuiToolbar-root MuiToolbar-regular MuiTablePagination-toolbar MuiToolbar-gutters"
     >
-      <li>
-        <button
-          aria-label="Go to previous page"
-          className="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page MuiPaginationItem-outlined MuiPaginationItem-outlinedPrimary Mui-disabled MuiPaginationItem-sizeSmall Mui-disabled"
-          disabled={true}
+      <div
+        className="MuiTablePagination-spacer"
+      />
+      <p
+        className="MuiTypography-root MuiTablePagination-caption MuiTypography-body2 MuiTypography-colorInherit"
+      >
+        Rows per page:
+      </p>
+      <div
+        className="MuiInputBase-root MuiTablePagination-input MuiTablePagination-selectRoot"
+        onClick={[Function]}
+      >
+        <div
+          aria-haspopup="listbox"
+          className="MuiSelect-root MuiSelect-select MuiTablePagination-select MuiSelect-selectMenu MuiInputBase-input"
           onBlur={[Function]}
-          onClick={[Function]}
-          onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
-          onKeyUp={[Function]}
           onMouseDown={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          tabIndex={-1}
-          type="button"
-        >
-          <svg
-            aria-hidden={true}
-            className="MuiSvgIcon-root MuiPaginationItem-icon"
-            focusable="false"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-            />
-          </svg>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-current="true"
-          aria-label="page 1"
-          className="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page MuiPaginationItem-outlined MuiPaginationItem-outlinedPrimary Mui-selected MuiPaginationItem-sizeSmall"
-          disabled={false}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onDragLeave={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
+          role="button"
           tabIndex={0}
-          type="button"
         >
-          1
-        </button>
-      </li>
-      <li>
+          3
+        </div>
+        <input
+          aria-hidden={true}
+          className="MuiSelect-nativeInput"
+          onAnimationStart={[Function]}
+          onChange={[Function]}
+          tabIndex={-1}
+          value={3}
+        />
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSelect-icon MuiTablePagination-selectIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+      <p
+        className="MuiTypography-root MuiTablePagination-caption MuiTypography-body2 MuiTypography-colorInherit"
+      >
+        0-0 of 0
+      </p>
+      <div
+        className="MuiTablePagination-actions"
+      >
         <button
-          aria-label="Go to next page"
-          className="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page MuiPaginationItem-outlined MuiPaginationItem-outlinedPrimary Mui-disabled MuiPaginationItem-sizeSmall Mui-disabled"
+          aria-label="Previous page"
+          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit Mui-disabled Mui-disabled"
           disabled={true}
           onBlur={[Function]}
           onClick={[Function]}
@@ -142,21 +144,61 @@ Array [
           onTouchMove={[Function]}
           onTouchStart={[Function]}
           tabIndex={-1}
+          title="Previous page"
           type="button"
         >
-          <svg
-            aria-hidden={true}
-            className="MuiSvgIcon-root MuiPaginationItem-icon"
-            focusable="false"
-            viewBox="0 0 24 24"
+          <span
+            className="MuiIconButton-label"
           >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-          </svg>
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
+              />
+            </svg>
+          </span>
         </button>
-      </li>
-    </ul>
-  </nav>,
-]
+        <button
+          aria-label="Next page"
+          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit Mui-disabled Mui-disabled"
+          disabled={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={-1}
+          title="Next page"
+          type="button"
+        >
+          <span
+            className="MuiIconButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 `;

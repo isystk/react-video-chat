@@ -53,7 +53,7 @@ export default class RoomService {
         mutation: createRoom,
         variables: { input },
       })
-      await this.readRooms()
+      await this.readRooms(true)
     } catch (error) {
       console.log('error create room', error)
       alert('登録に失敗しました')
@@ -71,7 +71,7 @@ export default class RoomService {
         mutation: updateRoom,
         variables: { input },
       })
-      await this.readRooms()
+      await this.readRooms(true)
     } catch (error) {
       console.log('error update room', error)
       alert('登録に失敗しました')
@@ -88,18 +88,21 @@ export default class RoomService {
         mutation: deleteRoom,
         variables: { input },
       })
-      await this.readRooms()
+      await this.readRooms(true)
     } catch (error) {
       console.log('error update room', error)
       alert('登録に失敗しました')
     }
   }
 
-  async readRooms(): Promise<void> {
+  async readRooms(isRefresh = false): Promise<void> {
     try {
       const result = await this.main.apolloClient.query({
         query: listRooms,
-        fetchPolicy: 'network-only',
+        variables: {
+          // limit: 10
+        },
+        fetchPolicy: isRefresh ? 'network-only' : 'cache-first',
       })
       const query = result.data as ListRoomsQuery
       if (!query.listRooms) {
