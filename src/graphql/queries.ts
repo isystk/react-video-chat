@@ -11,6 +11,9 @@ export const getRoom = gql`
       description
       createdAt
       updatedAt
+      _deleted
+      _lastChangedAt
+      _version
     }
   }
 `
@@ -27,6 +30,9 @@ export const listRooms = gql`
         description
         createdAt
         updatedAt
+        _deleted
+        _lastChangedAt
+        _version
       }
       nextToken
     }

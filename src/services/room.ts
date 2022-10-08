@@ -2,20 +2,17 @@ import Main from '@/services/main'
 import { createRoom, updateRoom, deleteRoom } from '@/graphql/mutations'
 import { listRooms } from '@/graphql/queries'
 import * as _ from 'lodash'
-import { ListRoomsQuery } from '@/API'
+import { ListRoomsQuery, Room } from '@/API'
 
-export type Room = {
-  id: string
-  name: string
-  description: string
-  createdAt: Date
+export type Rooms = {
+  [id: string]: Room
 }
 
 export default class RoomService {
   main: Main
   roomId: string
   name: string
-  rooms: Room[]
+  rooms: Rooms
   isOpen: boolean
 
   constructor(main: Main) {
@@ -23,7 +20,7 @@ export default class RoomService {
 
     this.roomId = ''
     this.name = ''
-    this.rooms = []
+    this.rooms = {}
     this.isOpen = false
   }
 
@@ -71,7 +68,7 @@ export default class RoomService {
       const input = {
         ...room,
         // userID: this.main.auth.id,
-        // _version: this.rooms[room.id]._version,
+        _version: this.rooms[room.id]._version,
       } as Room
       await this.main.apolloClient.mutate({
         mutation: updateRoom,
@@ -88,7 +85,7 @@ export default class RoomService {
     try {
       const input = {
         id: roomId,
-        // _version: this.rooms[roomId]._version,
+        _version: this.rooms[roomId]._version,
       }
       await this.main.apolloClient.mutate({
         mutation: deleteRoom,
@@ -112,9 +109,13 @@ export default class RoomService {
       })
       const query = result.data as ListRoomsQuery
       if (!query.listRooms) {
-        this.rooms = []
+        this.rooms = {}
       }
-      this.rooms = query.listRooms.items as Array<Room>
+      const filterRooms = _.filter(
+        query.listRooms.items,
+        (room) => !room._deleted
+      )
+      this.rooms = _.mapKeys(filterRooms, 'id')
       await this.main.setAppRoot()
     } catch (error) {
       console.log('error read rooms', error)

@@ -31,3 +31,5 @@ aws-sam
 
 # amplify
 amplify
+
+src/models

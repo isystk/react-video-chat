@@ -68,7 +68,7 @@ const RoomListPresenter: FC<PresenterProps> = ({
           <TableBody>
             {_.map(
               _.slice(
-                main.room.rooms,
+                _.values(main.room.rooms),
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
               ),
@@ -130,7 +130,7 @@ const RoomListPresenter: FC<PresenterProps> = ({
       <TablePagination
         rowsPerPageOptions={[3, 5, 10]}
         component="div"
-        count={main.room.rooms.length}
+        count={_.size(main.room.rooms)}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

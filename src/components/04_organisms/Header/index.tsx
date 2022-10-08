@@ -49,7 +49,7 @@ const HeaderPresenter: FC<PresenterProps> = ({
           {main.self.name !== '' && main.room.name !== '' && (
             <div className={classes.members}>
               <PeopleAltIcon></PeopleAltIcon>
-              <span>{_.size(main.members) + 1}</span>
+              <span>{_.size(_.filter(main.members, (e) => e.online)) + 1}</span>
             </div>
           )}
         </Typography>

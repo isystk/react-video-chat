@@ -19,6 +19,7 @@ export type Member = {
   connectionId: string
   name: string
   photo: string
+  online: boolean
 }
 
 type Members = {
@@ -164,7 +165,7 @@ export default class MainService {
     console.log('addMember', data)
 
     const newMember = {
-      [data.connectionId]: data,
+      [data.connectionId]: { ...data, online: true },
     }
     this.members = { ...this.members, ...newMember }
 
@@ -186,7 +187,11 @@ export default class MainService {
   // メンバーを削除する
   async removeMember(connectionId: string) {
     if (this.members[connectionId]) {
-      delete this.members[connectionId]
+      // delete this.members[connectionId]
+      this.members[connectionId] = {
+        ...this.members[connectionId],
+        online: false
+      }
     }
     await this.removeChanel(connectionId)
     await this.setAppRoot()

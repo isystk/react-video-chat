@@ -62,16 +62,20 @@ export type Room = {
   description?: string | null
   createdAt: string
   updatedAt: string
+  _deleted: boolean
+  _version: number
 }
 
 export type UpdateRoomInput = {
   id: string
   name?: string | null
   description?: string | null
+  _version: number
 }
 
 export type DeleteRoomInput = {
   id: string
+  _version: number
 }
 
 export type ModelRoomFilterInput = {
@@ -184,6 +188,8 @@ export type ListRoomsQuery = {
       description?: string | null
       createdAt: string
       updatedAt: string
+      _deleted: boolean
+      _version: number
     } | null>
     nextToken?: string | null
   } | null
