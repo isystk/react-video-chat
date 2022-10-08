@@ -1,8 +1,8 @@
 import Main from '@/services/main'
-import { createRoom, updateRoom, deleteRoom } from '@/graphql/mutations'
-import { listRooms } from '@/graphql/queries'
+import { createRoom, updateRoom, deleteRoom } from '@/services/graphql/mutations'
+import { listRooms } from '@/services/graphql/queries'
 import * as _ from 'lodash'
-import { ListRoomsQuery, Room } from '@/API'
+import { ListRoomsQuery, Room } from '@/services/model'
 
 export type Rooms = {
   [id: string]: Room

@@ -190,7 +190,7 @@ export default class MainService {
       // delete this.members[connectionId]
       this.members[connectionId] = {
         ...this.members[connectionId],
-        online: false
+        online: false,
       }
     }
     await this.removeChanel(connectionId)
