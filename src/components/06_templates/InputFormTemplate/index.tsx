@@ -1,6 +1,7 @@
 import Grid from '@material-ui/core/Grid'
 import Circles from '@/components/01_atoms/Circles'
 import InputFormName from '@/components/03_molecules/InputFormName'
+import InputFormRoom from '@/components/03_molecules/InputFormRoom'
 import SelectRoom from '@/components/04_organisms/SelectRoom'
 import React, { useEffect, FC, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -30,8 +31,7 @@ const InputFormTemplatePresenter: FC<PresenterProps> = ({
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <InputFormName />
-            {/*<InputFormRoom />*/}
-            <SelectRoom />
+            {process.env.USE_AWS_AMPLIFY ? <SelectRoom /> : <InputFormRoom />}
           </Grid>
         </Grid>
         <DeviceSettingModal />

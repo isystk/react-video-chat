@@ -6,9 +6,7 @@ import VideoService from '@/services/video/video'
 import { getStorage, removeStorage, storeStorage } from '@/utils/localStorage'
 import { requestPermission } from '@/utils/notification'
 import RoomService from '@/services/room'
-import awsmobile from '@/aws-exports'
 import { Amplify } from 'aws-amplify'
-import { useApolloClient } from '@/utils/apolloClient'
 
 export type Self = {
   connectionId: string
@@ -45,9 +43,15 @@ export default class MainService {
   video: VideoService
 
   constructor(setAppRoot: (appRoot: MainService) => void) {
-    Amplify.configure(awsmobile)
+    if (process.env.USE_AWS_AMPLIFY) {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const awsmobile = require('@/aws-exports')
+      Amplify.configure(awsmobile)
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { useApolloClient } = require('@/utils/apolloClient')
+      this.apolloClient = useApolloClient()
+    }
     this._setAppRoot = setAppRoot
-    this.apolloClient = useApolloClient()
     this.ws = null
     this.members = {}
     this.room = new RoomService(this)

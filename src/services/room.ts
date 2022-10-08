@@ -37,6 +37,12 @@ export default class RoomService {
     await this.main.setAppRoot()
   }
 
+  async setRoomName(roomName: string) {
+    this.roomId = roomName
+    this.name = roomName
+    await this.main.setAppRoot()
+  }
+
   async leaveRoom() {
     this.roomId = ''
     this.name = ''

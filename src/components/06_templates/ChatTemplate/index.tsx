@@ -64,7 +64,9 @@ const ChatTemplateContainer: React.FC<
 
   useEffect(() => {
     setWindowHeight(window.innerHeight)
-    main.room.readRooms()
+    if (process.env.USE_AWS_AMPLIFY) {
+      main.room.readRooms()
+    }
   }, [])
 
   useEffect(() => {
