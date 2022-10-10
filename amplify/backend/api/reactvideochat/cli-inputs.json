@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "reactvideochat",
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 30,
+      "apiKeyExpirationDate": "2022-11-07T08:33:34.903Z",
+      "keyDescription": "da2-slkjch2vznh5pcuxmls6jt4rmy"
+    },
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AWS_IAM"
+      }
+    ],
+    "gqlSchemaPath": "/Users/iseyoshitaka/github/isystk/react-video-chat/amplify/backend/api/reactvideochat/schema.graphql"
+  }
+}

@@ -41,7 +41,7 @@ exports[`InputFormRoom Match Snapshot 1`] = `
     </ol>
   </nav>
   <div
-    className="MuiBox-root MuiBox-root-8 makeStyles-box-5"
+    className="MuiBox-root MuiBox-root-7 makeStyles-box-5"
   >
     <div
       className="MuiTypography-root makeStyles-title-6 MuiTypography-body1 MuiTypography-colorPrimary"
@@ -49,7 +49,7 @@ exports[`InputFormRoom Match Snapshot 1`] = `
       ログイン
     </div>
     <div
-      className="MuiFormControl-root makeStyles-form-7"
+      className="MuiFormControl-root makeStyles-form-2"
     >
       <h1
         className="MuiTypography-root MuiTypography-h5"
@@ -96,10 +96,10 @@ exports[`InputFormRoom Match Snapshot 1`] = `
           />
           <fieldset
             aria-hidden={true}
-            className="PrivateNotchedOutline-root-9 MuiOutlinedInput-notchedOutline"
+            className="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
           >
             <legend
-              className="PrivateNotchedOutline-legendLabelled-11"
+              className="PrivateNotchedOutline-legendLabelled-10"
             >
               <span>
                 部屋の名前

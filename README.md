@@ -47,9 +47,13 @@ https://react-video-chat-isystk.vercel.app
 │   └── sounds
 ├── src
 │   ├── @types
+│   ├── API.ts（amplify）
 │   ├── assets
+│   ├── aws-exports.js（amplify）
 │   ├── components
 │   ├── constants
+│   ├── graphql（amplify）
+│   ├── models（amplify）
 │   ├── pages
 │   ├── services
 │   ├── stores
@@ -92,6 +96,11 @@ AWSから、DynamoDB、Lambda&APIGatewayを削除する
 ```
 $ cd aws-sam
 $ sam delete --stack-name reactVideoChat
+```
+
+Amplify の環境を構築する
+```
+$ amplify pull --appId d1gaaytviiyq79 --envName dev
 ```
 
 ## 💬 使い方

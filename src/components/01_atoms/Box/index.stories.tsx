@@ -1,14 +1,14 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import FormBox from './index'
+import Box from './index'
 
 export default {
-  title: '01_atoms/FormBox',
-  component: FormBox,
+  title: '01_atoms/Box',
+  component: Box,
 } as Meta
 
 const Template: Story = (props) => {
-  return <FormBox title="sample" />
+  return <Box title="sample" />
 }
 
 export const Primary = Template.bind({})

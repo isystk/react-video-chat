@@ -1,0 +1,15 @@
+type Room @model @auth(rules: [{allow: public, operations: [read, create, update, delete]}]) {
+  id: ID!
+  name: String!
+  description: String
+} 
+
+type ChatMessage @model @auth(rules: [{allow: public, operations: [read, create, update, delete]}]) {
+  id: ID!
+  type: String!
+  data: String!
+  chanelId: String!
+  sendId: String!
+  datetime: String!
+  readed: Boolean!
+} 

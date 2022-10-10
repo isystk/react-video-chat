@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "reactvideochat",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2022-10-08T08:33:50.673Z"
+}

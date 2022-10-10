@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-reactvideochat-dev-104302-authRole",
+      "UnauthRoleArn": "arn:aws:iam::004796740041:role/amplify-reactvideochat-dev-104302-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::004796740041:role/amplify-reactvideochat-dev-104302-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-reactvideochat-dev-104302-deployment",
+      "UnauthRoleName": "amplify-reactvideochat-dev-104302-unauthRole",
+      "StackName": "amplify-reactvideochat-dev-104302",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:004796740041:stack/amplify-reactvideochat-dev-104302/56c23560-41f3-11ed-bc8e-0e53b7014db7",
+      "AmplifyAppId": "d1gaaytviiyq79"
+    }
+  }
+}

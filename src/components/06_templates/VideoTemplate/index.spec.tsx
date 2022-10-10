@@ -11,7 +11,8 @@ describe('VideoTemplate', () => {
   it('Match Snapshot', () => {
     const main = new MainService(() => ({}))
     main.setName('isystk')
-    main.setRoomId('test')
+    main.room.rooms = { '1': { id: '1', name: 'test', description: 'test' } }
+    main.room.setRoomId('1')
     main.addChanel(
       new ChanelService(
         main,

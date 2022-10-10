@@ -36,10 +36,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px 20px',
     textAlign: 'left',
   },
-  form: {
-    margin: '40px auto',
-    maxWidth: '500px',
-  },
 }))
 
 export { useStyles }

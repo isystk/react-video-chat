@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FormBox Match Snapshot 1`] = `
+exports[`Box Match Snapshot 1`] = `
 Array [
   <nav
     aria-label="breadcrumb"
@@ -39,16 +39,13 @@ Array [
     </ol>
   </nav>,
   <div
-    className="MuiBox-root MuiBox-root-5 makeStyles-box-2"
+    className="MuiBox-root MuiBox-root-4 makeStyles-box-2"
   >
     <div
       className="MuiTypography-root makeStyles-title-3 MuiTypography-body1 MuiTypography-colorPrimary"
     >
       sample
     </div>
-    <div
-      className="MuiFormControl-root makeStyles-form-4"
-    />
   </div>,
 ]
 `;
