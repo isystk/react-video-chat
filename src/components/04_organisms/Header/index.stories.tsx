@@ -12,8 +12,8 @@ export default {
 const Template: Story = ({ name = '', roomId = '' }) => {
   const main = new MainService(() => ({}))
   main.setName(name)
-  main.room.rooms = [{ id: 1, name: 'test', description: 'test' }]
-  main.room.setRoomId(1)
+  main.room.rooms = { '1': { id: '1', name: 'test', description: 'test' } }
+  main.room.setRoomId('1')
   return (
     <Context.Provider value={main}>
       <Header

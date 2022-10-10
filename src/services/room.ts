@@ -29,11 +29,10 @@ export default class RoomService {
 
   async setRoomId(roomId: string) {
     this.roomId = roomId
-    const roomsMap = _.mapKeys(this.rooms, 'id')
-    if (!roomsMap) {
+    if (!this.rooms[roomId]) {
       throw new Error('no room data')
     }
-    this.name = roomsMap[roomId].name
+    this.name = this.rooms[roomId].name
     await this.main.setAppRoot()
   }
 

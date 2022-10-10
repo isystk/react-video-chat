@@ -9,8 +9,8 @@ describe('Header', () => {
   it('Match Snapshot', () => {
     const main = new MainService(() => ({}))
     main.setName('isystk')
-    main.room.rooms = [{ id: 1, name: 'test', description: 'test' }]
-    main.room.setRoomId(1)
+    main.room.rooms = { '1': { id: '1', name: 'test', description: 'test' } }
+    main.room.setRoomId('1')
     const component = renderer.create(
       <Context.Provider value={main}>
         <Header

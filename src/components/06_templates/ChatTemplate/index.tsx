@@ -14,6 +14,7 @@ import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
 import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
+import * as _ from 'lodash'
 
 /** ChatTemplateProps Props */
 export type ChatTemplateProps = WithChildren & { main }
@@ -70,12 +71,19 @@ const ChatTemplateContainer: React.FC<
   }, [])
 
   useEffect(() => {
-    if (main.room.rooms.length === 0) {
-      return
-    }
-    // idがqueryで利用可能になったら処理される
-    if (router.asPath !== router.route) {
-      main.room.setRoomId(router.query.id + '')
+    if (process.env.USE_AWS_AMPLIFY) {
+      if (_.size(main.room.rooms) === 0) {
+        return
+      }
+      // idがqueryで利用可能になったら処理される
+      if (router.asPath !== router.route) {
+        main.room.setRoomId(router.query.id + '')
+      }
+    } else {
+      // idがqueryで利用可能になったら処理される
+      if (router.asPath !== router.route) {
+        main.room.setRoomName(router.query.id + '')
+      }
     }
   }, [router, main.room.rooms])
 
