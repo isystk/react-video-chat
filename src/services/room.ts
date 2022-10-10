@@ -1,12 +1,9 @@
 import Main from '@/services/main'
-import {
-  createRoom,
-  updateRoom,
-  deleteRoom,
-} from '@/services/graphql/mutations'
-import { listRooms } from '@/services/graphql/queries'
+import { createRoom, updateRoom, deleteRoom } from '@/graphql/mutations'
+import { listRooms } from '@/graphql/queries'
 import * as _ from 'lodash'
-import { ListRoomsQuery, ModelRoomFilterInput, Room } from '@/services/model'
+import { ListRoomsQuery, Room } from '@/API'
+import { onUpdateRoom } from '@/graphql/subscriptions'
 
 export type Rooms = {
   [id: string]: Room
@@ -26,6 +23,8 @@ export default class RoomService {
     this.name = ''
     this.rooms = {}
     this.isOpen = false
+
+    // this.onUpdateRoom()
   }
 
   async setRoomId(roomId: string) {
@@ -79,6 +78,21 @@ export default class RoomService {
         variables: { input },
       })
       await this.readRooms(null, true)
+    } catch (error) {
+      console.log('error update room', error)
+      alert('登録に失敗しました')
+    }
+  }
+
+  async onUpdateRoom() {
+    try {
+      const res = await this.main.apolloClient.subscribe({
+        query: onUpdateRoom,
+      })
+      res.subscribe((result) => {
+        const { onUpdateRoom } = result.data
+        console.log('New:', onUpdateRoom)
+      })
     } catch (error) {
       console.log('error update room', error)
       alert('登録に失敗しました')

@@ -47,9 +47,13 @@ https://react-video-chat-isystk.vercel.app
 │   └── sounds
 ├── src
 │   ├── @types
+│   ├── API.ts（amplify）
 │   ├── assets
+│   ├── aws-exports.js（amplify）
 │   ├── components
 │   ├── constants
+│   ├── graphql（amplify）
+│   ├── models（amplify）
 │   ├── pages
 │   ├── services
 │   ├── stores
