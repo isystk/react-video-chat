@@ -10,6 +10,7 @@ import RoomList from '@/components/03_molecules/RoomList'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { Room } from '@/services/room'
 import RoomRegistModal from '@/components/04_organisms/RoomRegistModal'
+import TextField from '@material-ui/core/TextField'
 
 /** SelectRoomProps Props */
 export type SelectRoomProps = WithChildren
@@ -28,6 +29,8 @@ const SelectRoomPresenter: FC<PresenterProps> = ({
   classes,
   openRoomRegistModal,
   selectRoom,
+  filerName,
+  onChangeFilterName,
   ...props
 }) => (
   <>
@@ -36,7 +39,17 @@ const SelectRoomPresenter: FC<PresenterProps> = ({
         <Grid container style={{ padding: '20px' }}>
           <Grid item xs={12} style={{ marginBottom: '20px' }}>
             <Grid container justifyContent="space-between">
-              <Grid item></Grid>
+              <Grid item>
+                <TextField
+                  fullWidth
+                  size="small"
+                  label="部屋名"
+                  name="roomName"
+                  onChange={onChangeFilterName}
+                  value={filerName}
+                  variant="outlined"
+                />
+              </Grid>
               <Grid item>
                 <Button
                   color="primary"
@@ -70,6 +83,7 @@ const SelectRoomContainer: React.FC<
   if (!main) return <></>
   const classes = useStyles()
   const [selectRoom, setSelectRoom] = useState<Room | null>(null)
+  const [filerName, setFilterName] = useState<string>('')
 
   if (main.self.name === '') return <></>
   if (main.room.name !== '') return <></>
@@ -80,6 +94,12 @@ const SelectRoomContainer: React.FC<
     main.setAppRoot()
   }
 
+  const onChangeFilterName = (e) => {
+    const name = e.target.value
+    setFilterName(name)
+    main.room.readRooms(name)
+  }
+
   return presenter({
     children,
     main,
@@ -87,6 +107,8 @@ const SelectRoomContainer: React.FC<
     openRoomRegistModal,
     selectRoom,
     setSelectRoom,
+    filerName,
+    onChangeFilterName,
     ...props,
   })
 }

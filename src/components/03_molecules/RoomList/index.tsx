@@ -21,6 +21,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { Room } from '@/services/room'
 import * as _ from 'lodash'
+import { dateFormat, parseDate } from '@/utils/general'
 
 /** RoomListProps Props */
 export type RoomListProps = WithChildren & { openRoomRegistModal }
@@ -54,14 +55,20 @@ const RoomListPresenter: FC<PresenterProps> = ({
 }) => (
   <>
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer style={{ maxHeight: 530 }}>
+      <TableContainer style={{ maxHeight: 485 }}>
         {/* componentにライブラリのPaperをつけることで立体感がでてよくなります */}
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow style={{ backgroundColor: '#F2F2F2' }}>
-              <TableCell align="center">名称</TableCell>
-              <TableCell align="center">説明</TableCell>
-              <TableCell align="center">作成日</TableCell>
+              <TableCell align="center" style={{ width: 300 }}>
+                名称
+              </TableCell>
+              <TableCell align="center" style={{ width: 500 }}>
+                説明
+              </TableCell>
+              <TableCell align="center" style={{ width: 100 }}>
+                作成日
+              </TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
@@ -76,7 +83,9 @@ const RoomListPresenter: FC<PresenterProps> = ({
                 <TableRow key={e.id}>
                   <TableCell>{e.name}</TableCell>
                   <TableCell>{e.description}</TableCell>
-                  <TableCell align="center">{e.createdAt}</TableCell>
+                  <TableCell align="center">
+                    {dateFormat(new Date(e.createdAt), 'y/M/d')}
+                  </TableCell>
                   <TableCell align="center">
                     <Grid container spacing={1}>
                       <Grid item xs={12}>
@@ -84,6 +93,7 @@ const RoomListPresenter: FC<PresenterProps> = ({
                           variant="contained"
                           color="primary"
                           type="submit"
+                          size="small"
                           startIcon={<DoneIcon />}
                           onClick={() => {
                             main.room.setRoomId(e.id)
@@ -97,6 +107,7 @@ const RoomListPresenter: FC<PresenterProps> = ({
                           variant="contained"
                           color="primary"
                           type="submit"
+                          size="small"
                           startIcon={<EditIcon />}
                           onClick={() => {
                             openRoomRegistModal(e)
@@ -110,6 +121,7 @@ const RoomListPresenter: FC<PresenterProps> = ({
                           variant="contained"
                           color="secondary"
                           type="submit"
+                          size="small"
                           startIcon={<DeleteIcon />}
                           onClick={async () => {
                             if (confirm('削除します。よろしいですか？'))

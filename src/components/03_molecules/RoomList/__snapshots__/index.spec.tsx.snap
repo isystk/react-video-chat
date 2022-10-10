@@ -14,7 +14,7 @@ exports[`RoomList Match Snapshot 1`] = `
     className="MuiTableContainer-root"
     style={
       Object {
-        "maxHeight": 530,
+        "maxHeight": 485,
       }
     }
   >
@@ -40,6 +40,11 @@ exports[`RoomList Match Snapshot 1`] = `
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
             scope="col"
+            style={
+              Object {
+                "width": 300,
+              }
+            }
           >
             名称
           </th>
@@ -47,6 +52,11 @@ exports[`RoomList Match Snapshot 1`] = `
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
             scope="col"
+            style={
+              Object {
+                "width": 500,
+              }
+            }
           >
             説明
           </th>
@@ -54,6 +64,11 @@ exports[`RoomList Match Snapshot 1`] = `
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
             scope="col"
+            style={
+              Object {
+                "width": 100,
+              }
+            }
           >
             作成日
           </th>

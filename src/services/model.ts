@@ -82,6 +82,7 @@ export type ModelRoomFilterInput = {
   id?: ModelIDInput | null
   name?: ModelStringInput | null
   description?: ModelStringInput | null
+  _deleted?: ModelStringInput | null
   and?: Array<ModelRoomFilterInput | null> | null
   or?: Array<ModelRoomFilterInput | null> | null
   not?: ModelRoomFilterInput | null

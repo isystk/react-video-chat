@@ -69,7 +69,49 @@ exports[`SelectRoom Match Snapshot 1`] = `
         >
           <div
             className="MuiGrid-root MuiGrid-item"
-          />
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            >
+              <label
+                className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-marginDense MuiInputLabel-outlined"
+                data-shrink={false}
+              >
+                部屋名
+              </label>
+              <div
+                className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                  disabled={false}
+                  name="roomName"
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="text"
+                  value=""
+                />
+                <fieldset
+                  aria-hidden={true}
+                  className="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    className="PrivateNotchedOutline-legendLabelled-10"
+                  >
+                    <span>
+                      部屋名
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+          </div>
           <div
             className="MuiGrid-root MuiGrid-item"
           >
@@ -130,7 +172,7 @@ exports[`SelectRoom Match Snapshot 1`] = `
             className="MuiTableContainer-root"
             style={
               Object {
-                "maxHeight": 530,
+                "maxHeight": 485,
               }
             }
           >
@@ -156,6 +198,11 @@ exports[`SelectRoom Match Snapshot 1`] = `
                     aria-sort={null}
                     className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                     scope="col"
+                    style={
+                      Object {
+                        "width": 300,
+                      }
+                    }
                   >
                     名称
                   </th>
@@ -163,6 +210,11 @@ exports[`SelectRoom Match Snapshot 1`] = `
                     aria-sort={null}
                     className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                     scope="col"
+                    style={
+                      Object {
+                        "width": 500,
+                      }
+                    }
                   >
                     説明
                   </th>
@@ -170,6 +222,11 @@ exports[`SelectRoom Match Snapshot 1`] = `
                     aria-sort={null}
                     className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                     scope="col"
+                    style={
+                      Object {
+                        "width": 100,
+                      }
+                    }
                   >
                     作成日
                   </th>

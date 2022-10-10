@@ -1,8 +1,12 @@
 import Main from '@/services/main'
-import { createRoom, updateRoom, deleteRoom } from '@/services/graphql/mutations'
+import {
+  createRoom,
+  updateRoom,
+  deleteRoom,
+} from '@/services/graphql/mutations'
 import { listRooms } from '@/services/graphql/queries'
 import * as _ from 'lodash'
-import { ListRoomsQuery, Room } from '@/services/model'
+import { ListRoomsQuery, ModelRoomFilterInput, Room } from '@/services/model'
 
 export type Rooms = {
   [id: string]: Room
@@ -56,7 +60,7 @@ export default class RoomService {
         mutation: createRoom,
         variables: { input },
       })
-      await this.readRooms(true)
+      await this.readRooms(null, true)
     } catch (error) {
       console.log('error create room', error)
       alert('登録に失敗しました')
@@ -74,7 +78,7 @@ export default class RoomService {
         mutation: updateRoom,
         variables: { input },
       })
-      await this.readRooms(true)
+      await this.readRooms(null, true)
     } catch (error) {
       console.log('error update room', error)
       alert('登録に失敗しました')
@@ -91,19 +95,28 @@ export default class RoomService {
         mutation: deleteRoom,
         variables: { input },
       })
-      await this.readRooms(true)
+      await this.readRooms(null, true)
     } catch (error) {
       console.log('error update room', error)
       alert('登録に失敗しました')
     }
   }
 
-  async readRooms(isRefresh = false): Promise<void> {
+  async readRooms(name, isRefresh = false): Promise<void> {
     try {
+      let filter = {}
+      if (name) {
+        filter = {
+          name: {
+            contains: name,
+          },
+        }
+      }
       const result = await this.main.apolloClient.query({
         query: listRooms,
         variables: {
           // limit: 10
+          filter,
         },
         fetchPolicy: isRefresh ? 'network-only' : 'cache-first',
       })
