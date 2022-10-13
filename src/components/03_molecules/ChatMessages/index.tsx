@@ -8,6 +8,7 @@ import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import { dateFormat, parseDate } from '@/utils/general/date'
+import { Virtuoso } from 'react-virtuoso'
 
 /** ChatMessagesProps Props */
 export type ChatMessagesProps = WithChildren
@@ -25,11 +26,17 @@ const ChatMessagesPresenter: FC<PresenterProps> = ({
   classes,
   windowHeight,
   appStyle,
+  messages,
   ...props
 }) => (
-  <>
-    <div className={classes.chatMessage} style={appStyle(windowHeight)}>
-      {main.chanels[main.selectChanelId].chat.messages.map((message, index) => {
+  <div>
+    <Virtuoso
+      className={classes.chatMessage}
+      style={appStyle(windowHeight)}
+      data={messages}
+      initialTopMostItemIndex={messages.length}
+      totalCount={messages.length}
+      itemContent={(index, message) => {
         const isMe = message.sendId === main.self.connectionId
         const member = main.members[message.sendId]
         const isStamp = 'stamp' === message.type
@@ -52,9 +59,9 @@ const ChatMessagesPresenter: FC<PresenterProps> = ({
             </div>
           </div>
         )
-      })}
-    </div>
-  </>
+      }}
+    />
+  </div>
 )
 
 /** Container Component */
@@ -79,12 +86,15 @@ const ChatMessagesContainer: React.FC<
     }
   }
 
+  const { messages } = main.chanels[main.selectChanelId].chat
+
   return presenter({
     children,
     main,
     classes,
     windowHeight,
     appStyle,
+    messages,
     ...props,
   })
 }

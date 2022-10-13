@@ -12,11 +12,26 @@ export default {
 const Template: Story = (props) => {
   const main = new MainService(() => ({}))
   main.setName('isystk')
-  main.room.rooms = [
-    { id: 1, name: 'test1', description: 'this is test1' },
-    { id: 2, name: 'test2', description: 'this is test2' },
-    { id: 3, name: 'test3', description: 'this is test3' },
-  ]
+  main.room.rooms = {
+    1: {
+      id: 1,
+      name: 'test1',
+      description: 'this is test1',
+      createdAt: '2022-10-13 12:00:00',
+    },
+    2: {
+      id: 2,
+      name: 'test2',
+      description: 'this is test2',
+      createdAt: '2022-10-13 12:00:00',
+    },
+    3: {
+      id: 3,
+      name: 'test3',
+      description: 'this is test3',
+      createdAt: '2022-10-13 12:00:00',
+    },
+  }
 
   return (
     <Context.Provider value={main}>

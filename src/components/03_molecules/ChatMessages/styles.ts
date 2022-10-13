@@ -2,12 +2,15 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   chatMessage: {
-    padding: '20px 20px 0 20px',
     backgroundColor: '#f1f1f1',
     '& .message_row': {
       display: 'grid',
       gridTemplateColumns: '70%',
+      padding: '0 20px',
       marginBottom: '20px',
+    },
+    '& .message_row:first-child': {
+      paddingTop: '20px',
     },
     '& .message-text': {
       padding: '9px 14px',
