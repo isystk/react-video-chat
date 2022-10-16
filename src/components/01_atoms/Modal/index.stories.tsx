@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import Modal from './index'
-import { Container } from '@material-ui/core'
+import { Container } from '@mui/material'
 
 export default {
   title: '01_atoms/Modal',

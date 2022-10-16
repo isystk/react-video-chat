@@ -52,6 +52,7 @@ const ChanelListContainer: React.FC<
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
   const classes = useStyles()
+  
   return presenter({
     children,
     main,

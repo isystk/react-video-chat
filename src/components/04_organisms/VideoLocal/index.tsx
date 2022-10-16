@@ -31,7 +31,7 @@ const VideoLocalContainer: React.FC<
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
   const classes = useStyles()
-
+  
   const videoRef = useRef(null)
   const currentVideoRef = videoRef.current
   const mediaStream = main.mediaDevice.mediaStream

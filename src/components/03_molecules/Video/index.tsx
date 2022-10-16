@@ -5,7 +5,7 @@ import {
   CardActions,
   CardContent,
   Typography,
-} from '@material-ui/core'
+} from '@mui/material'
 import AudioAnalyser from '../../01_atoms/AudioAnalyser'
 import VolumeButton from '../../01_atoms/VolumeButton'
 import useDimensions from './useDimentions'

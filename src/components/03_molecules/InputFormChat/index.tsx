@@ -1,12 +1,12 @@
-import TextField from '@material-ui/core/TextField'
+import TextField from '@mui/material/TextField'
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react'
-import Button from '@material-ui/core/Button'
+import Button from '@mui/material/Button'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
-import TagFacesIcon from '@material-ui/icons/TagFaces'
-import AttachFileIcon from '@material-ui/icons/AttachFile'
-import SendIcon from '@material-ui/icons/Send'
+import TagFacesIcon from '@mui/icons-material/TagFaces'
+import AttachFileIcon from '@mui/icons-material/AttachFile'
+import SendIcon from '@mui/icons-material/Send'
 import { Stamps } from '@/services/chat'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
@@ -106,6 +106,7 @@ const InputFormChatContainer: React.FC<
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
   const classes = useStyles()
+  
   const label = 'メッセージを入力してください'
   const [disabled, setDisabled] = useState(true)
   const [message, setMessage] = useState('')

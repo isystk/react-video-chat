@@ -7,7 +7,7 @@ import { connect } from '@/components/hoc'
 import React, { useContext } from 'react'
 import { ContainerProps } from 'types'
 import { useStyles } from './styles'
-import { Container, Typography } from '@material-ui/core'
+import { Container, Typography } from '@mui/material'
 
 /** ErrorTemplate Props */
 export type ErrorTemplateProps = Omit<HtmlSkeletonProps, 'children'> & {

@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => css`{
   videoWrapper: {
     width: '100%',
     height: '70vh',
@@ -15,6 +15,6 @@ const useStyles = makeStyles((theme) => ({
       left: '0',
     },
   },
-}))
+}`
 
 export { useStyles }

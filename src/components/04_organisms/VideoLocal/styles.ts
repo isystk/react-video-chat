@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({}))
+const useStyles = (theme) => css`{}`
 
 export { useStyles }

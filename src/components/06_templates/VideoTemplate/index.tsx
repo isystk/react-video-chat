@@ -1,4 +1,4 @@
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 import React, { FC, useContext } from 'react'
 import VideoLocal from '../../04_organisms/VideoLocal'
 import VideoRemote from '../../04_organisms/VideoRemote'

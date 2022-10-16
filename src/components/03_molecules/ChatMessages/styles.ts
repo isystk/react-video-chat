@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => css`{
   chatMessage: {
     padding: '20px 20px 0 20px',
     backgroundColor: '#f1f1f1',
@@ -62,6 +62,6 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: '5px',
     },
   },
-}))
+}`
 
 export { useStyles }

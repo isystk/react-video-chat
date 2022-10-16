@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => css`{
   root: {
     flexGrow: 1,
   },
@@ -9,6 +9,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-}))
+}`
 
 export { useStyles }

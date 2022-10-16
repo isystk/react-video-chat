@@ -16,9 +16,9 @@ import {
   Fade,
   FormGroup,
   Container,
-} from '@material-ui/core'
+} from '@mui/material'
 import { Formik, Form } from 'formik'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 /** RoomRegistModalProps Props */
 export type RoomRegistModalProps = WithChildren & { room: Room }
@@ -134,6 +134,7 @@ const RoomRegistModalContainer: React.FC<
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
   const classes = useStyles()
+  
   const isNew = !room
 
   // フォームの初期値

@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 
-import IconButton from '@material-ui/core/IconButton'
-import VolumeOffIcon from '@material-ui/icons/VolumeOff'
-import VolumeUpIcon from '@material-ui/icons/VolumeUp'
+import IconButton from '@mui/material/IconButton'
+import VolumeOffIcon from '@mui/icons-material/VolumeOff'
+import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
@@ -60,6 +60,7 @@ const VolumeButtonContainer: React.FC<
   ...props
 }) => {
   const classes = useStyles()
+  
   const Icon = isMute ? VolumeOffIcon : VolumeUpIcon
   return presenter({
     children,

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
-import { Box, Breadcrumbs, Typography } from '@material-ui/core'
+import { Box, Breadcrumbs, Typography } from '@mui/material'
 import { connect } from '@/components/hoc'
 import { useStyles } from './styles'
 import Link from 'next/link'
@@ -19,14 +19,14 @@ const BoxPresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <>
-    <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
+    <Breadcrumbs aria-label="breadcrumb" {...classes.breadcrumbs}>
       <Link color="inherit" href={Url.TOP}>
         TOP
       </Link>
       <Typography component="span">{title}</Typography>
     </Breadcrumbs>
-    <Box component="div" className={classes.box}>
-      <Typography component="div" color="primary" className={classes.title}>
+    <Box component="div" {...classes.box}>
+      <Typography component="div" color="primary" {...classes.title}>
         {title}
       </Typography>
       {children}

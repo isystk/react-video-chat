@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles(() => ({
+const useStyles = () => css`{
   circles: {
     position: 'relative',
     top: '0',
@@ -33,6 +33,6 @@ const useStyles = makeStyles(() => ({
       borderRadius: '50%',
     },
   },
-}))
+}`
 
 export { useStyles }

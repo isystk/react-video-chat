@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => css`{
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -12,6 +12,6 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}))
+}`
 
 export { useStyles }

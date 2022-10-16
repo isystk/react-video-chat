@@ -1,4 +1,4 @@
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 import Circles from '@/components/01_atoms/Circles'
 import InputFormName from '@/components/03_molecules/InputFormName'
 import InputFormRoom from '@/components/03_molecules/InputFormRoom'

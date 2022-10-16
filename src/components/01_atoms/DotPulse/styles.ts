@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => css`{
   dotPulse: {
     position: 'relative',
     left: '-9999px',
@@ -68,6 +68,6 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: '10014px 0 0 -5px #9880ff',
     },
   },
-}))
+}`
 
 export { useStyles }

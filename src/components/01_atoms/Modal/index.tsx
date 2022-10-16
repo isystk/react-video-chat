@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
-import CloseIcon from '@material-ui/icons/Close'
-import { Fab } from '@material-ui/core'
+import CloseIcon from '@mui/icons-material/Close'
+import { Fab } from '@mui/material'
 import { ContainerProps, WithChildren } from 'types'
 import { useStyles } from './styles'
 import { connect } from '@/components/hoc'
@@ -55,6 +55,7 @@ const ModalContainer: React.FC<ContainerProps<ModalProps, PresenterProps>> = ({
   ...props
 }) => {
   const classes = useStyles()
+  
   const onClose = (e) => {
     e.preventDefault()
     handleClose()

@@ -64,6 +64,7 @@ const ChatMessagesContainer: React.FC<
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
   const classes = useStyles()
+  
   const [windowHeight, setWindowHeight] = useState(0)
 
   useEffect(() => {

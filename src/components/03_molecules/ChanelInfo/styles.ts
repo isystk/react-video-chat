@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => css`{
   meBlock: {
     padding: '20px 10px',
     height: '100%',
@@ -40,6 +40,6 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '2.5em',
     },
   },
-}))
+}`
 
 export { useStyles }

@@ -50,7 +50,7 @@ export type XxxxProps = WithChildren
 export type PresenterProps = XxxxProps & { main, classes }
 
 /** Presenter Component */
-const XxxxPresenter: FC<PresenterProps> = ({ main, classes, ...props }) => (
+const XxxxPresenter: FC<PresenterProps> = ({ main, ...props }) => (
   <>
   </>
 )
@@ -63,11 +63,10 @@ const XxxxContainer: React.FC<ContainerProps<XxxxProps, PresenterProps>> = ({
 }) => {
   const main = useContext<MainService|null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
+  
   return presenter({
     children,
     main,
-    classes,
     ...props,
   })
 }

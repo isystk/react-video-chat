@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => css`{
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -13,6 +13,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginLeft: '10px',
   },
-}))
+}`
 
 export { useStyles }

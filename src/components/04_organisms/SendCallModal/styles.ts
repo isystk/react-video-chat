@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => css`{
   notion: {
     width: '300px',
     '& .myHeadPhoto': {
@@ -32,6 +32,6 @@ const useStyles = makeStyles((theme) => ({
       width: '16px',
     },
   },
-}))
+}`
 
 export { useStyles }

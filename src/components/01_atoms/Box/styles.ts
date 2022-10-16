@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => css`{
   breadcrumbs: {
     padding: '20px 0px',
     // listStyle: "none",
@@ -36,6 +36,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px 20px',
     textAlign: 'left',
   },
-}))
+}`
 
 export { useStyles }

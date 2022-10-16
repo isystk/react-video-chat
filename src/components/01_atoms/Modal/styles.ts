@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles(() => ({
+const useStyles = () => css`{
   overlayBackground: {
     position: 'absolute',
     left: '0',
@@ -32,6 +32,6 @@ const useStyles = makeStyles(() => ({
     width: '35px',
     height: '20px',
   },
-}))
+}`
 
 export { useStyles }

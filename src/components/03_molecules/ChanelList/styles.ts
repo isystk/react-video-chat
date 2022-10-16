@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => css`{
   chanelList: {
     overflowY: 'scroll',
     backgroundColor: '#444444',
@@ -64,6 +64,6 @@ const useStyles = makeStyles((theme) => ({
       height: '100%',
     },
   },
-}))
+}`
 
 export { useStyles }

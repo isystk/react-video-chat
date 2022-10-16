@@ -8,9 +8,9 @@ import {
   MenuItem,
   Menu,
   Typography,
-} from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
+} from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
 import { useState } from 'react'
 import * as _ from 'lodash'
 import { connect } from '@/components/hoc'

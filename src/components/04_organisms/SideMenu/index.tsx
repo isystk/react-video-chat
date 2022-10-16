@@ -7,13 +7,13 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from '@material-ui/core'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import FullscreenIcon from '@material-ui/icons/Fullscreen'
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
-import StopIcon from '@material-ui/icons/Stop'
-import SettingsIcon from '@material-ui/icons/Settings'
+} from '@mui/material'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import FullscreenIcon from '@mui/icons-material/Fullscreen'
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
+import StopIcon from '@mui/icons-material/Stop'
+import SettingsIcon from '@mui/icons-material/Settings'
 import { useRouter } from 'next/router'
 import { Url } from '@/constants/url'
 import ChanelList from '@/components/03_molecules/ChanelList'
