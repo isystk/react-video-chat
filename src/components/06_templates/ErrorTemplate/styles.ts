@@ -1,9 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    textAlign: 'center',
-  },
-}))
-
-export { useStyles }
+export const container = css`
+  text-align: center;
+`

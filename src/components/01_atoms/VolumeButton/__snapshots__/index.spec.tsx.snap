@@ -3,10 +3,11 @@
 exports[`VolumeButton Match Snapshot 1`] = `
 <button
   aria-label="switch mute"
-  className="MuiButtonBase-root MuiIconButton-root"
+  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-0 css-78trlr-MuiButtonBase-root-MuiIconButton-root"
   disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
+  onContextMenu={[Function]}
   onDragLeave={[Function]}
   onFocus={[Function]}
   onKeyDown={[Function]}
@@ -20,24 +21,21 @@ exports[`VolumeButton Match Snapshot 1`] = `
   tabIndex={0}
   type="button"
 >
-  <span
-    className="MuiIconButton-label"
-  >
-    <svg
-      aria-hidden={true}
-      className="MuiSvgIcon-root"
-      focusable="false"
-      style={
-        Object {
-          "fill": "black",
-        }
+  <svg
+    aria-hidden={true}
+    className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+    data-testid="VolumeUpIcon"
+    focusable="false"
+    style={
+      Object {
+        "fill": "black",
       }
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
-      />
-    </svg>
-  </span>
+    }
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+    />
+  </svg>
 </button>
 `;

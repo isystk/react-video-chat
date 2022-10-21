@@ -6,8 +6,8 @@ import HtmlSkeleton, {
 import { connect } from '@/components/hoc'
 import React, { useContext } from 'react'
 import { ContainerProps } from 'types'
-import { useStyles } from './styles'
-import { Container, Typography } from '@material-ui/core'
+import * as styles from './styles'
+import { Container, Typography } from '@mui/material'
 
 /** ErrorTemplate Props */
 export type ErrorTemplateProps = Omit<HtmlSkeletonProps, 'children'> & {
@@ -15,18 +15,17 @@ export type ErrorTemplateProps = Omit<HtmlSkeletonProps, 'children'> & {
   statusCode: string
 }
 /** Presenter Props */
-export type PresenterProps = ErrorTemplateProps & { classes }
+export type PresenterProps = ErrorTemplateProps
 
 /** Presenter Component */
 const ErrorTemplatePresenter: React.FC<PresenterProps> = ({
   statusCode,
   main,
-  classes,
   ...props
 }) => (
   <HtmlSkeleton>
     <Title>Error</Title>
-    <Container className={classes.container}>
+    <Container className={styles.container}>
       <div>
         <Typography component="h1" variant="h5">
           {statusCode} エラーが発生しました。
@@ -40,8 +39,7 @@ const ErrorTemplatePresenter: React.FC<PresenterProps> = ({
 const ErrorTemplateContainer: React.FC<
   ContainerProps<ErrorTemplateProps, PresenterProps>
 > = ({ presenter, main, ...props }) => {
-  const classes = useStyles()
-  return presenter({ classes, main, ...props })
+  return presenter({ main, ...props })
 }
 
 /** ErrorTemplate */

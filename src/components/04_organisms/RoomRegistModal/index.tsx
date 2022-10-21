@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react'
 import * as Yup from 'yup'
 import Modal from '@/components/01_atoms/Modal'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
@@ -16,16 +16,15 @@ import {
   Fade,
   FormGroup,
   Container,
-} from '@material-ui/core'
+} from '@mui/material'
 import { Formik, Form } from 'formik'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 /** RoomRegistModalProps Props */
 export type RoomRegistModalProps = WithChildren & { room: Room }
 /** Presenter Props */
 export type PresenterProps = RoomRegistModalProps & {
   main
-  classes
   videoInputDefault
   changeDevice
   videoInput
@@ -38,7 +37,6 @@ export type PresenterProps = RoomRegistModalProps & {
 /** Presenter Component */
 const RoomRegistModalPresenter: FC<PresenterProps> = ({
   main,
-  classes,
   initialValues,
   validationSchema,
   onSubmit,
@@ -133,7 +131,7 @@ const RoomRegistModalContainer: React.FC<
 > = ({ presenter, children, room, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
+
   const isNew = !room
 
   // フォームの初期値
@@ -174,7 +172,6 @@ const RoomRegistModalContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     initialValues,
     validationSchema,
     onSubmit,

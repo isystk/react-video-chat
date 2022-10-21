@@ -1,21 +1,20 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import Container from '@material-ui/core/Container'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Container from '@mui/material/Container'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import Box from '@/components/01_atoms/Box'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
-import { FormControl, Typography } from '@material-ui/core'
+import { FormControl, Typography } from '@mui/material'
 
 /** InputFormRoomProps Props */
 export type InputFormRoomProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = InputFormRoomProps & {
   main
-  classes
   label
   name
   setName
@@ -28,7 +27,6 @@ export type PresenterProps = InputFormRoomProps & {
 /** Presenter Component */
 const InputFormRoomPresenter: FC<PresenterProps> = ({
   main,
-  classes,
   label,
   name,
   setName,
@@ -41,7 +39,7 @@ const InputFormRoomPresenter: FC<PresenterProps> = ({
   <>
     <Container component="main">
       <Box title="ログイン">
-        <FormControl className={classes.form}>
+        <FormControl className={styles.form}>
           <Typography component="h1" variant="h5">
             {label}を入力してください
           </Typography>
@@ -64,7 +62,7 @@ const InputFormRoomPresenter: FC<PresenterProps> = ({
             variant="outlined"
           />
           <Button
-            className={classes.submit}
+            className={styles.submit}
             color="primary"
             disabled={disabled}
             fullWidth
@@ -86,7 +84,7 @@ const InputFormRoomContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
+
   const label = '部屋の名前'
   const [disabled, setDisabled] = useState(true)
   const [name, setName] = useState('')
@@ -117,7 +115,6 @@ const InputFormRoomContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     label,
     name,
     setName,

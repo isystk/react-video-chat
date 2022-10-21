@@ -7,7 +7,7 @@ import SideMenu from '@/components/04_organisms/SideMenu'
 import Title, { TitleProps } from './Title'
 import Head from 'next/head'
 import { isReactElement } from '@/utils/general/object'
-import { CssBaseline } from '@material-ui/core'
+import { CssBaseline } from '@mui/material'
 import { APP_NAME, APP_DESCRIPTION } from '@/constants'
 
 /** HtmlSkeleton Props */

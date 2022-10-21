@@ -1,5 +1,3 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { css, keyframes } from '@emotion/css'
 
-const useStyles = makeStyles((theme) => ({}))
-
-export { useStyles }
+export const inputTemplate = css``

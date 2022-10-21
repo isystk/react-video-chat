@@ -1,28 +1,27 @@
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 import React, { FC, useContext } from 'react'
 import VideoLocal from '../../04_organisms/VideoLocal'
 import VideoRemote from '../../04_organisms/VideoRemote'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
 
 /** VideoTemplateProps Props */
 export type VideoTemplateProps = WithChildren & { main }
 /** Presenter Props */
-export type PresenterProps = VideoTemplateProps & { classes; title; grid }
+export type PresenterProps = VideoTemplateProps & { title; grid }
 
 /** Presenter Component */
 const VideoTemplatePresenter: FC<PresenterProps> = ({
   main,
-  classes,
   title,
   grid,
   ...props
 }) => (
   <HtmlSkeleton>
     <Title>{title}</Title>
-    <div className={classes.root}>
+    <div className={styles.root}>
       <Grid container spacing={0}>
         <Grid item {...grid}>
           <VideoLocal />
@@ -43,7 +42,6 @@ const VideoTemplatePresenter: FC<PresenterProps> = ({
 const VideoTemplateContainer: React.FC<
   ContainerProps<VideoTemplateProps, PresenterProps>
 > = ({ presenter, children, main, ...props }) => {
-  const classes = useStyles()
   const grids = {
     0: { xs: 12, sm: 6, md: 6 },
     1: { xs: 12, sm: 6, md: 6 },
@@ -60,7 +58,6 @@ const VideoTemplateContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     title: main.room.name,
     grid,
     ...props,

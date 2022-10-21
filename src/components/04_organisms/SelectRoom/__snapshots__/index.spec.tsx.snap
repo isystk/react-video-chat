@@ -2,14 +2,14 @@
 
 exports[`SelectRoom Match Snapshot 1`] = `
 <main
-  className="MuiContainer-root MuiContainer-maxWidthLg"
+  className="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
 >
   <nav
     aria-label="breadcrumb"
-    className="MuiTypography-root MuiBreadcrumbs-root makeStyles-breadcrumbs-4 MuiTypography-body1 MuiTypography-colorTextSecondary"
+    className="MuiTypography-root MuiTypography-body1 MuiBreadcrumbs-root css-1kynpjt css-63vwl1-MuiTypography-root-MuiBreadcrumbs-root"
   >
     <ol
-      className="MuiBreadcrumbs-ol"
+      className="MuiBreadcrumbs-ol css-4pdmu4-MuiBreadcrumbs-ol"
     >
       <li
         className="MuiBreadcrumbs-li"
@@ -25,7 +25,7 @@ exports[`SelectRoom Match Snapshot 1`] = `
       </li>
       <li
         aria-hidden={true}
-        className="MuiBreadcrumbs-separator"
+        className="MuiBreadcrumbs-separator css-1wuw8dw-MuiBreadcrumbs-separator"
       >
         /
       </li>
@@ -33,7 +33,7 @@ exports[`SelectRoom Match Snapshot 1`] = `
         className="MuiBreadcrumbs-li"
       >
         <span
-          className="MuiTypography-root MuiTypography-body1"
+          className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
         >
           部屋の選択
         </span>
@@ -41,15 +41,15 @@ exports[`SelectRoom Match Snapshot 1`] = `
     </ol>
   </nav>
   <div
-    className="MuiBox-root MuiBox-root-7 makeStyles-box-5"
+    className="css-heco0o MuiBox-root css-0"
   >
     <div
-      className="MuiTypography-root makeStyles-title-6 MuiTypography-body1 MuiTypography-colorPrimary"
+      className="MuiTypography-root MuiTypography-body1 css-13emhng css-vkc4v8-MuiTypography-root"
     >
       部屋の選択
     </div>
     <div
-      className="MuiGrid-root MuiGrid-container"
+      className="MuiGrid-root MuiGrid-container css-11lq3yg-MuiGrid-root"
       style={
         Object {
           "padding": "20px",
@@ -57,7 +57,7 @@ exports[`SelectRoom Match Snapshot 1`] = `
       }
     >
       <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
         style={
           Object {
             "marginBottom": "20px",
@@ -65,29 +65,32 @@ exports[`SelectRoom Match Snapshot 1`] = `
         }
       >
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-justify-content-xs-space-between"
+          className="MuiGrid-root MuiGrid-container css-1xzqqmo-MuiGrid-root"
         >
           <div
-            className="MuiGrid-root MuiGrid-item"
+            className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
           >
             <div
-              className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+              className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
             >
               <label
-                className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-marginDense MuiInputLabel-outlined"
+                className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
                 data-shrink={false}
+                htmlFor=":r0:"
+                id=":r0:-label"
               >
                 部屋名
               </label>
               <div
-                className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+                className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall css-md26zr-MuiInputBase-root-MuiOutlinedInput-root"
                 onClick={[Function]}
               >
                 <input
                   aria-invalid={false}
                   autoFocus={false}
-                  className="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                  className="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
                   disabled={false}
+                  id=":r0:"
                   name="roomName"
                   onAnimationStart={[Function]}
                   onBlur={[Function]}
@@ -99,10 +102,10 @@ exports[`SelectRoom Match Snapshot 1`] = `
                 />
                 <fieldset
                   aria-hidden={true}
-                  className="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+                  className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
                 >
                   <legend
-                    className="PrivateNotchedOutline-legendLabelled-10"
+                    className="css-yjsfm1"
                   >
                     <span>
                       部屋名
@@ -113,13 +116,14 @@ exports[`SelectRoom Match Snapshot 1`] = `
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item"
+            className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
           >
             <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+              className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
               disabled={false}
               onBlur={[Function]}
               onClick={[Function]}
+              onContextMenu={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
@@ -134,42 +138,33 @@ exports[`SelectRoom Match Snapshot 1`] = `
               type="button"
             >
               <span
-                className="MuiButton-label"
+                className="MuiButton-startIcon MuiButton-iconSizeMedium css-1d6wzja-MuiButton-startIcon"
               >
-                <span
-                  className="MuiButton-startIcon MuiButton-iconSizeMedium"
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                  data-testid="AddCircleIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
                 >
-                  <svg
-                    aria-hidden={true}
-                    className="MuiSvgIcon-root"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
-                    />
-                  </svg>
-                </span>
-                新規登録
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
               </span>
+              新規登録
             </button>
           </div>
         </div>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
       >
         <div
-          className="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded"
-          sx={
-            Object {
-              "overflow": "hidden",
-              "width": "100%",
-            }
-          }
+          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-1fw5qro-MuiPaper-root"
         >
           <div
-            className="MuiTableContainer-root"
+            className="MuiTableContainer-root css-rorn0c-MuiTableContainer-root"
             style={
               Object {
                 "maxHeight": 485,
@@ -178,15 +173,15 @@ exports[`SelectRoom Match Snapshot 1`] = `
           >
             <table
               aria-label="sticky table"
-              className="MuiTable-root MuiTable-stickyHeader"
+              className="MuiTable-root MuiTable-stickyHeader css-xn82ks-MuiTable-root"
               role={null}
             >
               <thead
-                className="MuiTableHead-root"
+                className="MuiTableHead-root css-15wwp11-MuiTableHead-root"
                 role={null}
               >
                 <tr
-                  className="MuiTableRow-root MuiTableRow-head"
+                  className="MuiTableRow-root MuiTableRow-head css-1q1u3t4-MuiTableRow-root"
                   role={null}
                   style={
                     Object {
@@ -196,7 +191,7 @@ exports[`SelectRoom Match Snapshot 1`] = `
                 >
                   <th
                     aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-stickyHeader MuiTableCell-alignCenter MuiTableCell-sizeMedium css-dwuj3p-MuiTableCell-root"
                     scope="col"
                     style={
                       Object {
@@ -208,7 +203,7 @@ exports[`SelectRoom Match Snapshot 1`] = `
                   </th>
                   <th
                     aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-stickyHeader MuiTableCell-alignCenter MuiTableCell-sizeMedium css-dwuj3p-MuiTableCell-root"
                     scope="col"
                     style={
                       Object {
@@ -220,7 +215,7 @@ exports[`SelectRoom Match Snapshot 1`] = `
                   </th>
                   <th
                     aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-stickyHeader MuiTableCell-alignCenter MuiTableCell-sizeMedium css-dwuj3p-MuiTableCell-root"
                     scope="col"
                     style={
                       Object {
@@ -232,38 +227,42 @@ exports[`SelectRoom Match Snapshot 1`] = `
                   </th>
                   <th
                     aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-stickyHeader MuiTableCell-alignCenter MuiTableCell-sizeMedium css-dwuj3p-MuiTableCell-root"
                     scope="col"
                   />
                 </tr>
               </thead>
               <tbody
-                className="MuiTableBody-root"
+                className="MuiTableBody-root css-apqrd9-MuiTableBody-root"
                 role={null}
               />
             </table>
           </div>
           <div
-            className="MuiTablePagination-root"
+            className="MuiTablePagination-root css-jtlhu6-MuiTablePagination-root"
           >
             <div
-              className="MuiToolbar-root MuiToolbar-regular MuiTablePagination-toolbar MuiToolbar-gutters"
+              className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular MuiTablePagination-toolbar css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar"
             >
               <div
-                className="MuiTablePagination-spacer"
+                className="MuiTablePagination-spacer css-1psng7p-MuiTablePagination-spacer"
               />
               <p
-                className="MuiTypography-root MuiTablePagination-caption MuiTypography-body2 MuiTypography-colorInherit"
+                className="MuiTablePagination-selectLabel css-pdct74-MuiTablePagination-selectLabel"
+                id=":r2:"
               >
                 Rows per page:
               </p>
               <div
-                className="MuiInputBase-root MuiTablePagination-input MuiTablePagination-selectRoot"
+                className="MuiInputBase-root MuiInputBase-colorPrimary css-16c50h-MuiInputBase-root-MuiTablePagination-select"
                 onClick={[Function]}
               >
                 <div
+                  aria-expanded="false"
                   aria-haspopup="listbox"
-                  className="MuiSelect-root MuiSelect-select MuiTablePagination-select MuiSelect-selectMenu MuiInputBase-input"
+                  aria-labelledby=":r2: :r1:"
+                  className="MuiSelect-select MuiTablePagination-select MuiSelect-standard MuiInputBase-input css-194a1fa-MuiSelect-select-MuiInputBase-input"
+                  id=":r1:"
                   onBlur={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
@@ -275,7 +274,7 @@ exports[`SelectRoom Match Snapshot 1`] = `
                 </div>
                 <input
                   aria-hidden={true}
-                  className="MuiSelect-nativeInput"
+                  className="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
                   onAnimationStart={[Function]}
                   onChange={[Function]}
                   tabIndex={-1}
@@ -283,7 +282,8 @@ exports[`SelectRoom Match Snapshot 1`] = `
                 />
                 <svg
                   aria-hidden={true}
-                  className="MuiSvgIcon-root MuiSelect-icon MuiTablePagination-selectIcon"
+                  className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiTablePagination-selectIcon MuiSelect-iconStandard css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon"
+                  data-testid="ArrowDropDownIcon"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -293,19 +293,20 @@ exports[`SelectRoom Match Snapshot 1`] = `
                 </svg>
               </div>
               <p
-                className="MuiTypography-root MuiTablePagination-caption MuiTypography-body2 MuiTypography-colorInherit"
+                className="MuiTablePagination-displayedRows css-levciy-MuiTablePagination-displayedRows"
               >
-                0-0 of 0
+                0–0 of 0
               </p>
               <div
                 className="MuiTablePagination-actions"
               >
                 <button
-                  aria-label="Previous page"
-                  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit Mui-disabled Mui-disabled"
+                  aria-label="Go to previous page"
+                  className="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
                   disabled={true}
                   onBlur={[Function]}
                   onClick={[Function]}
+                  onContextMenu={[Function]}
                   onDragLeave={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
@@ -317,30 +318,28 @@ exports[`SelectRoom Match Snapshot 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   tabIndex={-1}
-                  title="Previous page"
+                  title="Go to previous page"
                   type="button"
                 >
-                  <span
-                    className="MuiIconButton-label"
+                  <svg
+                    aria-hidden={true}
+                    className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                    data-testid="KeyboardArrowLeftIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      aria-hidden={true}
-                      className="MuiSvgIcon-root"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
-                      />
-                    </svg>
-                  </span>
+                    <path
+                      d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
+                    />
+                  </svg>
                 </button>
                 <button
-                  aria-label="Next page"
-                  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit Mui-disabled Mui-disabled"
+                  aria-label="Go to next page"
+                  className="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
                   disabled={true}
                   onBlur={[Function]}
                   onClick={[Function]}
+                  onContextMenu={[Function]}
                   onDragLeave={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
@@ -352,23 +351,20 @@ exports[`SelectRoom Match Snapshot 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   tabIndex={-1}
-                  title="Next page"
+                  title="Go to next page"
                   type="button"
                 >
-                  <span
-                    className="MuiIconButton-label"
+                  <svg
+                    aria-hidden={true}
+                    className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                    data-testid="KeyboardArrowRightIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      aria-hidden={true}
-                      className="MuiSvgIcon-root"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
-                      />
-                    </svg>
-                  </span>
+                    <path
+                      d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+                    />
+                  </svg>
                 </button>
               </div>
             </div>

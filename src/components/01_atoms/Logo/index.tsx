@@ -1,19 +1,19 @@
 import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material'
 import { connect } from '@/components/hoc'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { APP_NAME } from '@/constants'
 
 /** LogoProps Props */
 export type LogoProps = WithChildren & { name }
 /** Presenter Props */
-export type PresenterProps = LogoProps & { classes }
+export type PresenterProps = LogoProps
 
 /** Presenter Component */
-const LogoPresenter: FC<PresenterProps> = ({ name, classes }) => (
+const LogoPresenter: FC<PresenterProps> = ({ name }) => (
   <>
-    <Typography variant="h6" component="div">
+    <Typography variant="h6" component="div" className={styles.logo}>
       {name}
     </Typography>
   </>
@@ -26,13 +26,11 @@ const LogoContainer: React.FC<ContainerProps<LogoProps, PresenterProps>> = ({
   name,
   ...props
 }) => {
-  const classes = useStyles()
   if (!name) {
     name = APP_NAME
   }
   return presenter({
     children,
-    classes,
     name,
     ...props,
   })

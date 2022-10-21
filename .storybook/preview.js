@@ -1,5 +1,5 @@
 import '../src/assets/sass/app.scss';
-import { ThemeProvider } from '@material-ui/core/styles'
+import { ThemeProvider } from '@mui/material/styles'
 import {Provider} from "react-redux";
 import {store} from '../src/stores'
 import { RouterContext } from "next/dist/shared/lib/router-context"

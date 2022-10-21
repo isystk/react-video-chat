@@ -2,7 +2,7 @@
 
 exports[`Logo Match Snapshot 1`] = `
 <div
-  className="MuiTypography-root MuiTypography-h6"
+  className="MuiTypography-root MuiTypography-h6 css-0 css-2ulfj5-MuiTypography-root"
 >
   sample
 </div>

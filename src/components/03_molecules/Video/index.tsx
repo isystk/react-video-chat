@@ -5,12 +5,12 @@ import {
   CardActions,
   CardContent,
   Typography,
-} from '@material-ui/core'
+} from '@mui/material'
 import AudioAnalyser from '../../01_atoms/AudioAnalyser'
 import VolumeButton from '../../01_atoms/VolumeButton'
 import useDimensions from './useDimentions'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
@@ -21,7 +21,6 @@ export type VideoProps = WithChildren & { isLocal; videoRef; member }
 /** Presenter Props */
 export type PresenterProps = VideoProps & {
   main
-  classes
   refCard
   dimensionsCard
   isLocal
@@ -34,7 +33,6 @@ export type PresenterProps = VideoProps & {
 /** Presenter Component */
 const VideoPresenter: FC<PresenterProps> = ({
   main,
-  classes,
   refCard,
   dimensionsCard,
   isLocal,
@@ -46,7 +44,7 @@ const VideoPresenter: FC<PresenterProps> = ({
 }) => (
   <>
     <Card ref={refCard}>
-      <CardActionArea className={classes.videoWrapper}>
+      <CardActionArea className={styles.videoWrapper}>
         <img
           src="/images/user.png"
           width={dimensionsCard.width}
@@ -91,7 +89,6 @@ const VideoContainer: React.FC<ContainerProps<VideoProps, PresenterProps>> = ({
 }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
 
   const refCard = useRef(null)
   // ブラウザの表示サイズに応じてビデオを表示する幅を取得する
@@ -109,7 +106,6 @@ const VideoContainer: React.FC<ContainerProps<VideoProps, PresenterProps>> = ({
   return presenter({
     children,
     main,
-    classes,
     refCard,
     dimensionsCard,
     refVolumeButton,

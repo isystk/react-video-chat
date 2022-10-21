@@ -1,10 +1,10 @@
 import React, { FC, useContext } from 'react'
 import Modal from '@/components/01_atoms/Modal'
 import DotPulse from '@/components/01_atoms/DotPulse'
-import { Button } from '@material-ui/core'
-import Container from '@material-ui/core/Container'
+import { Button } from '@mui/material'
+import Container from '@mui/material/Container'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
@@ -15,7 +15,6 @@ export type SendCallModalProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = SendCallModalProps & {
   main
-  classes
   isOpen
   connectionId
   name
@@ -25,7 +24,6 @@ export type PresenterProps = SendCallModalProps & {
 /** Presenter Component */
 const SendCallModalPresenter: FC<PresenterProps> = ({
   main,
-  classes,
   isOpen,
   connectionId,
   name,
@@ -35,7 +33,7 @@ const SendCallModalPresenter: FC<PresenterProps> = ({
   <>
     <Modal isOpen={isOpen} hideCloseBtn={true}>
       <Container component="main">
-        <div className={classes.notion}>
+        <div className={styles.notion}>
           <div className="myHeadPhoto">
             <img src={photo} alt="" />
           </div>
@@ -65,7 +63,6 @@ const SendCallModalContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
 
   if (_.size(main.video.members) === 0) return <></>
 
@@ -75,7 +72,6 @@ const SendCallModalContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     isOpen,
     connectionId,
     name,

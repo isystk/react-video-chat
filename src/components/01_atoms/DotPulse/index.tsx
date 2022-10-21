@@ -1,21 +1,17 @@
 import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
 import { connect } from '@/components/hoc'
-import { useStyles } from './styles'
+import * as styles from './styles'
 
 /** DotPulseProps Props */
 export type DotPulseProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = DotPulseProps & { classes }
+export type PresenterProps = DotPulseProps
 
 /** Presenter Component */
-const DotPulsePresenter: FC<PresenterProps> = ({
-  children,
-  classes,
-  ...props
-}) => (
+const DotPulsePresenter: FC<PresenterProps> = ({ children, ...props }) => (
   <>
-    <div className={classes.dotPulse}></div>
+    <div className={styles.dotPulse}></div>
   </>
 )
 
@@ -23,10 +19,8 @@ const DotPulsePresenter: FC<PresenterProps> = ({
 const DotPulseContainer: React.FC<
   ContainerProps<DotPulseProps, PresenterProps>
 > = ({ presenter, children, ...props }) => {
-  const classes = useStyles()
   return presenter({
     children,
-    classes,
     ...props,
   })
 }

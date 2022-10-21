@@ -1,9 +1,9 @@
 import React, { FC, useContext, useState } from 'react'
 import Modal from '@/components/01_atoms/Modal'
-import { Button } from '@material-ui/core'
-import Container from '@material-ui/core/Container'
+import { Button } from '@mui/material'
+import Container from '@mui/material/Container'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
@@ -20,7 +20,6 @@ export type ProfileEditModalProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = ProfileEditModalProps & {
   main
-  classes
   isOpen
   connectionId
   name
@@ -30,7 +29,6 @@ export type PresenterProps = ProfileEditModalProps & {
 /** Presenter Component */
 const ProfileEditModalPresenter: FC<PresenterProps> = ({
   main,
-  classes,
   isOpen,
   connectionId,
   name,
@@ -42,7 +40,7 @@ const ProfileEditModalPresenter: FC<PresenterProps> = ({
   <>
     <Modal isOpen={isOpen} hideCloseBtn={true}>
       <Container component="main">
-        <div className={classes.notion}>
+        <div className={styles.notion}>
           <div className="myHeadPhoto">
             <img src={photo} alt="" id="profilePhoto" />
             <label className="photoEditBtn" onChange={editProfilePhoto}>
@@ -81,7 +79,6 @@ const ProfileEditModalContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
 
   const [photo, setPhoto] = useState<string>(main.self.photo)
 
@@ -109,7 +106,6 @@ const ProfileEditModalContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     isOpen,
     connectionId,
     name,
