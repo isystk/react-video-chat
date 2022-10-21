@@ -36,29 +36,27 @@ const RecorderModalContainer: React.FC<
 
   useEffect(() => {
     if (!main.recorder.isOpen) return
-    ;(async () => {
-      await promiseSetTimeout(() => {
-        const videoBlob = new Blob(main.recorder.chunks, {
-          type: 'video/webm',
-        })
-        const blobUrl = window.URL.createObjectURL(videoBlob)
+    setTimeout(() => {
+      const videoBlob = new Blob(main.recorder.chunks, {
+        type: 'video/webm',
+      })
+      const blobUrl = window.URL.createObjectURL(videoBlob)
 
-        const playbackVideo = document.getElementById('recorder-play')
-        if (playbackVideo) {
-          if (playbackVideo.src) {
-            window.URL.revokeObjectURL(playbackVideo.src) // 解放
-            playbackVideo.src = null
-          }
-          playbackVideo.src = blobUrl
-          playbackVideo.play()
+      const playbackVideo = document.getElementById('recorder-play')
+      if (playbackVideo) {
+        if (playbackVideo.src) {
+          window.URL.revokeObjectURL(playbackVideo.src) // 解放
+          playbackVideo.src = null
         }
-        const downloadVideo = document.getElementById('recorder-download')
-        if (downloadVideo) {
-          downloadVideo.download = 'recorded.webm'
-          downloadVideo.href = blobUrl
-        }
-      }, 1000)
-    })()
+        playbackVideo.src = blobUrl
+        playbackVideo.play()
+      }
+      const downloadVideo = document.getElementById('recorder-download')
+      if (downloadVideo) {
+        downloadVideo.download = 'recorded.webm'
+        downloadVideo.href = blobUrl
+      }
+    }, 1000)
   }, [main.recorder.isOpen])
   return presenter({ children, main, ...props })
 }
