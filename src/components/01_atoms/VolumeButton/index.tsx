@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton'
 import VolumeOffIcon from '@mui/icons-material/VolumeOff'
 import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 
 /** VolumeButtonProps Props */
@@ -16,7 +16,6 @@ export type VolumeButtonProps = WithChildren & {
 }
 /** Presenter Props */
 export type PresenterProps = VolumeButtonProps & {
-  classes
   isLocal
   refVolumeButton
   color
@@ -25,7 +24,6 @@ export type PresenterProps = VolumeButtonProps & {
 
 /** Presenter Component */
 const VolumeButtonPresenter: FC<PresenterProps> = ({
-  classes,
   isLocal,
   refVolumeButton,
   color,
@@ -42,6 +40,7 @@ const VolumeButtonPresenter: FC<PresenterProps> = ({
         }
       }}
       ref={refVolumeButton}
+      className={styles.volumeButton}
     >
       <Icon style={{ fill: color }} />
     </IconButton>
@@ -59,14 +58,11 @@ const VolumeButtonContainer: React.FC<
   color = 'black',
   ...props
 }) => {
-  const classes = useStyles()
-  
   const Icon = isMute ? VolumeOffIcon : VolumeUpIcon
   return presenter({
     children,
     refVolumeButton,
     color,
-    classes,
     Icon,
     ...props,
   })

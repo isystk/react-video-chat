@@ -9,22 +9,19 @@ export type CirclesProps = WithChildren
 export type PresenterProps = CirclesProps
 
 /** Presenter Component */
-const CirclesPresenter: FC<PresenterProps> = ({
-  children,
-  ...props
-}) => (
+const CirclesPresenter: FC<PresenterProps> = ({ children, ...props }) => (
   <>
     <ul className={styles.circles}>
-      <li className={styles.circlesLi1} ></li>
-      <li className={styles.circlesLi2} ></li>
-      <li className={styles.circlesLi3} ></li>
-      <li className={styles.circlesLi4} ></li>
-      <li className={styles.circlesLi5} ></li>
-      <li className={styles.circlesLi6} ></li>
-      <li className={styles.circlesLi7} ></li>
-      <li className={styles.circlesLi8} ></li>
-      <li className={styles.circlesLi9} ></li>
-      <li className={styles.circlesLi10} ></li>
+      <li className={styles.circlesLi1}></li>
+      <li className={styles.circlesLi2}></li>
+      <li className={styles.circlesLi3}></li>
+      <li className={styles.circlesLi4}></li>
+      <li className={styles.circlesLi5}></li>
+      <li className={styles.circlesLi6}></li>
+      <li className={styles.circlesLi7}></li>
+      <li className={styles.circlesLi8}></li>
+      <li className={styles.circlesLi9}></li>
+      <li className={styles.circlesLi10}></li>
       {children}
     </ul>
   </>

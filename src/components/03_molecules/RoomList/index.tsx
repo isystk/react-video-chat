@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '@mui/material'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
@@ -28,7 +28,6 @@ export type RoomListProps = WithChildren & { openRoomRegistModal }
 /** Presenter Props */
 export type PresenterProps = RoomListProps & {
   main
-  classes
   page
   setPage
   pageCount
@@ -43,7 +42,6 @@ export type PresenterProps = RoomListProps & {
 /** Presenter Component */
 const RoomListPresenter: FC<PresenterProps> = ({
   main,
-  classes,
   page,
   setPage,
   rowsPerPage,
@@ -158,8 +156,7 @@ const RoomListContainer: React.FC<
 > = ({ presenter, children, openRoomRegistModal, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
-  
+
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(3)
 
@@ -179,7 +176,6 @@ const RoomListContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     page,
     setPage,
     rowsPerPage,

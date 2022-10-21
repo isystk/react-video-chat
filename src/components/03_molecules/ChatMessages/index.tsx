@@ -3,7 +3,7 @@ import { Stamps } from '@/services/chat'
 import { FC, useContext, useEffect, useState } from 'react'
 import * as _ from 'lodash'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
@@ -14,7 +14,6 @@ export type ChatMessagesProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = ChatMessagesProps & {
   main
-  classes
   windowHeight
   appStyle
 }
@@ -22,13 +21,12 @@ export type PresenterProps = ChatMessagesProps & {
 /** Presenter Component */
 const ChatMessagesPresenter: FC<PresenterProps> = ({
   main,
-  classes,
   windowHeight,
   appStyle,
   ...props
 }) => (
   <>
-    <div className={classes.chatMessage} style={appStyle(windowHeight)}>
+    <div className={styles.chatMessage} style={appStyle(windowHeight)}>
       {main.chanels[main.selectChanelId].chat.messages.map((message, index) => {
         const isMe = message.sendId === main.self.connectionId
         const member = main.members[message.sendId]
@@ -63,8 +61,7 @@ const ChatMessagesContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
-  
+
   const [windowHeight, setWindowHeight] = useState(0)
 
   useEffect(() => {
@@ -83,7 +80,6 @@ const ChatMessagesContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     windowHeight,
     appStyle,
     ...props,

@@ -3,7 +3,7 @@ import VideocamIcon from '@mui/icons-material/Videocam'
 import VideocamOffIcon from '@mui/icons-material/VideocamOff'
 import * as _ from 'lodash'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { FC, useContext } from 'react'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
@@ -14,7 +14,6 @@ export type ChanelInfoProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = ChanelInfoProps & {
   sendRequestCall
-  classes
   id
   name
   type
@@ -25,7 +24,6 @@ export type PresenterProps = ChanelInfoProps & {
 /** Presenter Component */
 const ChanelInfoPresenter: FC<PresenterProps> = ({
   main,
-  classes,
   id,
   name,
   type,
@@ -34,7 +32,7 @@ const ChanelInfoPresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <>
-    <div className={classes.meBlock}>
+    <div className={styles.meBlock}>
       <div className="head-photo">
         <img src={photo} alt="" />
       </div>
@@ -59,14 +57,12 @@ const ChanelInfoContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
 
   if (_.size(main.chanels) === 0) return <></>
   const { id, name, type, photo, detail } = main.chanels[main.selectChanelId]
   return presenter({
     children,
     main,
-    classes,
     id,
     name,
     type,

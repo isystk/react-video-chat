@@ -2,122 +2,37 @@
 
 exports[`Circles Match Snapshot 1`] = `
 <ul
-  className="makeStyles-circles-1"
+  className="css-1mhhcu5"
 >
   <li
-    className="makeStyles-circlesLi-2"
-    style={
-      Object {
-        "animationDelay": "0s",
-        "height": "80px",
-        "left": "25%",
-        "width": "80px",
-      }
-    }
+    className="css-i6ammj"
   />
   <li
-    className="makeStyles-circlesLi-2"
-    style={
-      Object {
-        "animationDelay": "2s",
-        "animationDuration": "12s",
-        "height": "20px",
-        "left": "10%",
-        "width": "20px",
-      }
-    }
+    className="css-l07tar"
   />
   <li
-    className="makeStyles-circlesLi-2"
-    style={
-      Object {
-        "animationDelay": "4s",
-        "height": "20px",
-        "left": "70%",
-        "width": "20px",
-      }
-    }
+    className="css-1hre2z7"
   />
   <li
-    className="makeStyles-circlesLi-2"
-    style={
-      Object {
-        "animationDelay": "0s",
-        "animationDuration": "18s",
-        "height": "60px",
-        "left": "40%",
-        "width": "60px",
-      }
-    }
+    className="css-p2xyi8"
   />
   <li
-    className="makeStyles-circlesLi-2"
-    style={
-      Object {
-        "animationDelay": "0s",
-        "height": "20px",
-        "left": "65%",
-        "width": "20px",
-      }
-    }
+    className="css-u8edpl"
   />
   <li
-    className="makeStyles-circlesLi-2"
-    style={
-      Object {
-        "animationDelay": "3s",
-        "height": "110px",
-        "left": "75%",
-        "width": "110px",
-      }
-    }
+    className="css-ik3prs"
   />
   <li
-    className="makeStyles-circlesLi-2"
-    style={
-      Object {
-        "animationDelay": "7s",
-        "height": "150px",
-        "left": "35%",
-        "width": "150px",
-      }
-    }
+    className="css-1wh69e5"
   />
   <li
-    className="makeStyles-circlesLi-2"
-    style={
-      Object {
-        "animationDelay": "15s",
-        "animationDuration": "45s",
-        "height": "25px",
-        "left": "50%",
-        "width": "25px",
-      }
-    }
+    className="css-1cg3at6"
   />
   <li
-    className="makeStyles-circlesLi-2"
-    style={
-      Object {
-        "animationDelay": "2s",
-        "animationDuration": "35s",
-        "height": "15px",
-        "left": "20%",
-        "width": "15px",
-      }
-    }
+    className="css-1iaru34"
   />
   <li
-    className="makeStyles-circlesLi-2"
-    style={
-      Object {
-        "animationDelay": "0s",
-        "animationDuration": "11s",
-        "height": "150px",
-        "left": "85%",
-        "width": "150px",
-      }
-    }
+    className="css-1io9drp"
   />
 </ul>
 `;

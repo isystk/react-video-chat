@@ -41,13 +41,13 @@
 ```
 import React, { FC, useContext } from 'react'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import {Context} from "@/components/05_layouts/HtmlSkeleton";
 
 /** XxxxProps Props */
 export type XxxxProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = XxxxProps & { main, classes }
+export type PresenterProps = XxxxProps & { main }
 
 /** Presenter Component */
 const XxxxPresenter: FC<PresenterProps> = ({ main, ...props }) => (

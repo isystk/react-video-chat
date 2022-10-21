@@ -4,7 +4,7 @@ import Modal from '@/components/01_atoms/Modal'
 import { InputLabel, MenuItem } from '@mui/material'
 import Container from '@mui/material/Container'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
@@ -14,7 +14,6 @@ export type DeviceSettingModalProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = DeviceSettingModalProps & {
   main
-  classes
   videoInputDefault
   changeDevice
   videoInput
@@ -27,7 +26,6 @@ export type PresenterProps = DeviceSettingModalProps & {
 /** Presenter Component */
 const DeviceSettingModalPresenter: FC<PresenterProps> = ({
   main,
-  classes,
   videoInputDefault,
   changeDevice,
   videoInput,
@@ -43,7 +41,7 @@ const DeviceSettingModalPresenter: FC<PresenterProps> = ({
       handleClose={() => main.mediaDevice.closeMediaDevice()}
     >
       <Container component="main" maxWidth="xs">
-        <form className={classes.form}>
+        <form className={styles.form}>
           <InputLabel style={{ textAlign: 'left', marginTop: '20px' }}>
             カメラ入力
           </InputLabel>
@@ -101,7 +99,6 @@ const DeviceSettingModalContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
 
   const [videoInput, setVideoInput] = useState([])
   const [videoInputDefault, setVideoInputDefault] = useState('')
@@ -143,7 +140,6 @@ const DeviceSettingModalContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     videoInputDefault,
     changeDevice,
     videoInput,

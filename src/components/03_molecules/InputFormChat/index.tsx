@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField'
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import TagFacesIcon from '@mui/icons-material/TagFaces'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
@@ -15,7 +15,6 @@ import MainService from '@/services/main'
 export type InputFormChatProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = InputFormChatProps & {
-  classes
   main
   Stamps
   label
@@ -31,7 +30,6 @@ export type PresenterProps = InputFormChatProps & {
 
 /** Presenter Component */
 const InputFormChatPresenter: FC<PresenterProps> = ({
-  classes,
   main,
   Stamps,
   label,
@@ -46,15 +44,15 @@ const InputFormChatPresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <>
-    <div className={classes.chatInput}>
+    <div className={styles.chatInput}>
       <div
-        className={classes.myIcon2}
+        className={styles.myIcon2}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <TagFacesIcon color="action" />
         {isHover && (
-          <div className={classes.iconBlock}>
+          <div className={styles.iconBlock}>
             {_.map(Stamps, (stamp, key) => (
               <div
                 key={key}
@@ -62,19 +60,19 @@ const InputFormChatPresenter: FC<PresenterProps> = ({
                   main.chanels[main.selectChanelId].chat.sendStamp(key)
                 }
               >
-                <img src={stamp} alt="" className={classes.myIcon2Img} />
+                <img src={stamp} alt="" className={styles.myIcon2Img} />
               </div>
             ))}
           </div>
         )}
       </div>
-      <div className={classes.myIcon2}>
+      <div className={styles.myIcon2}>
         <a href="#" onClick={() => alert('作成中')}>
           <AttachFileIcon color="action" />
         </a>
       </div>
       <TextField
-        className={classes.sendMsg}
+        className={styles.sendMsg}
         autoFocus
         fullWidth
         label={label}
@@ -105,8 +103,7 @@ const InputFormChatContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
-  
+
   const label = 'メッセージを入力してください'
   const [disabled, setDisabled] = useState(true)
   const [message, setMessage] = useState('')
@@ -137,7 +134,6 @@ const InputFormChatContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     Stamps,
     label,
     setMessage,

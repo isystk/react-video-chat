@@ -11,7 +11,7 @@ import SendCallModal from '@/components/04_organisms/SendCallModal'
 import ReceiveCallModal from '@/components/04_organisms/ReceiveCallModal'
 import VideoTemplate from '@/components/06_templates/VideoTemplate'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
 import * as _ from 'lodash'
@@ -19,12 +19,11 @@ import * as _ from 'lodash'
 /** ChatTemplateProps Props */
 export type ChatTemplateProps = WithChildren & { main }
 /** Presenter Props */
-export type PresenterProps = ChatTemplateProps & { main; classes; windowHeight }
+export type PresenterProps = ChatTemplateProps & { main; windowHeight }
 
 /** Presenter Component */
 const ChatTemplatePresenter: FC<PresenterProps> = ({
   main,
-  classes,
   windowHeight,
   appStyle,
   ...props
@@ -38,7 +37,7 @@ const ChatTemplatePresenter: FC<PresenterProps> = ({
             <ChanelList />
           </div>
         </Grid>
-        <Grid item {...{ xs: 12, md: 6 }}>
+        <Grid item {...{ xs: 12, md: 6 }} style={{ position: 'relative' }}>
           <ChatMessages />
           <InputFormChat />
         </Grid>
@@ -59,7 +58,6 @@ const ChatTemplatePresenter: FC<PresenterProps> = ({
 const ChatTemplateContainer: React.FC<
   ContainerProps<ChatTemplateProps, PresenterProps>
 > = ({ presenter, children, main, ...props }) => {
-  const classes = useStyles()
   const router = useRouter()
   const [windowHeight, setWindowHeight] = useState(0)
 
@@ -114,7 +112,6 @@ const ChatTemplateContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     windowHeight,
     appStyle,
     ...props,

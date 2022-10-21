@@ -9,14 +9,10 @@ import { Url } from '@/constants/url'
 /** BoxProps Props */
 export type BoxProps = WithChildren & { title }
 /** Presenter Props */
-export type PresenterProps = BoxProps & { classes }
+export type PresenterProps = BoxProps
 
 /** Presenter Component */
-const BoxPresenter: FC<PresenterProps> = ({
-  children,
-  title,
-  ...props
-}) => (
+const BoxPresenter: FC<PresenterProps> = ({ children, title, ...props }) => (
   <>
     <Breadcrumbs aria-label="breadcrumb" className={styles.breadcrumbs}>
       <Link color="inherit" href={Url.TOP}>

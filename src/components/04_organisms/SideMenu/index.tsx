@@ -19,7 +19,7 @@ import { Url } from '@/constants/url'
 import ChanelList from '@/components/03_molecules/ChanelList'
 import ChanelInfo from '@/components/03_molecules/ChanelInfo'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
@@ -29,7 +29,6 @@ export type SideMenuProps = WithChildren & { setMenuOpen; isMenuOpen }
 /** Presenter Props */
 export type PresenterProps = SideMenuProps & {
   main
-  classes
   menu
   setMenuOpen
   isMenuOpen
@@ -38,7 +37,6 @@ export type PresenterProps = SideMenuProps & {
 /** Presenter Component */
 const SideMenuPresenter: FC<PresenterProps> = ({
   main,
-  classes,
   menu,
   setMenuOpen,
   isMenuOpen,
@@ -81,7 +79,6 @@ const SideMenuContainer: React.FC<
 > = ({ presenter, children, setMenuOpen, isMenuOpen, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
 
   const router = useRouter()
 
@@ -141,7 +138,6 @@ const SideMenuContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     menu,
     setMenuOpen,
     isMenuOpen,

@@ -3,18 +3,17 @@ import ReactDOM from 'react-dom'
 import CloseIcon from '@mui/icons-material/Close'
 import { Fab } from '@mui/material'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 
 /** ModalProps Props */
 export type ModalProps = WithChildren & { isOpen; hideCloseBtn; handleClose }
 /** Presenter Props */
-export type PresenterProps = ModalProps & { classes; onClose; Portal }
+export type PresenterProps = ModalProps & { onClose; Portal }
 
 /** Presenter Component */
 const ModalPresenter: FC<PresenterProps> = ({
   children,
-  classes,
   isOpen,
   hideCloseBtn,
   handleClose,
@@ -26,20 +25,16 @@ const ModalPresenter: FC<PresenterProps> = ({
     <Portal>
       {isOpen && (
         <>
-          <div className={classes.overlayBackground}></div>
-          <div className={classes.overlay}>
+          <div className={styles.overlayBackground}></div>
+          <div className={styles.overlay}>
             {!hideCloseBtn && (
-              <Fab
-                color="default"
-                aria-label="add"
-                className={classes.closeBtn}
-              >
+              <Fab color="default" aria-label="add" className={styles.closeBtn}>
                 <CloseIcon onClick={onClose}>
                   <span aria-hidden="true">&times;</span>
                 </CloseIcon>
               </Fab>
             )}
-            <div className={classes.wrap}>{children}</div>
+            <div className={styles.wrap}>{children}</div>
           </div>
         </>
       )}
@@ -54,8 +49,6 @@ const ModalContainer: React.FC<ContainerProps<ModalProps, PresenterProps>> = ({
   handleClose,
   ...props
 }) => {
-  const classes = useStyles()
-  
   const onClose = (e) => {
     e.preventDefault()
     handleClose()
@@ -80,7 +73,7 @@ const ModalContainer: React.FC<ContainerProps<ModalProps, PresenterProps>> = ({
         )
       : null
   }
-  return presenter({ children, classes, onClose, Portal, ...props })
+  return presenter({ children, onClose, Portal, ...props })
 }
 
 export default connect<ModalProps, PresenterProps>(

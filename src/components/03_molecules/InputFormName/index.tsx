@@ -3,7 +3,7 @@ import React, { FC, useCallback, useContext, useEffect, useState } from 'react'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import Box from '@/components/01_atoms/Box'
@@ -15,7 +15,6 @@ export type InputFormNameProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = InputFormNameProps & {
   main
-  classes
   label
   name
   setName
@@ -28,7 +27,6 @@ export type PresenterProps = InputFormNameProps & {
 /** Presenter Component */
 const InputFormNamePresenter: FC<PresenterProps> = ({
   main,
-  classes,
   label,
   name,
   setName,
@@ -41,7 +39,7 @@ const InputFormNamePresenter: FC<PresenterProps> = ({
   <>
     <Container component="main">
       <Box title="ログイン">
-        <FormControl className={classes.form}>
+        <FormControl className={styles.form}>
           <Typography component="h1" variant="h5">
             {label}を入力してください
           </Typography>
@@ -64,7 +62,7 @@ const InputFormNamePresenter: FC<PresenterProps> = ({
             variant="outlined"
           />
           <Button
-            className={classes.submit}
+            className={styles.submit}
             color="primary"
             disabled={disabled}
             fullWidth
@@ -86,7 +84,6 @@ const InputFormNameContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
 
   const label = 'あなたの名前'
   const [disabled, setDisabled] = useState(true)
@@ -111,7 +108,6 @@ const InputFormNameContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     label,
     name,
     setName,

@@ -15,7 +15,7 @@ import { useState } from 'react'
 import * as _ from 'lodash'
 import { connect } from '@/components/hoc'
 import Logo from '@/components/01_atoms/Logo'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
 import ProfileEditModal from '@/components/04_organisms/ProfileEditModal'
@@ -23,14 +23,13 @@ import ProfileEditModal from '@/components/04_organisms/ProfileEditModal'
 /** HeaderProps Props */
 export type HeaderProps = WithChildren & { isMenuOpen; setMenuOpen }
 /** Presenter Props */
-export type PresenterProps = HeaderProps & { classes; anchorEl; setAnchorEl }
+export type PresenterProps = HeaderProps & { anchorEl; setAnchorEl }
 
 /** Presenter Component */
 const HeaderPresenter: FC<PresenterProps> = ({
   main,
   isMenuOpen,
   setMenuOpen,
-  classes,
   anchorEl,
   setAnchorEl,
 }) => (
@@ -38,16 +37,18 @@ const HeaderPresenter: FC<PresenterProps> = ({
     <AppBar position="static">
       <Toolbar>
         <IconButton
+          size="large"
+          edge="start"
           color="inherit"
+          aria-label="open drawer"
           onClick={() => setMenuOpen(!isMenuOpen)}
-          className={classes.menuButton}
         >
           <MenuIcon />
         </IconButton>
         <Logo name={main.room.name} />
-        <Typography variant="h6" component="div" className={classes.title}>
+        <Typography variant="h6" component="div" className={styles.title}>
           {main.self.name !== '' && main.room.name !== '' && (
-            <div className={classes.members}>
+            <div className={styles.members}>
               <PeopleAltIcon></PeopleAltIcon>
               <span>{_.size(_.filter(main.members, (e) => e.online)) + 1}</span>
             </div>
@@ -100,14 +101,12 @@ const HeaderContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null)
   return presenter({
     children,
     main,
-    classes,
     ...props,
     anchorEl,
     setAnchorEl,

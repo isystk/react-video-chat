@@ -7,19 +7,18 @@ import React, { useEffect, FC, useState } from 'react'
 import { useRouter } from 'next/router'
 import DeviceSettingModal from '@/components/04_organisms/DeviceSettingModal'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
 
 /** InputFormTemplateProps Props */
 export type InputFormTemplateProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = InputFormTemplateProps & { classes }
+export type PresenterProps = InputFormTemplateProps
 
 /** Presenter Component */
 const InputFormTemplatePresenter: FC<PresenterProps> = ({
   main,
-  classes,
   windowHeight,
   appStyle,
   ...props
@@ -44,7 +43,6 @@ const InputFormTemplatePresenter: FC<PresenterProps> = ({
 const InputFormTemplateContainer: React.FC<
   ContainerProps<InputFormTemplateProps, PresenterProps>
 > = ({ presenter, children, main, ...props }) => {
-  const classes = useStyles()
   const router = useRouter()
   const [windowHeight, setWindowHeight] = useState(0)
 
@@ -66,7 +64,6 @@ const InputFormTemplateContainer: React.FC<
   return presenter({
     children,
     main,
-    classes,
     windowHeight,
     appStyle,
     ...props,

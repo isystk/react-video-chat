@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as _ from 'lodash'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
-import { FC, useContext, useMemo } from 'react'
+import * as styles from './styles'
+import { FC, useContext } from 'react'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
@@ -11,18 +11,13 @@ import MainService from '@/services/main'
 export type ChanelListProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = ChanelListProps & {
-  classes
   main
 }
 
 /** Presenter Component */
-const ChanelListPresenter: FC<PresenterProps> = ({
-  classes,
-  main,
-  ...props
-}) => (
+const ChanelListPresenter: FC<PresenterProps> = ({ main, ...props }) => (
   <>
-    <div className={classes.chanelList}>
+    <div className={styles.chanelList}>
       {_.map(main.chanels, (chanel, index) => (
         <div
           className={`tag ${main.selectChanelId === chanel.id ? 'active' : ''}`}
@@ -51,12 +46,10 @@ const ChanelListContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
-  
+
   return presenter({
     children,
     main,
-    classes,
     ...props,
   })
 }

@@ -2,16 +2,17 @@
 
 exports[`InputFormChat Match Snapshot 1`] = `
 <div
-  className="makeStyles-chatInput-1"
+  className="css-1ehe1el"
 >
   <div
-    className="makeStyles-myIcon2-3"
+    className="css-p9zv6y"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
     <svg
       aria-hidden={true}
-      className="MuiSvgIcon-root MuiSvgIcon-colorAction"
+      className="MuiSvgIcon-root MuiSvgIcon-colorAction MuiSvgIcon-fontSizeMedium css-11pbyhm-MuiSvgIcon-root"
+      data-testid="TagFacesIcon"
       focusable="false"
       viewBox="0 0 24 24"
     >
@@ -21,7 +22,7 @@ exports[`InputFormChat Match Snapshot 1`] = `
     </svg>
   </div>
   <div
-    className="makeStyles-myIcon2-3"
+    className="css-p9zv6y"
   >
     <a
       href="#"
@@ -29,7 +30,8 @@ exports[`InputFormChat Match Snapshot 1`] = `
     >
       <svg
         aria-hidden={true}
-        className="MuiSvgIcon-root MuiSvgIcon-colorAction"
+        className="MuiSvgIcon-root MuiSvgIcon-colorAction MuiSvgIcon-fontSizeMedium css-11pbyhm-MuiSvgIcon-root"
+        data-testid="AttachFileIcon"
         focusable="false"
         viewBox="0 0 24 24"
       >
@@ -40,33 +42,36 @@ exports[`InputFormChat Match Snapshot 1`] = `
     </a>
   </div>
   <div
-    className="MuiFormControl-root MuiTextField-root makeStyles-sendMsg-5 MuiFormControl-fullWidth"
+    className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-1t3kwb2 css-wb57ya-MuiFormControl-root-MuiTextField-root"
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
     onKeyDown={[Function]}
   >
     <label
-      className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-marginDense MuiInputLabel-outlined Mui-required Mui-required"
+      className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-required MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
       data-shrink={false}
+      htmlFor=":r0:"
+      id=":r0:-label"
     >
       メッセージを入力してください
       <span
         aria-hidden={true}
-        className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+        className="MuiFormLabel-asterisk MuiInputLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
       >
          
         *
       </span>
     </label>
     <div
-      className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+      className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall css-md26zr-MuiInputBase-root-MuiOutlinedInput-root"
       onClick={[Function]}
     >
       <input
         aria-invalid={false}
         autoFocus={true}
-        className="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+        className="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
         disabled={false}
+        id=":r0:"
         name="message"
         onAnimationStart={[Function]}
         onBlur={[Function]}
@@ -78,24 +83,26 @@ exports[`InputFormChat Match Snapshot 1`] = `
       />
       <fieldset
         aria-hidden={true}
-        className="PrivateNotchedOutline-root-6 MuiOutlinedInput-notchedOutline"
+        className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
       >
         <legend
-          className="PrivateNotchedOutline-legendLabelled-8"
+          className="css-yjsfm1"
         >
           <span>
             メッセージを入力してください
-             *
+             
+            *
           </span>
         </legend>
       </fieldset>
     </div>
   </div>
   <button
-    className="MuiButtonBase-root MuiButton-root MuiButton-text"
+    className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-1e6y48t-MuiButtonBase-root-MuiButton-root"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}
+    onContextMenu={[Function]}
     onDragLeave={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -109,20 +116,17 @@ exports[`InputFormChat Match Snapshot 1`] = `
     tabIndex={0}
     type="submit"
   >
-    <span
-      className="MuiButton-label"
+    <svg
+      aria-hidden={true}
+      className="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+      data-testid="SendIcon"
+      focusable="false"
+      viewBox="0 0 24 24"
     >
-      <svg
-        aria-hidden={true}
-        className="MuiSvgIcon-root MuiSvgIcon-colorPrimary"
-        focusable="false"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
-        />
-      </svg>
-    </span>
+      <path
+        d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"
+      />
+    </svg>
   </button>
 </div>
 `;

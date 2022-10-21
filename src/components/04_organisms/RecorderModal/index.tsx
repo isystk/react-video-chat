@@ -1,7 +1,7 @@
 import React, { FC, useContext, useEffect } from 'react'
 import Modal from '@/components/01_atoms/Modal'
 import { ContainerProps, WithChildren } from 'types'
-import { useStyles } from './styles'
+import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
@@ -10,14 +10,10 @@ import { promiseSetTimeout } from '@/utils/general'
 /** RecorderModalProps Props */
 export type RecorderModalProps = WithChildren
 /** Presenter Props */
-export type PresenterProps = RecorderModalProps & { main; classes }
+export type PresenterProps = RecorderModalProps & { main }
 
 /** Presenter Component */
-const RecorderModalPresenter: FC<PresenterProps> = ({
-  main,
-  classes,
-  ...props
-}) => (
+const RecorderModalPresenter: FC<PresenterProps> = ({ main, ...props }) => (
   <>
     <Modal
       isOpen={main.recorder.isOpen}
@@ -37,7 +33,6 @@ const RecorderModalContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
   if (!main) return <></>
-  const classes = useStyles()
 
   useEffect(() => {
     if (!main.recorder.isOpen) return
@@ -65,7 +60,7 @@ const RecorderModalContainer: React.FC<
       }, 1000)
     })()
   }, [main.recorder.isOpen])
-  return presenter({ children, main, classes, ...props })
+  return presenter({ children, main, ...props })
 }
 
 export default connect<RecorderModalProps, PresenterProps>(

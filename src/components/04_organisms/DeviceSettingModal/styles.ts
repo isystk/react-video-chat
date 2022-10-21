@@ -1,10 +1,6 @@
 import { css, keyframes } from '@emotion/css'
 
-const useStyles = (theme) => css`{
-  form: {},
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}`
-
-export { useStyles }
+export const form = css`
+  margin: 40px auto !important;
+  max-width: 500px;
+`
