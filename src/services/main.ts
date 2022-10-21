@@ -7,6 +7,7 @@ import { getStorage, removeStorage, storeStorage } from '@/utils/localStorage'
 import { requestPermission } from '@/utils/notification'
 import RoomService from '@/services/room'
 import { Amplify } from 'aws-amplify'
+import { onCreateChatMessage } from '@/graphql/subscriptions'
 
 export type Self = {
   connectionId: string
@@ -258,17 +259,8 @@ export default class MainService {
       // 新メンバーの情報をローカルに登録する
       await this.addMember({ connectionId, name, photo } as Member)
     })
-    this.ws?.on('chat', async ({ sendId, data }) => {
-      if (sendId === this.self.connectionId) {
-        // ignore self message (自分自身からのメッセージは無視する）
-        return
-      }
-      if ('all' === data.chanelId) {
-        await this.chanels['all'].chat.receiveChat({ sendId, ...data })
-      } else {
-        await this.chanels[sendId].chat.receiveChat({ sendId, ...data })
-      }
-    })
+
+    this.onUpdateChatMessage()
 
     this.ws?.on('request_call', async ({ sendId }) => {
       if (sendId === this.self.connectionId) {
@@ -303,5 +295,38 @@ export default class MainService {
       // 他のメンバーが離脱した時
       await this.removeMember(connectionId)
     })
+  }
+
+  async onUpdateChatMessage() {
+    if (process.env.USE_AWS_AMPLIFY) {
+      const res = await this.apolloClient.subscribe({
+        query: onCreateChatMessage,
+      })
+      res.subscribe(async (result) => {
+        const { onCreateChatMessage } = result.data
+        const { ...data } = onCreateChatMessage
+        if (data.sendId === this.self.connectionId) {
+          // ignore self message (自分自身からのメッセージは無視する）
+          return
+        }
+        if ('all' === data.chanelId) {
+          await this.chanels['all'].chat.receiveChat({ ...data })
+        } else if (this.self.connectionId === data.chanelId) {
+          await this.chanels[data.sendId].chat.receiveChat({ ...data })
+        }
+      })
+    } else {
+      this.ws?.on('chat', async ({ sendId, data }) => {
+        if (sendId === this.self.connectionId) {
+          // ignore self message (自分自身からのメッセージは無視する）
+          return
+        }
+        if ('all' === data.chanelId) {
+          await this.chanels['all'].chat.receiveChat({ sendId, ...data })
+        } else {
+          await this.chanels[sendId].chat.receiveChat({ sendId, ...data })
+        }
+      })
+    }
   }
 }

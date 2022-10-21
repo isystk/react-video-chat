@@ -1,6 +1,8 @@
 import Main from '@/services/main'
 import { dateFormat } from '@/utils/general'
 import { showNotification } from '@/utils/notification'
+import { createChatMessage } from '@/graphql/mutations'
+import { CreateChatMessageInput } from '@/API'
 
 export type ChatMessage = {
   type: 'text' | 'stamp'
@@ -87,17 +89,30 @@ export default class ChatService {
         readed: true,
       },
     ]
-    // メッセージを送信する
-    if ('all' === this.chanelId) {
-      this.main.ws?.multicast({
-        type: 'chat',
-        data: message,
+    if (process.env.USE_AWS_AMPLIFY) {
+      // Amplifyでメッセージを送信する
+      const input = {
+        ...message,
+        readed: false,
+        // userID: this.main.auth.id,
+      } as CreateChatMessageInput
+      await this.main.apolloClient.mutate({
+        mutation: createChatMessage,
+        variables: { input },
       })
     } else {
-      this.main.ws?.unicast(this.chanelId, {
-        type: 'chat',
-        data: message,
-      })
+      // WebSocketでメッセージを送信する
+      if ('all' === this.chanelId) {
+        this.main.ws?.multicast({
+          type: 'chat',
+          data: message,
+        })
+      } else {
+        this.main.ws?.unicast(this.chanelId, {
+          type: 'chat',
+          data: message,
+        })
+      }
     }
     await this.main.setAppRoot()
   }

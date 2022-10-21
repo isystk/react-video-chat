@@ -1,12 +1,15 @@
 import { css, keyframes } from '@emotion/css'
 
 export const chatMessage = css`
-  padding: 20px 20px 0 20px;
   background-color: #f1f1f1;
   & .message_row {
     display: grid;
     grid-template-columns: 70%;
+    padding: 0 20px;
     margin-bottom: 20px;
+  }
+  & .message_row:first-child {
+    padding-top: 20px;
   }
   & .message-text {
     padding: 9px 14px;
