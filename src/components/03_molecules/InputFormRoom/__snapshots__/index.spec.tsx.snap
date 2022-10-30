@@ -15,6 +15,7 @@ exports[`InputFormRoom Match Snapshot 1`] = `
         className="MuiBreadcrumbs-li"
       >
         <a
+          color="inherit"
           href="/"
           onClick={[Function]}
           onMouseEnter={[Function]}

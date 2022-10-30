@@ -13,6 +13,7 @@ Array [
         className="MuiBreadcrumbs-li"
       >
         <a
+          color="inherit"
           href="/"
           onClick={[Function]}
           onMouseEnter={[Function]}

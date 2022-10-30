@@ -37,6 +37,8 @@
     "isolatedModules": true
     // "noEmit": true,                        /* コンパイル結果の.jsファイルなどを出力しなくなる。 */
     // "sourceMap": true,                     /* 対応する '.map'ファイルを生成します。 */
+    ,
+    "moduleResolution": "node"
   },
   "exclude": [
     "node_modules"
